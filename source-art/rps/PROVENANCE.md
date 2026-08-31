@@ -66,3 +66,34 @@ The checked-in textures were processed with Node.js 24.19.0 and Sharp 0.35.4.
 The generated RPS art is original project material. The separate
 `LICENSE-WheelOfWacky` applies only to the pre-existing Wheel of Wacky-derived
 assets identified in the base pack and README.
+
+## 2026-08-31 low-detail redesign
+
+The video playtest found the first icons too polished relative to the reference
+menus. Each checked-in icon was therefore regenerated from its corresponding
+project-owned source with OpenAI ImageGen, then reduced to a native 16x16 PNG
+with nearest-neighbour sampling. The unscaled generated sources are retained in
+`low-detail/`.
+
+### Rock prompt
+
+```text
+Use case: style-transfer. Asset type: Minecraft Java inventory custom item sprite. Edit target: the supplied rock/fist icon. Primary request: redesign it as deliberately low-detail authentic 16x16-era Minecraft pixel art, resembling a crude cobblestone rock/fist token. Style: chunky square pixels, hard edges, no anti-aliasing, only 5-7 muted gray and brown colors, instantly readable at inventory scale. Composition: centered with generous transparent padding. Constraints: genuine transparent background; one object only; no text; no border; no glow; no gradients; no smooth illustration; preserve rock meaning.
+```
+
+### Paper prompt
+
+```text
+Use case: style-transfer. Asset type: Minecraft Java inventory custom item sprite. Edit target: the supplied open-hand/paper icon. Primary request: redesign it as deliberately low-detail authentic 16x16-era Minecraft pixel art, a simple blocky sheet-of-paper/open-palm symbol similar to old Minecraft item sprites. Style: chunky square pixels, hard edges, no anti-aliasing, only 4-6 cream, tan and brown colors, instantly readable at inventory scale. Composition: centered with generous transparent padding. Constraints: genuine transparent background; one object only; no text; no border; no glow; no gradients; no smooth illustration; preserve paper meaning.
+```
+
+### Scissors prompt
+
+```text
+Use case: style-transfer. Asset type: Minecraft Java inventory custom item sprite. Edit target: the supplied scissors icon. Primary request: redesign it as deliberately low-detail authentic 16x16-era Minecraft pixel art scissors. Style: chunky square pixels, hard edges, no anti-aliasing, only 5-7 iron-gray, white-highlight and dark-red colors, instantly readable at inventory scale. Composition: centered diagonally with generous transparent padding. Constraints: genuine transparent background; one object only; no text; no border; no glow; no gradients; no smooth illustration; preserve scissors meaning.
+```
+
+The repeatable generator is `scripts/process-rps-icons.mjs`: it trims the
+transparent bounds, fits each source inside a 14x14 box, adds one transparent
+pixel of padding, then nearest-neighbour scales that deliberately low-detail
+16x16 sprite onto the required deterministic 64x64 RGBA pack canvas.
