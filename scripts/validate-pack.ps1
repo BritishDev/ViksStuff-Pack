@@ -24,6 +24,7 @@ $requiredIcons = @(
     'assets/viksstuff/textures/item/rps_paper.png',
     'assets/viksstuff/textures/item/rps_scissors.png'
 )
+$requiredIcons += 1..25 | ForEach-Object { "assets/viksstuff/textures/item/round_$_.png" }
 
 $archive = [System.IO.Compression.ZipFile]::OpenRead($resolvedPack)
 try {

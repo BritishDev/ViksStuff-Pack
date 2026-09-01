@@ -25,6 +25,11 @@ The RPS item-model keys are:
 - `viksstuff:rps_paper`
 - `viksstuff:rps_scissors`
 
+Round selectors support every value from 1 through 25 through the item-model
+keys `viksstuff:round_1` to `viksstuff:round_25`. Their generated source sheet,
+exact prompt, hash, and nearest-neighbour processing notes are recorded in
+`source-art/rounds/PROVENANCE.md`.
+
 Source-art hashes, exact ImageGen prompts, processing details, and licensing
 scope are recorded in `source-art/rps/PROVENANCE.md`. No asset from the supplied
 unlicensed inspiration archive is included.
