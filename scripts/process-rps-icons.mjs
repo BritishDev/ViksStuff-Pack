@@ -19,14 +19,14 @@ const outputRoot = resolve(
 );
 
 const icons = [
-  ["rock", "low-detail/rps_rock_generated.png"],
-  ["paper", "low-detail/rps_paper_generated.png"],
-  ["scissors", "low-detail/rps_scissors_generated.png"],
+  ["rock", "rps-rock-imagegen-original.png"],
+  ["paper", "rps-paper-imagegen-original.png"],
+  ["scissors", "rps-scissors-imagegen-original.png"],
 ];
 
 const outputSize = 64;
-const lowDetailSize = 16;
-const transparentPadding = 1;
+const lowDetailSize = 64;
+const transparentPadding = 4;
 const contentSize = lowDetailSize - transparentPadding * 2;
 const transparent = { r: 0, g: 0, b: 0, alpha: 0 };
 
@@ -74,9 +74,6 @@ for (const [name, sourceName] of icons) {
       left: transparentPadding,
       right: transparentPadding,
       background: transparent,
-    })
-    .resize(outputSize, outputSize, {
-      kernel: sharp.kernel.nearest,
     })
     .png({
       compressionLevel: 9,
@@ -126,3 +123,5 @@ for (const [name, sourceName] of icons) {
     }),
   );
 }
+
+
