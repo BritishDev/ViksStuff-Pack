@@ -1,0 +1,18 @@
+{
+  "training.success": {
+    "sounds": [
+      {
+        "name": "viksstuff:training/success",
+        "stream": false
+      }
+    ]
+  },
+  "training.failed": {
+    "sounds": [
+      {
+        "name": "viksstuff:training/failed",
+        "stream": false
+      }
+    ]
+  }
+}
