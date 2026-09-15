@@ -3,8 +3,8 @@
     {
       "type": "bitmap",
       "file": "viksstuff:training/pending.png",
-      "height": 12,
-      "ascent": -3,
+      "height": 16,
+      "ascent": 1,
       "chars": [
         ""
       ]
@@ -12,8 +12,8 @@
     {
       "type": "bitmap",
       "file": "viksstuff:training/hit.png",
-      "height": 12,
-      "ascent": -3,
+      "height": 16,
+      "ascent": 1,
       "chars": [
         ""
       ]
@@ -21,8 +21,8 @@
     {
       "type": "bitmap",
       "file": "viksstuff:training/miss.png",
-      "height": 12,
-      "ascent": -3,
+      "height": 16,
+      "ascent": 1,
       "chars": [
         ""
       ]
@@ -30,8 +30,8 @@
     {
       "type": "bitmap",
       "file": "viksstuff:training/frame.png",
-      "height": 18,
-      "ascent": 0,
+      "height": 22,
+      "ascent": 4,
       "chars": [
         ""
       ]
@@ -39,8 +39,8 @@
     {
       "type": "space",
       "advances": {
-        "": -135,
-        "": 4
+        "": -176,
+        "": 5
       }
     }
   ]
