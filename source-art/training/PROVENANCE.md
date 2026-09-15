@@ -17,3 +17,10 @@ A game UI sprite sheet, 1536x1024. Exactly three square icon tiles aligned horiz
 The HUD now uses ten 12-pixel icons with ascent -3, moving the top edge below the screen margin. Result glyph height is 8 pixels (32 pixels in vanilla titles; 8 pixels in spectator action bars). The purple vanilla boss-bar background/progress sprites are transparent and purple is reserved for this HUD; future purple bars would also have their strip hidden. Other boss-bar colors are preserved.
 
 Custom audio is original mathematical synthesis, not downloaded material: success is a 480ms ascending C/E/G chime, failed is a 360ms descending A/E/A chime. synthesize-training.py generates mono 44.1kHz WAV sources and encodes Ogg Vorbis using FFmpeg. All sounds have short attack/release envelopes and play privately to the contestant and eligible spectators.
+
+## Smooth framed HUD revision
+
+Built-in ImageGen prompt for attempts-smooth.png:
+Create a smooth polished game HUD icon atlas 1536x1024. Three identical sized circular medallions in horizontal row, centers exactly x256 x768 x1280 and y512. Each diameter 440 pixels. Left empty charcoal circle with elegant thin ruby red metallic rim. Middle identical circle with emerald green check. Right identical circle with red X. Smooth antialiased circular edges, modern glossy game interface, NOT pixel art, no stair-step edges, restrained red gradient bevel. Pure black background no glow outside the circles. No text or additional objects.
+
+The derivatives now use 128x128 textures and Lanczos sampling instead of 32x32 nearest-neighbour textures. A code-native 138x18 GUI-pixel dark frame with a red gradient border surrounds the ten icons. The frame is generated at 4x resolution. Font spacing overlays the icons with four pixels of horizontal padding. Minecraft GUI scaling still limits final screen sharpness; verify in the client.

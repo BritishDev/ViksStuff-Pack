@@ -26,6 +26,22 @@
       "chars": [
         ""
       ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/frame.png",
+      "height": 18,
+      "ascent": 0,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "space",
+      "advances": {
+        "": -135,
+        "": 4
+      }
     }
   ]
 }
