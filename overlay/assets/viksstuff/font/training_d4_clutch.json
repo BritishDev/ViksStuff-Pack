@@ -2,45 +2,318 @@
   "providers": [
     {
       "type": "bitmap",
-      "file": "viksstuff:training/d4/pending.png",
-      "height": 16,
-      "ascent": 1,
-      "chars": [
-        ""
-      ]
-    },
-    {
-      "type": "bitmap",
-      "file": "viksstuff:training/d4/hit.png",
-      "height": 16,
-      "ascent": 1,
-      "chars": [
-        ""
-      ]
-    },
-    {
-      "type": "bitmap",
-      "file": "viksstuff:training/d4/miss.png",
-      "height": 16,
-      "ascent": 1,
-      "chars": [
-        ""
-      ]
-    },
-    {
-      "type": "bitmap",
-      "file": "viksstuff:training/d4/frame.png",
-      "height": 22,
+      "file": "viksstuff:training/d4/layout.png",
+      "height": 36,
       "ascent": 4,
       "chars": [
         ""
       ]
     },
     {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_0_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_0_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_0_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_1_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_1_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_1_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_2_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_2_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_2_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_3_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_3_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_3_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_4_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_4_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_4_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_5_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_5_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_5_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_6_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_6_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_6_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_7_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_7_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_7_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_8_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_8_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_8_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_9_0.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_9_1.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/slot_9_2.png",
+      "height": 36,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
       "type": "space",
       "advances": {
-        "": -176,
-        "": 5
+        "": -178,
+        "": 180,
+        "": -21,
+        "": -21,
+        "": -21,
+        "": -39,
+        "": -39,
+        "": -39,
+        "": -56,
+        "": -56,
+        "": -56,
+        "": -74,
+        "": -74,
+        "": -74,
+        "": -91,
+        "": -91,
+        "": -91,
+        "": -109,
+        "": -109,
+        "": -109,
+        "": -126,
+        "": -126,
+        "": -126,
+        "": -144,
+        "": -144,
+        "": -144,
+        "": -161,
+        "": -161,
+        "": -161,
+        "": -179,
+        "": -179,
+        "": -179
       }
     }
   ]

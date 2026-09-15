@@ -2,7 +2,7 @@
   "providers": [
     {
       "type": "bitmap",
-      "file": "viksstuff:training/d5/failed.png",
+      "file": "viksstuff:training/failed.png",
       "height": 8,
       "ascent": 6,
       "chars": [
@@ -11,7 +11,7 @@
     },
     {
       "type": "bitmap",
-      "file": "viksstuff:training/d5/success.png",
+      "file": "viksstuff:training/success.png",
       "height": 8,
       "ascent": 6,
       "chars": [

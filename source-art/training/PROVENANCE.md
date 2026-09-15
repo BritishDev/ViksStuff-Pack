@@ -30,3 +30,9 @@ The derivatives now use 128x128 textures and Lanczos sampling instead of 32x32 n
 Design 1 preserves the selected Crimson Classic HUD and result artwork. Designs 2-7 are original code-native vector designs, rasterized into PNG bitmap-font assets by scripts/build-training-designs.mjs. These are not additional ImageGen outputs. Themes: Obsidian Edge, Royal Gold, Arctic Glass, Emerald Circuit, Violet Orbit, Pearl Studio. All seven contain scores 0/10 through 10/10, plus BELOW AVERAGE, AVERAGE, and ABOVE AVERAGE plaques. Labels are fixed score bands (0-4, 5, 6-10), not empirical server averages.
 
 Preview commands: /training mode design preview <1-7> [0-10]. The eight-second private preview cycles success, failure, then final score with a spectator action-bar sample. /training mode design set <1-7> explicitly saves the choice. Default remains 1. Active sessions block preview/selection; preview is cleaned up on entry to training, disconnect, or plugin disable. Run node scripts/process-training.mjs before node scripts/build-training-designs.mjs, then scripts/build-pack.ps1. The preview gallery is previews/training/index.html; seven-designs.png is the contact sheet.
+
+## Structural layouts correction
+
+The final build-training-layouts.mjs pass replaces layouts 2-7 with genuinely different arrangements: Segmented Meter, Two-Row Scoreboard, Arc of Diamonds, Split Wings, Hanging Pennants, Ticket Strip. All use the original shared success/failed textures through training_result, regardless of selected mode. Classic Medallions remains design 1.
+
+Each alternative uses one background and ten independently placed bitmap overlays, not a recolored row. Font-space advances cancel the measured glyph width after each layer. /training mode design <1-7> saves and applies the mode immediately; idle players also see its preview. The standard builder invokes this final pass automatically. Older theme names above describe the superseded revision.
