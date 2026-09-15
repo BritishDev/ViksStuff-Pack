@@ -49,3 +49,9 @@ Create ONE wide Minecraft game UI plaque matching the beveled SUCCESS/FAILED art
 
 The selection plaque text was changed to GOOD LUCK! at the user's request. Built-in ImageGen edit prompt: Change the exact lettering from SELECT AIM TRAINER to GOOD LUCK! including the exclamation mark. Keep the same cyan-to-blue beveled chunky lettering, dark metallic plaque, thin blue border and jewel accents. Keep the image 1536x1024 and the plaque within the same approximate x8..1528 y350..610 bounding area so it remains compatible with the existing crop. Center GOOD LUCK! and use appropriately spaced bold letters. Flat black background, no extra text.
 Final source: good-luck.png. Existing glyph identifier is retained for compatibility.
+
+## Transparency and sequencing correction
+
+The pack builder now removes the dark exterior connected to crop edges from the countdown/GOOD LUCK sprites and preserves the dark plaque interiors. Alpha tests cover every countdown, GO, and GOOD LUCK texture. GOOD LUCK is a 1.5-second title before the original five-second countdown; the drill menu again has a plain descriptive title. The timed 30-second drill still starts after GO.
+
+Clutch holds the completed ten-slot bar for two seconds with private FIREWORK and END_ROD particles and a twinkle sound, then reveals the score for five seconds before spawn restoration. Particles are visual only; no damaging firework entities are spawned.
