@@ -75,3 +75,5 @@ await writeFile(`${preview}/index.html`,`<!doctype html><meta charset="utf-8"><t
 console.log('Built seven complete designs and preview gallery.');
 
 await import("./build-training-layouts.mjs");
+
+await import("./build-aim-art.mjs");

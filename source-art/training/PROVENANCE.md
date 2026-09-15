@@ -36,3 +36,13 @@ Preview commands: /training mode design preview <1-7> [0-10]. The eight-second p
 The final build-training-layouts.mjs pass replaces layouts 2-7 with genuinely different arrangements: Segmented Meter, Two-Row Scoreboard, Arc of Diamonds, Split Wings, Hanging Pennants, Ticket Strip. All use the original shared success/failed textures through training_result, regardless of selected mode. Classic Medallions remains design 1.
 
 Each alternative uses one background and ten independently placed bitmap overlays, not a recolored row. Font-space advances cancel the measured glyph width after each layer. /training mode design <1-7> saves and applies the mode immediately; idle players also see its preview. The standard builder invokes this final pass automatically. Older theme names above describe the superseded revision.
+
+## Aim countdown and selection artwork
+
+Built-in ImageGen, using the original SUCCESS/FAILED atlas as a style reference. Source files: aim-countdown.png and select-aim.png. The glyphs are packaged by build-aim-art.mjs using Lanczos reduction. Five through one and GO render at 14 GUI pixels before title scaling; the menu banner renders at 16 GUI pixels. The existing countdown timing and sounds are retained.
+
+Countdown prompt:
+Use the supplied SUCCESS and FAILED plaque artwork as a STYLE reference only. Make a new 1536x1024 sprite sheet containing SIX isolated game HUD plaques in a strict 3-column by 2-row grid of equal 512x512 cells. Top row exact text '5', '4', '3'. Bottom row exact text '2', '1', 'GO!'. Each plaque centered within its cell, maximum width 400 pixels and height 200 pixels, generous black padding. Same chunky beveled Minecraft-inspired glossy letters, thin dark metallic panel and jewel-like border. Countdown numbers use vivid cyan to blue gradient instead of red; GO! emerald green. Smooth clean silhouettes, polished rendered edges, not deliberately low-resolution pixelation. Flat black outside plaques, no external glow, no additional text. The digits must be very readable, matching the reference family with a slight fresh cyan variation.
+
+Selection prompt:
+Create ONE wide Minecraft game UI plaque matching the beveled SUCCESS/FAILED artwork in the reference. Exact text: SELECT AIM TRAINER. All words on ONE line. Chunky bold beveled letters, vivid cyan-to-blue gradient, black metallic backing and thin cyan beveled border with small blue jewel accents at ends. Smooth polished finish while keeping the original chunky lettering style. Center the plaque in a 1536x1024 image; plaque spans x80 to1456 and y380 to640 approximately, horizontal very wide and short. Flat black background, no external glow, no extra words, no watermark. Text must read exactly SELECT AIM TRAINER, perfectly legible.
