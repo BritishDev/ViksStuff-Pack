@@ -1,0 +1,103 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_0.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_1.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_2.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_3.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_4.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_5.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_6.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_7.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_8.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_9.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/score_10.png",
+      "height": 14,
+      "ascent": 11,
+      "chars": [
+        ""
+      ]
+    }
+  ]
+}

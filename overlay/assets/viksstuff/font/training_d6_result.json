@@ -1,0 +1,22 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d6/failed.png",
+      "height": 8,
+      "ascent": 6,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d6/success.png",
+      "height": 8,
+      "ascent": 6,
+      "chars": [
+        ""
+      ]
+    }
+  ]
+}

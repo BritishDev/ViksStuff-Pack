@@ -1,0 +1,47 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/pending.png",
+      "height": 16,
+      "ascent": 1,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/hit.png",
+      "height": 16,
+      "ascent": 1,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/miss.png",
+      "height": 16,
+      "ascent": 1,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d4/frame.png",
+      "height": 22,
+      "ascent": 4,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "space",
+      "advances": {
+        "": -176,
+        "": 5
+      }
+    }
+  ]
+}

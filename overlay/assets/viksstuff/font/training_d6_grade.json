@@ -1,0 +1,31 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d6/grade_0.png",
+      "height": 8,
+      "ascent": 6,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d6/grade_1.png",
+      "height": 8,
+      "ascent": 6,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:training/d6/grade_2.png",
+      "height": 8,
+      "ascent": 6,
+      "chars": [
+        ""
+      ]
+    }
+  ]
+}
