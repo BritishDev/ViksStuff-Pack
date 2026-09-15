@@ -1,0 +1,152 @@
+{
+  "elements": [
+    {
+      "from": [
+        3,
+        0,
+        7.95
+      ],
+      "faces": {
+        "south": {
+          "texture": "#poster",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#poster",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      },
+      "to": [
+        13,
+        16,
+        8.05
+      ]
+    }
+  ],
+  "gui_light": "front",
+  "display": {
+    "firstperson_righthand": {
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ]
+    },
+    "gui": {
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "translation": [
+        0,
+        3,
+        1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "translation": [
+        0,
+        3,
+        1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "fixed": {
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ]
+    },
+    "firstperson_lefthand": {
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ]
+    }
+  },
+  "textures": {
+    "particle": "viksstuff:item/flowtives_poster",
+    "poster": "viksstuff:item/flowtives_poster"
+  }
+}
