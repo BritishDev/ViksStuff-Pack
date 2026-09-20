@@ -1,0 +1,39 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "modelengine:entity/bow_ult1",
+      "sprite": "modelengine:entity/bow_ult1"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "modelengine:entity/bow_ult2",
+      "sprite": "modelengine:entity/bow_ult2"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "modelengine:entity/bow_ult3",
+      "sprite": "modelengine:entity/bow_ult3"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "modelengine:entity/bow_ult4",
+      "sprite": "modelengine:entity/bow_ult4"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "modelengine:entity/bow_ult5",
+      "sprite": "modelengine:entity/bow_ult5"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "modelengine:entity/bow_ult6",
+      "sprite": "modelengine:entity/bow_ult6"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "modelengine:entity/bow_ultimate",
+      "sprite": "modelengine:entity/bow_ultimate"
+    }
+  ]
+}

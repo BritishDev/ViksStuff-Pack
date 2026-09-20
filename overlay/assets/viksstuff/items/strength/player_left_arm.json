@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "minecraft:custom/entities/player/left_arm",
+    "model": {
+      "type": "minecraft:player_head"
+    }
+  },
+  "oversized_in_gui": false
+}

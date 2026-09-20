@@ -1,0 +1,14 @@
+{
+  "model": {
+    "model": "modelengine:bowult_fx/bow_ult3",
+    "tints": [
+      {
+        "index": 0,
+        "default": 16777215,
+        "type": "minecraft:custom_model_data"
+      }
+    ],
+    "type": "minecraft:model"
+  },
+  "oversized_in_gui": false
+}

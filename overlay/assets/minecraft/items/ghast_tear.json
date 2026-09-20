@@ -1,0 +1,26 @@
+{
+	"model": {
+		"type": "select",
+		"property": "custom_model_data",
+		"fallback": {
+			"type": "model",
+			"model": "item/ghast_tear"
+		},
+		"cases": [
+			{
+				"when": "strength",
+				"model": {
+					"type": "model",
+					"model": "item/strength_bottle"
+				}
+			},
+			{
+				"when": "shield_bubble",
+				"model": {
+					"type": "model",
+					"model": "item/shield_bubble"
+				}
+			}
+		]
+	}
+}

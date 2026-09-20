@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "minecraft:item/shield_bubble"
+  },
+  "oversized_in_gui": false
+}

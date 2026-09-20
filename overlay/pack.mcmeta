@@ -1,0 +1,68 @@
+{
+  "pack": {
+    "pack_format": 75,
+    "min_format": [
+      75,
+      0
+    ],
+    "max_format": [
+      75,
+      0
+    ],
+    "description": "ViksStuff custom rank textures"
+  },
+  "sodium": {
+    "ignored_shaders": [
+      "rendertype_entity_translucent.fsh",
+      "rendertype_entity_translucent.vsh"
+    ]
+  },
+  "overlays": {
+    "entries": [
+      {
+        "directory": "1_21_2",
+        "min_format": [
+          75,
+          0
+        ],
+        "max_format": [
+          75,
+          0
+        ]
+      },
+      {
+        "directory": "1_21_5",
+        "min_format": [
+          75,
+          0
+        ],
+        "max_format": [
+          75,
+          0
+        ]
+      },
+      {
+        "directory": "1_21_6",
+        "min_format": [
+          75,
+          0
+        ],
+        "max_format": [
+          75,
+          0
+        ]
+      },
+      {
+        "directory": "strength_1_21_11",
+        "min_format": [
+          75,
+          0
+        ],
+        "max_format": [
+          75,
+          0
+        ]
+      }
+    ]
+  }
+}

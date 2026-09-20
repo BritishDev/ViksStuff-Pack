@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "minecraft:item/strength_bottle"
+  },
+  "oversized_in_gui": false
+}
