@@ -47,8 +47,8 @@ with zipfile.ZipFile(root/'ViksStuff-Pack.zip') as pack:
             top=max(r,g,b)
             if top<13: continue
             chroma=[r/top,g/top,b/top]
-            matches=any(sum((c-v)**2 for c,v in zip(chroma,ref))<.025**2
-                        for ref in [[242/255,247/255,1],[1,36/255,61/255],[1,.08,.20]])
+            matches=any(sum((c-v)**2 for c,v in zip(chroma,ref))<tolerance**2
+                        for ref,tolerance in [([242/255,247/255,1],.025),([1,36/255,61/255],.025),([1,.08,.20],.055)])
             if matches: collisions.append(file);break
 if collisions: raise SystemExit('Orb marker collisions: '+str(collisions))
 print(f'ORB SHADERS PASS: {len(variants)} linked pipeline variants; zero existing texture tag collisions; native 1.21.11 includes.')
