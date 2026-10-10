@@ -60,5 +60,21 @@
         "attenuation_distance": 48
       }
     ]
+  },
+  "reveal.narration_rain": {
+    "sounds": [
+      {
+        "name": "viksstuff:reveal/narration_rain",
+        "stream": true
+      }
+    ]
+  },
+  "reveal.narration_generic": {
+    "sounds": [
+      {
+        "name": "viksstuff:reveal/narration_generic",
+        "stream": true
+      }
+    ]
   }
 }
