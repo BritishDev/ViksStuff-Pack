@@ -43,11 +43,13 @@ for(const [from,to] of [ [[-8,7.8,-8],[24,8.6,-6]], [[-8,7.8,22],[24,8.6,24]], [
 models.shell=[];
 for(let i=0;i<72;i++){const y=1-2*(i+.5)/72,a=i*2.3999632297,r=Math.sqrt(1-y*y),p=[8+6*r*Math.cos(a),8+6*y,8+6*r*Math.sin(a)];models.shell.push(cube(p.map(v=>v-.5),p.map(v=>v+.5)));}
 models.ring=[];
-for(let i=0;i<64;i++){const a=i*Math.PI/32,x=8+6.4*Math.cos(a),z=8+6.4*Math.sin(a);models.ring.push(cube([x-.34,7.78,z-.34],[x+.34,8.22,z+.34]));}
+for(let i=0;i<64;i++){const a=i*Math.PI/32,x=8+6.4*Math.cos(a),z=8+6.4*Math.sin(a);models.ring.push(cube([x-.48,7.50,z-.48],[x+.48,8.50,z+.48]));}
 for(let i=0;i<12;i++){const a=i*Math.PI/6,x=8+7.1*Math.cos(a),z=8+7.1*Math.sin(a);models.ring.push(cube([x-.20,7.68,z-.20],[x+.20,8.32,z+.20],'metal',4));}
 models.node=[cube([5,5,5],[11,11,11]),cube([6,3.5,6],[10,12.5,10],'metal',6)];
 models.shard=[cube([6.6,3,6.6],[9.4,13,9.4]),cube([7.1,1,7.1],[8.9,15,8.9]),cube([5.3,6,5.3],[10.7,10,10.7],'metal',6)];
 models.beam=[cube([7.72,0,7.72],[8.28,16,8.28])];
+// Full-bright physical sky tail, scaled along its local Y axis by the server.
+models.conduit=[cube([2,0,2],[14,16,14]),cube([0,0,5],[16,16,11]),cube([5,0,0],[11,16,16])];
 models.sigil=[{from:[0,7.99,0],to:[16,8.01,16],shade:false,light_emission:15,faces:{up:{texture:'#sigil',uv:[0,0,16,16]},down:{texture:'#sigil',uv:[0,0,16,16]}}}];
 // Raised segmented rims give the floor seal thickness while its underside touches the platform.
 for(const radius of [5.65,4.5,3])for(let i=0;i<48;i++) {
@@ -57,10 +59,10 @@ for(const radius of [5.65,4.5,3])for(let i=0;i<48;i++) {
 models.corona=[];models.base_inner=[];models.base_outer=[];
 for(let i=0;i<96;i++) {
   const a=i*Math.PI/48,x=8+6.2*Math.cos(a),z=8+6.2*Math.sin(a);
-  models.corona.push(cube([x-.13,7.92,z-.13],[x+.13,8.08,z+.13]));
+  models.corona.push(cube([x-.28,7.73,z-.28],[x+.28,8.27,z+.28]));
   for(const [name,radius] of [['base_inner',3.5],['base_outer',6]]) {
     const x=8+radius*Math.cos(a),z=8+radius*Math.sin(a),rune=i%8===0;
-    models[name].push(cube([x-(rune?.25:.13),7.96,z-.13],[x+(rune?.25:.13),8.16,z+.13]));
+    models[name].push(cube([x-(rune?.42:.28),7.96,z-.28],[x+(rune?.42:.28),8.40,z+.28]));
   }
 }
 for(const color of ['white','red','dark_red']) {
@@ -145,7 +147,7 @@ try {
   }
   await json('sounds.json',sounds);
 } finally {await fs.rm(temp,{recursive:true,force:true});}
-console.log('Generated 33 orb models, animated emissive/PBR materials and three original sounds.');
+console.log('Generated 36 orb models, animated emissive/PBR materials and three original sounds.');
 
 // Apply the licensed reveal/ambient sound design after generating the original cues.
 await import('./build-orb-sound.mjs');

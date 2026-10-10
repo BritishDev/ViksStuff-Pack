@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import sharp from 'sharp';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../overlay/assets/viksstuff');
 let elements=0;
-for(const color of ['white','red','dark_red'])for(const kind of ['core','shell','ring','node','shard','beam','sigil','cradle','corona','base_inner','base_outer']) {
+for(const color of ['white','red','dark_red'])for(const kind of ['core','shell','ring','node','shard','beam','conduit','sigil','cradle','corona','base_inner','base_outer']) {
   const id=`orb/${kind}_${color}`;
   const item=JSON.parse(await fs.readFile(path.join(root,'items',id+'.json'),'utf8'));
   assert.equal(item.model.model,'viksstuff:item/'+id);
@@ -42,4 +42,4 @@ for(const color of ['white','red','dark_red'])for(const kind of ['energy','metal
 }
 const sounds=JSON.parse(await fs.readFile(path.join(root,'sounds.json'),'utf8'));
 for(const id of ['hum','charge','release','reveal']) {assert.ok(sounds['orb.'+id]);assert.ok((await fs.stat(path.join(root,'sounds/orb',id+'.ogg'))).size>1000);}
-console.log(`ORB ASSETS PASS: 33 models, ${elements} elements, twelve PBR materials, synchronized animation maps, four sounds.`);
+console.log(`ORB ASSETS PASS: 36 models, ${elements} elements, twelve PBR materials, synchronized animation maps, four sounds.`);
