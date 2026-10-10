@@ -1,7 +1,8 @@
-#version 150
+#version 330
 
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <viksstuff:orb_material.glsl>
 
 #if defined(ALPHA_CUTOUT) && !defined(EMISSIVE) && !defined(NO_OVERLAY) && !defined(APPLY_TEXTURE_MATRIX)
 #define MAYBE_PLAYERDISP 1
@@ -12,6 +13,10 @@ uniform sampler2D Sampler0;
 in float sphericalVertexDistance;
 in float cylindricalVertexDistance;
 in vec4 vertexColor;
+#ifdef PER_FACE_LIGHTING
+in vec4 vertexPerFaceColorBack;
+in vec4 vertexPerFaceColorFront;
+#endif
 in vec4 lightMapColor;
 in vec4 overlayColor;
 in vec2 texCoord0;
@@ -39,13 +44,25 @@ void main() {
         discard;
     }
     #endif
+    bool orbMaterial = viks_is_orb(color) && any(notEqual(textureSize(Sampler0, 0), ivec2(64)));
+    #ifdef MAYBE_PLAYERDISP
+    orbMaterial = orbMaterial && part < 0.5;
+    #endif
+    if (orbMaterial) {
+        color = viks_orb_energy(color, texCoord0) * ColorModulator;
+    } else {
+    #ifdef PER_FACE_LIGHTING
+    color *= (gl_FrontFacing ? vertexPerFaceColorFront : vertexPerFaceColorBack) * ColorModulator;
+    #else
     color *= vertexColor * ColorModulator;
+    #endif
     #ifndef NO_OVERLAY
     color.rgb = mix(overlayColor.rgb, color.rgb, overlayColor.a);
     #endif
     #ifndef EMISSIVE
     color *= lightMapColor;
     #endif
+    }
     fragColor = apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
 
     #ifdef MAYBE_PLAYERDISP

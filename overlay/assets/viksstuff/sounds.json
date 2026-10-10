@@ -14,5 +14,32 @@
         "stream": false
       }
     ]
+  },
+  "orb.hum": {
+    "sounds": [
+      {
+        "name": "viksstuff:orb/hum",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "orb.charge": {
+    "sounds": [
+      {
+        "name": "viksstuff:orb/charge",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
+  },
+  "orb.release": {
+    "sounds": [
+      {
+        "name": "viksstuff:orb/release",
+        "stream": false,
+        "attenuation_distance": 24
+      }
+    ]
   }
 }

@@ -1,4 +1,4 @@
-#version 150
+#version 330
 
 #moj_import <minecraft:light.glsl>
 #moj_import <minecraft:fog.glsl>
@@ -27,6 +27,10 @@ uniform sampler2D Sampler2;
 out float sphericalVertexDistance;
 out float cylindricalVertexDistance;
 out vec4 vertexColor;
+#ifdef PER_FACE_LIGHTING
+out vec4 vertexPerFaceColorBack;
+out vec4 vertexPerFaceColorFront;
+#endif
 out vec4 lightMapColor;
 out vec4 overlayColor;
 out vec2 texCoord0;
@@ -84,6 +88,11 @@ const int[] faceremap = int[](0, 0, 1, 1, 2, 3, 4, 5);
 #endif
 
 void main() {
+    #ifdef PER_FACE_LIGHTING
+    vec2 light = minecraft_compute_light(Light0_Direction, Light1_Direction, Normal);
+    vertexPerFaceColorBack = minecraft_mix_light_separate(-light, Color);
+    vertexPerFaceColorFront = minecraft_mix_light_separate(light, Color);
+    #endif
     #ifdef NO_CARDINAL_LIGHTING
     vertexColor = Color;
     #else

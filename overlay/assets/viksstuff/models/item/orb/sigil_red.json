@@ -1,0 +1,64 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "energy": "viksstuff:item/orb/energy_red",
+    "metal": "viksstuff:item/orb/metal_red",
+    "sigil": "viksstuff:item/orb/sigil_red",
+    "particle": "viksstuff:item/orb/energy_red"
+  },
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        7.99,
+        0
+      ],
+      "to": [
+        16,
+        8.01,
+        16
+      ],
+      "shade": false,
+      "light_emission": 15,
+      "faces": {
+        "up": {
+          "texture": "#sigil",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#sigil",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}
