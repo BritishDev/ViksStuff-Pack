@@ -37,7 +37,17 @@ for(const color of ['white','red','dark_red']) {
     const seam=x%8===0||y%8===0,flow=(x+y-f*2+64)%16<2;
     const gain=flow?1:seam?.72:.42+.12*Math.sin((x-y)*.5+f*Math.PI/8);
     const k=((f*width+y)*width+x)*4;
-    for(let c=0;c<3;c++)bytes[k+c]=Math.round(rgb[c]*gain);bytes[k+3]=249; // Reserved orb shader tag.
+    for(let c=0;c<3;c++)bytes[k+c]=Math.round(rgb[c]*gain);
+    if(color==='dark_red') {
+      // A dark body crossed by moving, molten red ribbons instead of a flat dull fill.
+      const u=(x+.5)/width-.5,v=(y+.5)/width-.5,r=Math.hypot(u,v);
+      const spiral=Math.abs(Math.sin(Math.atan2(v,u)*3+r*19-f*Math.PI/4+.45*Math.sin(x*.4+y*.3)));
+      const heat=Math.pow(Math.max(0,(spiral-.65)/.35),3);
+      const dark=rgb.map(value=>value*(.38+.12*Math.sin(x*.5-y*.4+f*.5)));
+      const hot=[255,36,61];
+      for(let c=0;c<3;c++)bytes[k+c]=Math.round(dark[c]*(1-heat)+hot[c]*heat);
+    }
+    bytes[k+3]=249; // Reserved orb shader tag.
   }
   const textures=path.join(root,'textures/item/orb');await fs.mkdir(textures,{recursive:true});
   await sharp(bytes,{raw:{width,height,channels:4}}).png().toFile(path.join(textures,`energy_${color}.png`));
