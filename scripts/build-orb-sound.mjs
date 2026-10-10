@@ -16,6 +16,7 @@ for(const [id,start,duration] of [['reveal',0,14],['hum',4,7.5]]) {
 const soundsPath=path.join(root,'sounds.json');const sounds=JSON.parse(await fs.readFile(soundsPath,'utf8'));
 sounds['orb.reveal']={subtitle:'viksstuff.subtitle.orb_reveal',sounds:[{name:'viksstuff:orb/reveal',stream:false,attenuation_distance:64}]};
 sounds['orb.hum']={sounds:[{name:'viksstuff:orb/hum',stream:false,attenuation_distance:48}]};
+sounds['orb.murmur']={sounds:[{name:'viksstuff:orb/hum',stream:false,attenuation_distance:48}]};
 await fs.writeFile(soundsPath,JSON.stringify(sounds,null,2)+'\n');
 const langPath=path.join(root,'lang/en_us.json');let lang={};try{lang=JSON.parse(await fs.readFile(langPath,'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
 lang['viksstuff.subtitle.orb_reveal']='Orb energy awakens';await fs.mkdir(path.dirname(langPath),{recursive:true});await fs.writeFile(langPath,JSON.stringify(lang,null,2)+'\n');

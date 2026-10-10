@@ -19,8 +19,29 @@ const pbr=async(dir,id,albedo,width,height,smoothness)=>{
   for(const [suffix,bytes] of [['_s',spec],['_n',normal]])await sharp(bytes,{raw:{width,height,channels:4}}).png().toFile(path.join(dir,id+suffix+'.png'));
 };
 const models={};
-// A stepped ellipsoid, not three overlapping cubes: 11 bands form a luminous sphere.
-models.core=Array.from({length:11},(_,i)=>{const y=-5.5+i, r=Math.sqrt(Math.max(0,36-(y+.5)**2));return cube([8-r,8+y,8-r],[8+r,9+y,8+r]);});
+// Fine surface voxels form a rounded core; only exposed faces are emitted.
+models.core=[];
+const occupied=(x,y,z)=>Math.hypot(x+.5,y+.5,z+.5)<=5.7;
+const neighbours={east:[1,0,0],west:[-1,0,0],up:[0,1,0],down:[0,-1,0],south:[0,0,1],north:[0,0,-1]};
+for(let x=-6;x<6;x++)for(let y=-6;y<6;y++)for(let z=-6;z<6;z++)if(occupied(x,y,z)) {
+  const cell=cube([8+x,8+y,8+z],[9+x,9+y,9+z]);
+  for(const [face,[dx,dy,dz]] of Object.entries(neighbours)) {
+    if(occupied(x+dx,y+dy,z+dz))delete cell.faces[face];
+    else {
+      const axes=face==='up'||face==='down'?[0,2]:face==='east'||face==='west'?[2,1]:[0,1];
+      cell.faces[face].uv=[cell.from[axes[0]],cell.from[axes[1]],cell.to[axes[0]],cell.to[axes[1]]];
+    }
+  }
+  if(Object.keys(cell.faces).length)models.core.push(cell);
+}
+// Fixed-size collar surrounds the selected 2x2 blocks, with hooked caps and side grips.
+models.cradle=[];
+for(const [x,z] of [[-8,-8],[-8,21],[21,-8],[21,21]]) {
+  models.cradle.push(cube([x, -6, z],[x+3,8.6,z+3],'metal',6));
+  models.cradle.push(cube([x-1,8,z-1],[x+4,9,z+4],'metal',6));
+  models.cradle.push(cube([x+.8,0,z+.8],[x+2.2,8.8,z+2.2],'energy'));
+}
+for(const [from,to] of [ [[-8,7.8,-8],[24,8.6,-6]], [[-8,7.8,22],[24,8.6,24]], [[-8,7.8,-6],[-6,8.6,22]], [[22,7.8,-6],[24,8.6,22]] ])models.cradle.push(cube(from,to,'metal',6));
 models.shell=[];
 for(let i=0;i<72;i++){const y=1-2*(i+.5)/72,a=i*2.3999632297,r=Math.sqrt(1-y*y),p=[8+6*r*Math.cos(a),8+6*y,8+6*r*Math.sin(a)];models.shell.push(cube(p.map(v=>v-.5),p.map(v=>v+.5)));}
 models.ring=[];
@@ -30,6 +51,11 @@ models.node=[cube([5,5,5],[11,11,11]),cube([6,3.5,6],[10,12.5,10],'metal',6)];
 models.shard=[cube([6.6,3,6.6],[9.4,13,9.4]),cube([7.1,1,7.1],[8.9,15,8.9]),cube([5.3,6,5.3],[10.7,10,10.7],'metal',6)];
 models.beam=[cube([7.72,0,7.72],[8.28,16,8.28])];
 models.sigil=[{from:[0,7.99,0],to:[16,8.01,16],shade:false,light_emission:15,faces:{up:{texture:'#sigil',uv:[0,0,16,16]},down:{texture:'#sigil',uv:[0,0,16,16]}}}];
+// Raised segmented rims give the floor seal thickness while its underside touches the platform.
+for(const radius of [5.65,4.5,3])for(let i=0;i<48;i++) {
+  const angle=i*Math.PI/24,x=8+radius*Math.cos(angle),z=8+radius*Math.sin(angle);
+  models.sigil.push(cube([x-.16,8.01,z-.16],[x+.16,8.17,z+.16],'metal',6));
+}
 for(const color of ['white','red','dark_red']) {
   const width=32,frames=16,height=width*frames,bytes=Buffer.alloc(width*height*4);
   const rgb=color==='white'?[242,247,255]:color==='red'?[255,36,61]:[100,8,20];
@@ -39,11 +65,11 @@ for(const color of ['white','red','dark_red']) {
     const k=((f*width+y)*width+x)*4;
     for(let c=0;c<3;c++)bytes[k+c]=Math.round(rgb[c]*gain);
     if(color==='dark_red') {
-      // A dark body crossed by moving, molten red ribbons instead of a flat dull fill.
+      // Broad dark-red body with sparse flowing fissures, rather than noisy stripes on every slab.
       const u=(x+.5)/width-.5,v=(y+.5)/width-.5,r=Math.hypot(u,v);
-      const spiral=Math.abs(Math.sin(Math.atan2(v,u)*3+r*19-f*Math.PI/4+.45*Math.sin(x*.4+y*.3)));
-      const heat=Math.pow(Math.max(0,(spiral-.65)/.35),3);
-      const dark=rgb.map(value=>value*(.38+.12*Math.sin(x*.5-y*.4+f*.5)));
+      const wave=Math.sin(u*13+v*5+f*Math.PI/8+1.5*Math.sin(v*8-f*Math.PI/8));
+      const heat=Math.pow(Math.max(0,1-Math.abs(wave)*12),2)*(.65+.35*Math.cos(r*6));
+      const dark=rgb.map(value=>value*(.38+.18*Math.max(0,1-r*1.5)));
       const hot=[255,36,61];
       for(let c=0;c<3;c++)bytes[k+c]=Math.round(dark[c]*(1-heat)+hot[c]*heat);
     }
@@ -101,7 +127,7 @@ try {
   }
   await json('sounds.json',sounds);
 } finally {await fs.rm(temp,{recursive:true,force:true});}
-console.log('Generated 21 orb models, animated emissive/PBR materials and three original sounds.');
+console.log('Generated 24 orb models, animated emissive/PBR materials and three original sounds.');
 
 // Apply the licensed reveal/ambient sound design after generating the original cues.
 await import('./build-orb-sound.mjs');

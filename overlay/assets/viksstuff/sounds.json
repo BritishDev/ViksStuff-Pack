@@ -51,5 +51,14 @@
         "attenuation_distance": 64
       }
     ]
+  },
+  "orb.murmur": {
+    "sounds": [
+      {
+        "name": "viksstuff:orb/hum",
+        "stream": false,
+        "attenuation_distance": 48
+      }
+    ]
   }
 }
