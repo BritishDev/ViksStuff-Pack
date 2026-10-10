@@ -1,6 +1,7 @@
 {
   "ambientocclusion": false,
   "textures": {
+    "surface": "viksstuff:item/orb/surface_dark_red",
     "energy": "viksstuff:item/orb/energy_dark_red",
     "metal": "viksstuff:item/orb/metal_dark_red",
     "sigil": "viksstuff:item/orb/sigil_dark_red",

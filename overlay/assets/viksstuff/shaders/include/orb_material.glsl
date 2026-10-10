@@ -14,9 +14,12 @@ bool viks_is_orb(vec4 texel) {
 
 vec4 viks_orb_energy(vec4 texel, vec2 uv) {
     float phase = GameTime * 1800.0;
-    float pulse = 1.10 + 0.06 * sin(phase);
+    float pulse = 1.24 + 0.10 * sin(phase);
     float signal = pow(max(0.0, sin((uv.x + uv.y) * 240.0 - phase * 1.4)), 20.0);
     float edge = clamp(length(fwidth(texel.rgb)) * 2.0, 0.0, 0.14);
-    vec3 glow = texel.rgb * (pulse + signal * 0.14) + texel.rgb * edge;
+    // Keep the dark-red sphere unbroken; scanning energy accents belong on bright bands.
+    float top = max(max(texel.r, texel.g), texel.b);
+    bool darkCore = distance(texel.rgb / max(top, 0.001), vec3(1.0, 0.08, 0.20)) < 0.055;
+    vec3 glow = texel.rgb * (pulse + (darkCore ? 0.0 : signal * 0.24)) + texel.rgb * edge;
     return vec4(clamp(glow, 0.0, 1.0), 1.0);
 }

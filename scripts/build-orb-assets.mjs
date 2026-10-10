@@ -19,20 +19,18 @@ const pbr=async(dir,id,albedo,width,height,smoothness)=>{
   for(const [suffix,bytes] of [['_s',spec],['_n',normal]])await sharp(bytes,{raw:{width,height,channels:4}}).png().toFile(path.join(dir,id+suffix+'.png'));
 };
 const models={};
-// Fine surface voxels form a rounded core; only exposed faces are emitted.
+// Smooth sphere from finely tessellated tangent panels using native 1.21.11 multi-axis rotations.
+// Continuous UVs and an unbroken shaded texture hide panel boundaries; no voxel bumps or holes.
 models.core=[];
-const occupied=(x,y,z)=>Math.hypot(x+.5,y+.5,z+.5)<=5.7;
-const neighbours={east:[1,0,0],west:[-1,0,0],up:[0,1,0],down:[0,-1,0],south:[0,0,1],north:[0,0,-1]};
-for(let x=-6;x<6;x++)for(let y=-6;y<6;y++)for(let z=-6;z<6;z++)if(occupied(x,y,z)) {
-  const cell=cube([8+x,8+y,8+z],[9+x,9+y,9+z]);
-  for(const [face,[dx,dy,dz]] of Object.entries(neighbours)) {
-    if(occupied(x+dx,y+dy,z+dz))delete cell.faces[face];
-    else {
-      const axes=face==='up'||face==='down'?[0,2]:face==='east'||face==='west'?[2,1]:[0,1];
-      cell.faces[face].uv=[cell.from[axes[0]],cell.from[axes[1]],cell.to[axes[0]],cell.to[axes[1]]];
-    }
-  }
-  if(Object.keys(cell.faces).length)models.core.push(cell);
+const longitude=64,latitude=32,R=5.7,dTheta=Math.PI*2/longitude,dPhi=Math.PI/latitude;
+for(let row=0;row<latitude;row++)for(let col=0;col<longitude;col++) {
+  const phi=-Math.PI/2+(row+.5)*dPhi,theta=(col+.5)*dTheta;
+  const center=[8+R*Math.cos(phi)*Math.sin(theta),8+R*Math.sin(phi),8+R*Math.cos(phi)*Math.cos(theta)];
+  const w=R*Math.cos(Math.max(0,Math.abs(phi)-dPhi/2))*Math.tan(dTheta/2)*1.015,h=R*Math.tan(dPhi/2)*1.015;
+  const uv=[col*16/longitude,(latitude-row-1)*16/latitude,(col+1)*16/longitude,(latitude-row)*16/latitude];
+  models.core.push({from:[center[0]-w,center[1]-h,center[2]-.002],to:[center[0]+w,center[1]+h,center[2]+.002],
+    rotation:{origin:center,x:-phi*180/Math.PI,y:theta*180/Math.PI,z:0},shade:false,light_emission:15,
+    faces:{south:{texture:'#surface',uv},north:{texture:'#surface',uv}}});
 }
 // Fixed-size collar surrounds the selected 2x2 blocks, with hooked caps and side grips.
 models.cradle=[];
@@ -56,12 +54,21 @@ for(const radius of [5.65,4.5,3])for(let i=0;i<48;i++) {
   const angle=i*Math.PI/24,x=8+radius*Math.cos(angle),z=8+radius*Math.sin(angle);
   models.sigil.push(cube([x-.16,8.01,z-.16],[x+.16,8.17,z+.16],'metal',6));
 }
+models.corona=[];models.base_inner=[];models.base_outer=[];
+for(let i=0;i<96;i++) {
+  const a=i*Math.PI/48,x=8+6.2*Math.cos(a),z=8+6.2*Math.sin(a);
+  models.corona.push(cube([x-.13,7.92,z-.13],[x+.13,8.08,z+.13]));
+  for(const [name,radius] of [['base_inner',3.5],['base_outer',6]]) {
+    const x=8+radius*Math.cos(a),z=8+radius*Math.sin(a),rune=i%8===0;
+    models[name].push(cube([x-(rune?.25:.13),7.96,z-.13],[x+(rune?.25:.13),8.16,z+.13]));
+  }
+}
 for(const color of ['white','red','dark_red']) {
   const width=32,frames=16,height=width*frames,bytes=Buffer.alloc(width*height*4);
   const rgb=color==='white'?[242,247,255]:color==='red'?[255,36,61]:[100,8,20];
   for(let f=0;f<frames;f++)for(let y=0;y<width;y++)for(let x=0;x<width;x++){
     const seam=x%8===0||y%8===0,flow=(x+y-f*2+64)%16<2;
-    const gain=flow?1:seam?.72:.42+.12*Math.sin((x-y)*.5+f*Math.PI/8);
+    const gain=flow?1:seam?.85:.76+.12*Math.sin((x-y)*.5+f*Math.PI/8);
     const k=((f*width+y)*width+x)*4;
     for(let c=0;c<3;c++)bytes[k+c]=Math.round(rgb[c]*gain);
     if(color==='dark_red') {
@@ -93,9 +100,20 @@ for(const color of ['white','red','dark_red']) {
   }
   await sharp(sigil,{raw:{width:w,height:w,channels:4}}).png().toFile(path.join(textures,`sigil_${color}.png`));
   await pbr(textures,`sigil_${color}`,sigil,w,w,100);
+  // Seamless sphere surface with a broad highlight and slow breathing luminance, no lattice texture.
+  const sw=128,sh=64,surface=Buffer.alloc(sw*sh*16*4);
+  for(let f=0;f<16;f++)for(let y=0;y<sh;y++)for(let x=0;x<sw;x++) {
+    const phi=Math.PI/2-(y+.5)/sh*Math.PI,theta=(x+.5)/sw*Math.PI*2;
+    const light=Math.max(0,Math.cos(phi)*Math.sin(theta)*-.55+Math.sin(phi)*.65+Math.cos(phi)*Math.cos(theta)*.5);
+    const gain=(.48+.46*light)*(.94+.06*Math.sin(f*Math.PI/8));
+    const k=((f*sh+y)*sw+x)*4;for(let c=0;c<3;c++)surface[k+c]=Math.round(rgb[c]*gain);surface[k+3]=249;
+  }
+  await sharp(surface,{raw:{width:sw,height:sh*16,channels:4}}).png().toFile(path.join(textures,`surface_${color}.png`));
+  await pbr(textures,`surface_${color}`,surface,sw,sh*16,210);
+  for(const suffix of ['', '_n', '_s'])await json(`textures/item/orb/surface_${color}${suffix}.png.mcmeta`,{animation:{frametime:3,interpolate:true,width:sw,height:sh}});
   for(const [model,elements] of Object.entries(models)){
     const id=`orb/${model}_${color}`;
-    await json(`models/item/${id}.json`,{ambientocclusion:false,textures:{energy:`viksstuff:item/orb/energy_${color}`,metal:`viksstuff:item/orb/metal_${color}`,sigil:`viksstuff:item/orb/sigil_${color}`,particle:`viksstuff:item/orb/energy_${color}`},display:{fixed:{rotation:[0,0,0],translation:[0,0,0],scale:[1,1,1]}},elements});
+    await json(`models/item/${id}.json`,{ambientocclusion:false,textures:{surface:`viksstuff:item/orb/surface_${color}`,energy:`viksstuff:item/orb/energy_${color}`,metal:`viksstuff:item/orb/metal_${color}`,sigil:`viksstuff:item/orb/sigil_${color}`,particle:`viksstuff:item/orb/energy_${color}`},display:{fixed:{rotation:[0,0,0],translation:[0,0,0],scale:[1,1,1]}},elements});
     await json(`items/${id}.json`,{model:{type:'minecraft:model',model:`viksstuff:item/${id}`}});
   }
 }
@@ -127,7 +145,7 @@ try {
   }
   await json('sounds.json',sounds);
 } finally {await fs.rm(temp,{recursive:true,force:true});}
-console.log('Generated 24 orb models, animated emissive/PBR materials and three original sounds.');
+console.log('Generated 33 orb models, animated emissive/PBR materials and three original sounds.');
 
 // Apply the licensed reveal/ambient sound design after generating the original cues.
 await import('./build-orb-sound.mjs');
