@@ -30,9 +30,9 @@ models.node=[cube([5,5,5],[11,11,11]),cube([6,3.5,6],[10,12.5,10],'metal',6)];
 models.shard=[cube([6.6,3,6.6],[9.4,13,9.4]),cube([7.1,1,7.1],[8.9,15,8.9]),cube([5.3,6,5.3],[10.7,10,10.7],'metal',6)];
 models.beam=[cube([7.72,0,7.72],[8.28,16,8.28])];
 models.sigil=[{from:[0,7.99,0],to:[16,8.01,16],shade:false,light_emission:15,faces:{up:{texture:'#sigil',uv:[0,0,16,16]},down:{texture:'#sigil',uv:[0,0,16,16]}}}];
-for(const color of ['white','red']) {
+for(const color of ['white','red','dark_red']) {
   const width=32,frames=16,height=width*frames,bytes=Buffer.alloc(width*height*4);
-  const rgb=color==='white'?[242,247,255]:[255,36,61];
+  const rgb=color==='white'?[242,247,255]:color==='red'?[255,36,61]:[100,8,20];
   for(let f=0;f<frames;f++)for(let y=0;y<width;y++)for(let x=0;x<width;x++){
     const seam=x%8===0||y%8===0,flow=(x+y-f*2+64)%16<2;
     const gain=flow?1:seam?.72:.42+.12*Math.sin((x-y)*.5+f*Math.PI/8);
@@ -91,4 +91,4 @@ try {
   }
   await json('sounds.json',sounds);
 } finally {await fs.rm(temp,{recursive:true,force:true});}
-console.log('Generated 14 orb models, animated emissive/PBR materials and three original sounds.');
+console.log('Generated 21 orb models, animated emissive/PBR materials and three original sounds.');

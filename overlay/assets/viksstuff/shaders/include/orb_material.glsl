@@ -8,7 +8,8 @@ bool viks_is_orb(vec4 texel) {
     if (top < 0.05) return false;
     vec3 chroma = texel.rgb / top;
     return distance(chroma, vec3(242.0 / 255.0, 247.0 / 255.0, 1.0)) < 0.025
-        || distance(chroma, vec3(1.0, 36.0 / 255.0, 61.0 / 255.0)) < 0.025;
+        || distance(chroma, vec3(1.0, 36.0 / 255.0, 61.0 / 255.0)) < 0.025
+        || distance(chroma, vec3(1.0, 0.08, 0.20)) < 0.055;
 }
 
 vec4 viks_orb_energy(vec4 texel, vec2 uv) {
@@ -16,6 +17,6 @@ vec4 viks_orb_energy(vec4 texel, vec2 uv) {
     float pulse = 1.10 + 0.06 * sin(phase);
     float signal = pow(max(0.0, sin((uv.x + uv.y) * 240.0 - phase * 1.4)), 20.0);
     float edge = clamp(length(fwidth(texel.rgb)) * 2.0, 0.0, 0.14);
-    vec3 glow = texel.rgb * (pulse + signal * 0.14) + vec3(edge);
+    vec3 glow = texel.rgb * (pulse + signal * 0.14) + texel.rgb * edge;
     return vec4(clamp(glow, 0.0, 1.0), 1.0);
 }

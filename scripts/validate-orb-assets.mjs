@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import sharp from 'sharp';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../overlay/assets/viksstuff');
 let elements=0;
-for(const color of ['white','red'])for(const kind of ['core','shell','ring','node','shard','beam','sigil']) {
+for(const color of ['white','red','dark_red'])for(const kind of ['core','shell','ring','node','shard','beam','sigil']) {
   const id=`orb/${kind}_${color}`;
   const item=JSON.parse(await fs.readFile(path.join(root,'items',id+'.json'),'utf8'));
   assert.equal(item.model.model,'viksstuff:item/'+id);
@@ -22,7 +22,7 @@ for(const color of ['white','red'])for(const kind of ['core','shell','ring','nod
     elements++;
   }
 }
-for(const color of ['white','red'])for(const kind of ['energy','metal','sigil']) {
+for(const color of ['white','red','dark_red'])for(const kind of ['energy','metal','sigil']) {
   const file=path.join(root,`textures/item/orb/${kind}_${color}`);
   const albedo=await sharp(file+'.png').metadata();
   for(const suffix of ['_n','_s']) {
@@ -38,4 +38,4 @@ for(const color of ['white','red'])for(const kind of ['energy','metal','sigil'])
 }
 const sounds=JSON.parse(await fs.readFile(path.join(root,'sounds.json'),'utf8'));
 for(const id of ['hum','charge','release']) {assert.ok(sounds['orb.'+id]);assert.ok((await fs.stat(path.join(root,'sounds/orb',id+'.ogg'))).size>1000);}
-console.log(`ORB ASSETS PASS: 14 models, ${elements} elements, six PBR materials, synchronized animation maps, three sounds.`);
+console.log(`ORB ASSETS PASS: 21 models, ${elements} elements, nine PBR materials, synchronized animation maps, three sounds.`);
