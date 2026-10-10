@@ -37,5 +37,5 @@ for(const color of ['white','red','dark_red'])for(const kind of ['energy','metal
   }
 }
 const sounds=JSON.parse(await fs.readFile(path.join(root,'sounds.json'),'utf8'));
-for(const id of ['hum','charge','release']) {assert.ok(sounds['orb.'+id]);assert.ok((await fs.stat(path.join(root,'sounds/orb',id+'.ogg'))).size>1000);}
-console.log(`ORB ASSETS PASS: 21 models, ${elements} elements, nine PBR materials, synchronized animation maps, three sounds.`);
+for(const id of ['hum','charge','release','reveal']) {assert.ok(sounds['orb.'+id]);assert.ok((await fs.stat(path.join(root,'sounds/orb',id+'.ogg'))).size>1000);}
+console.log(`ORB ASSETS PASS: 21 models, ${elements} elements, nine PBR materials, synchronized animation maps, four sounds.`);

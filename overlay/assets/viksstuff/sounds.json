@@ -20,7 +20,7 @@
       {
         "name": "viksstuff:orb/hum",
         "stream": false,
-        "attenuation_distance": 24
+        "attenuation_distance": 48
       }
     ]
   },
@@ -39,6 +39,16 @@
         "name": "viksstuff:orb/release",
         "stream": false,
         "attenuation_distance": 24
+      }
+    ]
+  },
+  "orb.reveal": {
+    "subtitle": "viksstuff.subtitle.orb_reveal",
+    "sounds": [
+      {
+        "name": "viksstuff:orb/reveal",
+        "stream": false,
+        "attenuation_distance": 64
       }
     ]
   }

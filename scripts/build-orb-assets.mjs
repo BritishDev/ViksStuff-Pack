@@ -102,3 +102,6 @@ try {
   await json('sounds.json',sounds);
 } finally {await fs.rm(temp,{recursive:true,force:true});}
 console.log('Generated 21 orb models, animated emissive/PBR materials and three original sounds.');
+
+// Apply the licensed reveal/ambient sound design after generating the original cues.
+await import('./build-orb-sound.mjs');
