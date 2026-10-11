@@ -1,0 +1,131 @@
+{
+  "phrases": [
+    "Hi there.",
+    "I have been expecting you.",
+    "You have come very far,",
+    "and I have a gift for you.",
+    "Take this key and enjoy."
+  ],
+  "words": [
+    {
+      "text": "Hi",
+      "offset": 1102500,
+      "duration": 2861250
+    },
+    {
+      "text": "there",
+      "offset": 4114580,
+      "duration": 3162500
+    },
+    {
+      "text": "I",
+      "offset": 17771250,
+      "duration": 1205000
+    },
+    {
+      "text": "have",
+      "offset": 19126660,
+      "duration": 1957910
+    },
+    {
+      "text": "been",
+      "offset": 21235000,
+      "duration": 1656660
+    },
+    {
+      "text": "expecting",
+      "offset": 23042080,
+      "duration": 6174580
+    },
+    {
+      "text": "you",
+      "offset": 29367500,
+      "duration": 3463750
+    },
+    {
+      "text": "You",
+      "offset": 43222910,
+      "duration": 1957910
+    },
+    {
+      "text": "have",
+      "offset": 45331250,
+      "duration": 2259160
+    },
+    {
+      "text": "come",
+      "offset": 47740830,
+      "duration": 3012080
+    },
+    {
+      "text": "very",
+      "offset": 50903750,
+      "duration": 3012080
+    },
+    {
+      "text": "far",
+      "offset": 54066250,
+      "duration": 4216660
+    },
+    {
+      "text": "and",
+      "offset": 60692910,
+      "duration": 1054160
+    },
+    {
+      "text": "I",
+      "offset": 61897500,
+      "duration": 1054160
+    },
+    {
+      "text": "have",
+      "offset": 63102500,
+      "duration": 1957910
+    },
+    {
+      "text": "a",
+      "offset": 65210830,
+      "duration": 752910
+    },
+    {
+      "text": "gift",
+      "offset": 66114580,
+      "duration": 4066250
+    },
+    {
+      "text": "for",
+      "offset": 70331250,
+      "duration": 1355410
+    },
+    {
+      "text": "you",
+      "offset": 71837500,
+      "duration": 4216660
+    },
+    {
+      "text": "Take",
+      "offset": 86445830,
+      "duration": 2861250
+    },
+    {
+      "text": "this",
+      "offset": 89457910,
+      "duration": 2259160
+    },
+    {
+      "text": "key",
+      "offset": 91867500,
+      "duration": 3614580
+    },
+    {
+      "text": "and",
+      "offset": 95632500,
+      "duration": 1656660
+    },
+    {
+      "text": "enjoy",
+      "offset": 97439580,
+      "duration": 6174580
+    }
+  ]
+}
