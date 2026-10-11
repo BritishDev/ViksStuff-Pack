@@ -30,10 +30,21 @@ const config=await fs.readFile('src/main/resources/strength-reveal.yml','utf8');
 let timedWords=0;
 for(const variant of ['rain','generic']){
  const source=JSON.parse(await fs.readFile(`ViksStuff-Pack/source-art/strength-reveal/narration-${variant}-timing.json`,'utf8'));
+ assert.deepEqual(source.script_lines,[variant==='rain'?'Hello there Rain Dynasty':'Hello there','I have been expecting you','I have been watching you closely and have liked what I have seen.','I have a gift, but make sure to listen closely','Take this key, and when you see a vault, right click it']);
+ assert.equal(source.pause.after_line,4);assert.equal(source.pause.duration_ms,1000);assert.equal(source.pause.end_ms-source.pause.start_ms,1000);
  const section=config.split(`captions-${variant}:\n`)[1].split('captions-')[0];
  const phrases=[...section.matchAll(/  - text: (.+)\n/g)].map(m=>JSON.parse(m[1]));assert.deepEqual(phrases,source.phrases);assert.ok(phrases.every(p=>p.length<=36));
  const words=[...section.matchAll(/\{start: (\d+), end: (\d+), from: (\d+), to: (\d+)\}/g)];assert.equal(words.length,source.words.length);
  let previousEnd=-1;const duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',path.join(root,`sounds/reveal/narration_${variant}.ogg`)]))*1000;
  words.forEach((word,i)=>{const start=Number(word[1]),end=Number(word[2]),raw=source.words[i];assert.equal(start,Math.round(raw.offset/10000/.9));assert.equal(end,Math.round((raw.offset+raw.duration)/10000/.9));assert.ok(start>=previousEnd&&end>start&&end<duration);previousEnd=end;timedWords++;});
+ const instructionIndex=source.phrases.slice(0,6).reduce((count,phrase)=>count+phrase.split(' ').length,0);
+ assert.equal(Number(words[instructionIndex-1][2]),source.pause.start_ms);
+ assert.equal(Number(words[instructionIndex][1]),source.pause.end_ms);
+ // Verify the delivered OGG contains silence, allowing the existing short echo tail.
+ const audio=execFileSync('ffmpeg',['-v','error','-i',path.join(root,`sounds/reveal/narration_${variant}.ogg`),'-f','f32le','-ac','1','-ar','48000','pipe:1'],{maxBuffer:16*1024*1024});
+ const quietStart=Math.round((source.pause.start_ms+250)*48),quietEnd=Math.round((source.pause.end_ms-100)*48);
+ assert.ok(quietEnd*4<audio.length);
+ let peak=0;for(let i=quietStart;i<quietEnd;i++)peak=Math.max(peak,Math.abs(audio.readFloatLE(i*4)));
+ assert.ok(peak<0.001,`${variant}: requested pause must be audible silence`);
 }
-console.log(`REVEAL VALIDATION PASS: 4 models, ${elements} elements, transparent logo, valid font, duration-aligned narration, ${timedWords} synchronized word timestamps.`);
+console.log(`REVEAL VALIDATION PASS: 4 models, ${elements} elements, transparent logo, valid font, exact script, encoded one-second pauses, ${timedWords} synchronized word timestamps.`);

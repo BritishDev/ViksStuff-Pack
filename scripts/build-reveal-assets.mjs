@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import {execFileSync} from 'node:child_process';
+import {buildRevealNarration} from './build-reveal-narration.mjs';
 import sharp from 'sharp';
 import {buildRevealFont} from './build-reveal-font.mjs';
 const pack=path.resolve('ViksStuff-Pack'),root=path.join(pack,'overlay/assets/viksstuff');
@@ -29,29 +29,5 @@ for(const [id,elements]of Object.entries(models)) {
  await write(path.join(root,`items/reveal/${id}.json`),{model:{type:'minecraft:model',model:`viksstuff:item/reveal/${id}`}});
 }
 await buildRevealFont();
-const sounds=JSON.parse(await fs.readFile(path.join(root,'sounds.json'),'utf8'));const durations={};
-const captions={};
-await fs.mkdir(path.join(root,'sounds/reveal'),{recursive:true});
-for(const variant of ['rain','generic']) {
- let out=path.join(root,`sounds/reveal/narration_${variant}.ogg`);
- execFileSync('ffmpeg',['-v','error','-y','-i',path.join(pack,`source-art/strength-reveal/narration-${variant}.mp3`),'-af','atempo=0.9,highpass=f=80,lowpass=f=5500,equalizer=f=180:t=q:w=1:g=3,aecho=0.8:0.88:85|145:0.12|0.07,loudnorm=I=-15:TP=-1.5:LRA=8','-ar','48000','-ac','1','-c:a','libvorbis','-q:a','5',out]);
- durations[variant]=Math.ceil(Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',out]))*20)+6;
- const timing=JSON.parse(await fs.readFile(path.join(pack,`source-art/strength-reveal/narration-${variant}-timing.json`),'utf8'));
- let index=0;captions[variant]=timing.phrases.map(text=>{
-  if(text.length>36)throw new Error('Caption exceeds the short action-bar width');
-  let chars=0;const words=text.split(' ').map(token=>{
-   const word=timing.words[index++];
-   if(!word||word.text.toLowerCase()!==token.replace(/[.,!?]/g,'').toLowerCase())throw new Error(`Speech word mismatch: ${token}`);
-   const from=chars;chars+=token.length;
-   // Service offsets are 100ns units; match the final track's 0.9 tempo.
-   const result={start:Math.round(word.offset/10000/.9),end:Math.round((word.offset+word.duration)/10000/.9),from,to:chars};chars++;return result;
-  });return {text,words};
- });if(index!==timing.words.length)throw new Error('Unused speech word timestamps');
- sounds[`reveal.narration_${variant}`]={sounds:[{name:`viksstuff:reveal/narration_${variant}`,stream:true}]};
-}
-await write(path.join(root,'sounds.json'),sounds);
-let config=`# Generated from encoded audio and service word boundaries; times in milliseconds.\nnarration-rain-ticks: ${durations.rain}\nnarration-generic-ticks: ${durations.generic}\n`;
-for(const variant of ['rain','generic']){config+=`captions-${variant}:\n`;for(const phrase of captions[variant]){config+=`  - text: ${JSON.stringify(phrase.text)}\n    words:\n`;for(const word of phrase.words)config+=`      - {start: ${word.start}, end: ${word.end}, from: ${word.from}, to: ${word.to}}\n`;}}
-await fs.writeFile('src/main/resources/strength-reveal.yml',config);
-await fs.writeFile(path.join(pack,'source-art/strength-reveal/PROVENANCE.md'),'Logo supplied by user; transparent edit by image generation. Original gold key and vault geometry authored for this project. Narration generated using Microsoft Edge ThomasNeural via edge-tts 7.2.8, rate -17%, pitch -20Hz; final pacing, EQ and restrained echo processed with FFmpeg. Voice source documentation: https://github.com/rany2/edge-tts\nScript: Welcome, Rain Dynasty. I have been expecting you. You have come very far, and I have a gift for you. Take this key and enjoy. Right click the vault, and make me proud.\nGeneric variant omits the name for test recipients.\n');
-console.log('REVEAL ASSETS PASS: four original 3D models, transparent title logo, two neural narration tracks',durations);
+await buildRevealNarration();
+console.log('REVEAL ASSETS PASS: four original 3D models, transparent title logo, narration');
