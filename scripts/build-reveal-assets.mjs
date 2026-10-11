@@ -3,6 +3,8 @@ import path from 'node:path';
 import {buildRevealNarration} from './build-reveal-narration.mjs';
 import sharp from 'sharp';
 import {buildRevealFont} from './build-reveal-font.mjs';
+import {buildWelcomeFont} from './build-welcome-font.mjs';
+import {buildRevealVictory} from './build-reveal-victory.mjs';
 const pack=path.resolve('ViksStuff-Pack'),root=path.join(pack,'overlay/assets/viksstuff');
 const write=async(p,x)=>{await fs.mkdir(path.dirname(p),{recursive:true});await fs.writeFile(p,JSON.stringify(x,null,2)+'\n');};
 const box=(a,b,t='gold')=>({from:a,to:b,shade:t!=='gem',light_emission:t==='gem'?15:0,faces:Object.fromEntries(['up','down','north','south','east','west'].map(f=>[f,{texture:'#'+t,uv:[0,0,16,16]}]))});
@@ -29,5 +31,7 @@ for(const [id,elements]of Object.entries(models)) {
  await write(path.join(root,`items/reveal/${id}.json`),{model:{type:'minecraft:model',model:`viksstuff:item/reveal/${id}`}});
 }
 await buildRevealFont();
+await buildWelcomeFont();
+await buildRevealVictory();
 await buildRevealNarration();
 console.log('REVEAL ASSETS PASS: four original 3D models, transparent title logo, narration');

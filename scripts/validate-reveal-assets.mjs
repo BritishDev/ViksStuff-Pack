@@ -27,6 +27,19 @@ assert.ok(logoAdvance*4<320,'Composed logo must fit the minimum Minecraft title 
 const logoSize=await sharp(path.join(root,'textures/font/strength-logo.png')).metadata();assert.ok((logoSize.width/logoSize.height*font.providers[0].height+1)*4<320,'Logo must fit the minimum Minecraft GUI width as a main title');
 const flash=await sharp(path.join(root,'textures/font/reveal-flash.png')).ensureAlpha().raw().toBuffer();assert.ok(flash.every(b=>b===255));
 const config=await fs.readFile('src/main/resources/strength-reveal.yml','utf8');for(let variant of ['rain','generic']){let file=path.join(root,`sounds/reveal/narration_${variant}.ogg`);let duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',file]));let ticks=Number(config.match(new RegExp(`narration-${variant}-ticks: (\\d+)`))[1]);assert.ok(ticks/20>=duration&&ticks/20<duration+1);assert.ok(duration>10&&duration<30);}
+const welcome=JSON.parse(await fs.readFile(path.join(root,'font/reveal_welcome.json'),'utf8'));
+const welcomeBitmap=welcome.providers.find(p=>p.type==='bitmap');
+assert.equal(welcomeBitmap.file,'minecraft:font/ascii.png');assert.equal(welcomeBitmap.height,3);assert.equal(welcomeBitmap.ascent,2);
+assert.equal(welcomeBitmap.chars.length,16);assert.ok(welcomeBitmap.chars.every(row=>row.length===16));
+for(const letter of 'Welcomt')assert.equal(welcomeBitmap.chars[Math.floor(letter.charCodeAt(0)/16)][letter.charCodeAt(0)%16],letter);
+assert.equal(welcome.providers.find(p=>p.type==='space').advances[' '],1.5);
+const sounds=JSON.parse(await fs.readFile(path.join(root,'sounds.json'),'utf8'));
+for(const id of ['victory','narration_bed']){
+ assert.equal(sounds[`reveal.${id}`].sounds[0].name,`viksstuff:reveal/${id}`);
+ const info=JSON.parse(execFileSync('ffprobe',['-v','error','-show_entries','stream=codec_name,sample_rate,channels:format=duration','-of','json',path.join(root,`sounds/reveal/${id}.ogg`)]));
+ assert.equal(info.streams[0].codec_name,'vorbis');assert.equal(info.streams[0].sample_rate,'48000');assert.equal(info.streams[0].channels,1);
+ const duration=Number(info.format.duration);assert.ok(id==='victory'?duration>5&&duration<7:duration>=Number(config.match(/narration-rain-ticks: (\d+)/)[1])/20&&duration<23);
+}
 let timedWords=0;
 for(const variant of ['rain','generic']){
  const source=JSON.parse(await fs.readFile(`ViksStuff-Pack/source-art/strength-reveal/narration-${variant}-timing.json`,'utf8'));

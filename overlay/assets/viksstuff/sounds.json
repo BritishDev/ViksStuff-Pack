@@ -76,5 +76,22 @@
         "stream": true
       }
     ]
+  },
+  "reveal.victory": {
+    "subtitle": "viksstuff.subtitle.reveal_victory",
+    "sounds": [
+      {
+        "name": "viksstuff:reveal/victory",
+        "stream": false
+      }
+    ]
+  },
+  "reveal.narration_bed": {
+    "sounds": [
+      {
+        "name": "viksstuff:reveal/narration_bed",
+        "stream": true
+      }
+    ]
   }
 }
