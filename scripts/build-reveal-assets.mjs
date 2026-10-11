@@ -23,12 +23,14 @@ models.vault_door.push(box([15,14,2.4],[17,18,3.2],'gem'),box([15.6,14.2,2.1],[1
 models.vault_wheel=[];for(let i=0;i<24;i++){let a=i*Math.PI/12,x=8+3*Math.cos(a),y=8+3*Math.sin(a);models.vault_wheel.push(box([x-.4,y-.4,7.5],[x+.4,y+.4,8.5]));}
 models.vault_wheel.push(box([4.5,7.7,7.4],[11.5,8.3,8.6]),box([7.7,4.5,7.4],[8.3,11.5,8.6]),box([7,7,7],[9,9,9],'gem'));
 for(const [id,elements]of Object.entries(models)) {
- await write(path.join(root,`models/item/reveal/${id}.json`),{ambientocclusion:false,textures:{gold:'viksstuff:item/reveal/gold',steel:'viksstuff:item/reveal/steel',gem:'viksstuff:item/reveal/gem',particle:'viksstuff:item/reveal/gold'},elements,display:{fixed:{rotation:[0,0,0],translation:[0,0,0],scale:[1,1,1]},gui:{rotation:[0,0,-35],scale:[.9,.9,.9]},firstperson_righthand:{rotation:[0,-90,20],translation:[1,2,1],scale:[.9,.9,.9]},thirdperson_righthand:{rotation:[0,-90,0],translation:[0,2,0],scale:[.8,.8,.8]}}});
+ // ItemDisplayRenderer adds a Y half-turn; cancel it before the authored geometry.
+ await write(path.join(root,`models/item/reveal/${id}.json`),{ambientocclusion:false,textures:{gold:'viksstuff:item/reveal/gold',steel:'viksstuff:item/reveal/steel',gem:'viksstuff:item/reveal/gem',particle:'viksstuff:item/reveal/gold'},elements,display:{fixed:{rotation:[0,180,0],translation:[0,0,0],scale:[1,1,1]},gui:{rotation:[0,0,-35],scale:[.9,.9,.9]},firstperson_righthand:{rotation:[0,-90,20],translation:[1,2,1],scale:[.9,.9,.9]},thirdperson_righthand:{rotation:[0,-90,0],translation:[0,2,0],scale:[.8,.8,.8]}}});
  await write(path.join(root,`items/reveal/${id}.json`),{model:{type:'minecraft:model',model:`viksstuff:item/reveal/${id}`}});
 }
 await fs.mkdir(path.join(root,'textures/font'),{recursive:true});
 await sharp(path.join(pack,'source-art/strength-reveal/logo-transparent.png')).resize({width:1024}).png().toFile(path.join(root,'textures/font/strength-logo.png'));
-await write(path.join(root,'font/reveal.json'),{providers:[{type:'bitmap',file:'viksstuff:font/strength-logo.png',height:48,ascent:0,chars:['\ue700']}]});
+await sharp({create:{width:16,height:16,channels:4,background:{r:255,g:255,b:255,alpha:1}}}).png().toFile(path.join(root,'textures/font/reveal-flash.png'));
+await write(path.join(root,'font/reveal.json'),{providers:[{type:'bitmap',file:'viksstuff:font/strength-logo.png',height:28,ascent:7,chars:['\ue700']},{type:'bitmap',file:'viksstuff:font/reveal-flash.png',height:1024,ascent:512,chars:['\ue701']}]});
 const sounds=JSON.parse(await fs.readFile(path.join(root,'sounds.json'),'utf8'));const durations={};
 const captions={};
 await fs.mkdir(path.join(root,'sounds/reveal'),{recursive:true});
@@ -53,5 +55,5 @@ await write(path.join(root,'sounds.json'),sounds);
 let config=`# Generated from encoded audio and service word boundaries; times in milliseconds.\nnarration-rain-ticks: ${durations.rain}\nnarration-generic-ticks: ${durations.generic}\n`;
 for(const variant of ['rain','generic']){config+=`captions-${variant}:\n`;for(const phrase of captions[variant]){config+=`  - text: ${JSON.stringify(phrase.text)}\n    words:\n`;for(const word of phrase.words)config+=`      - {start: ${word.start}, end: ${word.end}, from: ${word.from}, to: ${word.to}}\n`;}}
 await fs.writeFile('src/main/resources/strength-reveal.yml',config);
-await fs.writeFile(path.join(pack,'source-art/strength-reveal/PROVENANCE.md'),'Logo supplied by user; transparent edit by image generation. Original gold key and vault geometry authored for this project. Narration generated using Microsoft Edge ThomasNeural via edge-tts 7.2.8, rate -17%, pitch -20Hz; final pacing, EQ and restrained echo processed with FFmpeg. Voice source documentation: https://github.com/rany2/edge-tts\nScript: Hi there, Rain Dynasty. I have been expecting you. You have come very far, and I have a gift for you. Take this key and enjoy.\nGeneric variant omits the name for test recipients.\n');
+await fs.writeFile(path.join(pack,'source-art/strength-reveal/PROVENANCE.md'),'Logo supplied by user; transparent edit by image generation. Original gold key and vault geometry authored for this project. Narration generated using Microsoft Edge ThomasNeural via edge-tts 7.2.8, rate -17%, pitch -20Hz; final pacing, EQ and restrained echo processed with FFmpeg. Voice source documentation: https://github.com/rany2/edge-tts\nScript: Welcome, Rain Dynasty. I have been expecting you. You have come very far, and I have a gift for you. Take this key and enjoy. Right click the vault, and make me proud.\nGeneric variant omits the name for test recipients.\n');
 console.log('REVEAL ASSETS PASS: four original 3D models, transparent title logo, two neural narration tracks',durations);

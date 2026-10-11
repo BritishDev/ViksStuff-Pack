@@ -3,10 +3,19 @@
     {
       "type": "bitmap",
       "file": "viksstuff:font/strength-logo.png",
-      "height": 48,
-      "ascent": 0,
+      "height": 28,
+      "ascent": 7,
       "chars": [
         ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:font/reveal-flash.png",
+      "height": 1024,
+      "ascent": 512,
+      "chars": [
+        ""
       ]
     }
   ]

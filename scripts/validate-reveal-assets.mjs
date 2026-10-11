@@ -3,10 +3,13 @@ const root=path.resolve('ViksStuff-Pack/overlay/assets/viksstuff');let elements=
 for(const id of ['key','vault_frame','vault_door','vault_wheel']){
  let model=JSON.parse(await fs.readFile(path.join(root,`models/item/reveal/${id}.json`),'utf8'));
  let item=JSON.parse(await fs.readFile(path.join(root,`items/reveal/${id}.json`),'utf8'));assert.equal(item.model.model,`viksstuff:item/reveal/${id}`);
+ assert.deepEqual(model.display.fixed.rotation,[0,180,0]);
  for(let e of model.elements){for(let axis=0;axis<3;axis++){assert.ok(e.from[axis]<e.to[axis]);assert.ok(e.from[axis]>=-16&&e.to[axis]<=32);}for(let face of Object.values(e.faces)){let t=model.textures[face.texture.slice(1)];await fs.access(path.join(root,'textures',t.slice('viksstuff:'.length)+'.png'));}elements++;}
 }
 const logo=await sharp(path.join(root,'textures/font/strength-logo.png')).ensureAlpha().raw().toBuffer();let transparent=0,opaque=0;for(let i=3;i<logo.length;i+=4){if(logo[i]===0)transparent++;if(logo[i]>200)opaque++;}assert.ok(transparent>logo.length/16);assert.ok(opaque>logo.length/16);
-const font=JSON.parse(await fs.readFile(path.join(root,'font/reveal.json'),'utf8'));assert.equal(font.providers[0].chars[0],'\ue700');assert.equal(font.providers[0].height,48);
+const font=JSON.parse(await fs.readFile(path.join(root,'font/reveal.json'),'utf8'));assert.equal(font.providers[0].chars[0],'\ue700');assert.equal(font.providers[0].height,28);assert.equal(font.providers[1].chars[0],'\ue701');assert.equal(font.providers[1].height,1024);
+const logoSize=await sharp(path.join(root,'textures/font/strength-logo.png')).metadata();assert.ok((logoSize.width/logoSize.height*font.providers[0].height+1)*4<320,'Logo must fit the minimum Minecraft GUI width as a main title');
+const flash=await sharp(path.join(root,'textures/font/reveal-flash.png')).ensureAlpha().raw().toBuffer();assert.ok(flash.every(b=>b===255));
 const config=await fs.readFile('src/main/resources/strength-reveal.yml','utf8');for(let variant of ['rain','generic']){let file=path.join(root,`sounds/reveal/narration_${variant}.ogg`);let duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',file]));let ticks=Number(config.match(new RegExp(`narration-${variant}-ticks: (\\d+)`))[1]);assert.ok(ticks/20>=duration&&ticks/20<duration+1);assert.ok(duration>10&&duration<30);}
 let timedWords=0;
 for(const variant of ['rain','generic']){

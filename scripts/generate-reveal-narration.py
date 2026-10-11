@@ -7,10 +7,12 @@ import edge_tts
 
 DEST = Path(__file__).resolve().parents[1] / "source-art/strength-reveal"
 PHRASES = {
-    "rain": ["Hi there, Rain Dynasty.", "I have been expecting you.",
-             "You have come very far,", "and I have a gift for you.", "Take this key and enjoy."],
-    "generic": ["Hi there.", "I have been expecting you.", "You have come very far,",
-                "and I have a gift for you.", "Take this key and enjoy."],
+    "rain": ["Welcome, Rain Dynasty.", "I have been expecting you.",
+             "You have come very far,", "and I have a gift for you.", "Take this key and enjoy.",
+             "Right click the vault,", "and make me proud."],
+    "generic": ["Welcome.", "I have been expecting you.", "You have come very far,",
+                "and I have a gift for you.", "Take this key and enjoy.",
+                "Right click the vault,", "and make me proud."],
 }
 
 

@@ -1,21 +1,18 @@
 {
   "phrases": [
-    "Hi there.",
+    "Welcome.",
     "I have been expecting you.",
     "You have come very far,",
     "and I have a gift for you.",
-    "Take this key and enjoy."
+    "Take this key and enjoy.",
+    "Right click the vault,",
+    "and make me proud."
   ],
   "words": [
     {
-      "text": "Hi",
+      "text": "Welcome",
       "offset": 1102500,
-      "duration": 2861250
-    },
-    {
-      "text": "there",
-      "offset": 4114580,
-      "duration": 3162500
+      "duration": 6174580
     },
     {
       "text": "I",
@@ -126,6 +123,46 @@
       "text": "enjoy",
       "offset": 97439580,
       "duration": 6174580
+    },
+    {
+      "text": "Right",
+      "offset": 114156660,
+      "duration": 3915830
+    },
+    {
+      "text": "click",
+      "offset": 118222910,
+      "duration": 2861250
+    },
+    {
+      "text": "the",
+      "offset": 121235000,
+      "duration": 1054160
+    },
+    {
+      "text": "vault",
+      "offset": 122439580,
+      "duration": 4517910
+    },
+    {
+      "text": "and",
+      "offset": 130120410,
+      "duration": 1054160
+    },
+    {
+      "text": "make",
+      "offset": 131325410,
+      "duration": 2560410
+    },
+    {
+      "text": "me",
+      "offset": 134036250,
+      "duration": 1355410
+    },
+    {
+      "text": "proud",
+      "offset": 135542080,
+      "duration": 6777080
     }
   ]
 }

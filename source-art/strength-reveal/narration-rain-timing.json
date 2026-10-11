@@ -1,141 +1,178 @@
 {
   "phrases": [
-    "Hi there, Rain Dynasty.",
+    "Welcome, Rain Dynasty.",
     "I have been expecting you.",
     "You have come very far,",
     "and I have a gift for you.",
-    "Take this key and enjoy."
+    "Take this key and enjoy.",
+    "Right click the vault,",
+    "and make me proud."
   ],
   "words": [
     {
-      "text": "Hi",
+      "text": "Welcome",
       "offset": 1102500,
-      "duration": 2861250
-    },
-    {
-      "text": "there",
-      "offset": 4114580,
-      "duration": 2259160
+      "duration": 6325410
     },
     {
       "text": "Rain",
-      "offset": 9084160,
-      "duration": 2861250
+      "offset": 9987910,
+      "duration": 3162500
     },
     {
       "text": "Dynasty",
-      "offset": 12096250,
-      "duration": 6174580
+      "offset": 13301250,
+      "duration": 6024160
     },
     {
       "text": "I",
-      "offset": 28765000,
+      "offset": 29819160,
       "duration": 1205000
     },
     {
       "text": "have",
-      "offset": 30120410,
+      "offset": 31174580,
       "duration": 1957910
     },
     {
       "text": "been",
-      "offset": 32228750,
+      "offset": 33283330,
       "duration": 1656660
     },
     {
       "text": "expecting",
-      "offset": 34036250,
+      "offset": 35090410,
       "duration": 6174580
     },
     {
       "text": "you",
-      "offset": 40361250,
+      "offset": 41415830,
       "duration": 3463750
     },
     {
       "text": "You",
-      "offset": 54216660,
+      "offset": 55271250,
       "duration": 1957910
     },
     {
       "text": "have",
-      "offset": 56325410,
+      "offset": 57379580,
       "duration": 2259160
     },
     {
       "text": "come",
-      "offset": 58735000,
+      "offset": 59789160,
       "duration": 3012080
     },
     {
       "text": "very",
-      "offset": 61897500,
+      "offset": 62951660,
       "duration": 3012080
     },
     {
       "text": "far",
-      "offset": 65060410,
+      "offset": 66114580,
       "duration": 4216660
     },
     {
       "text": "and",
-      "offset": 71686660,
+      "offset": 72740830,
       "duration": 1054160
     },
     {
       "text": "I",
-      "offset": 72891660,
+      "offset": 73945830,
       "duration": 1054160
     },
     {
       "text": "have",
-      "offset": 74096250,
+      "offset": 75150410,
       "duration": 1957910
     },
     {
       "text": "a",
-      "offset": 76205000,
+      "offset": 77259160,
       "duration": 752910
     },
     {
       "text": "gift",
-      "offset": 77108330,
+      "offset": 78162500,
       "duration": 4066250
     },
     {
       "text": "for",
-      "offset": 81325410,
+      "offset": 82379580,
       "duration": 1355410
     },
     {
       "text": "you",
-      "offset": 82831250,
+      "offset": 83885410,
       "duration": 4216660
     },
     {
       "text": "Take",
-      "offset": 97439580,
+      "offset": 98494160,
       "duration": 2861250
     },
     {
       "text": "this",
-      "offset": 100451660,
+      "offset": 101505830,
       "duration": 2259160
     },
     {
       "text": "key",
-      "offset": 102861250,
+      "offset": 103915830,
       "duration": 3614580
     },
     {
       "text": "and",
-      "offset": 106626660,
+      "offset": 107680830,
       "duration": 1656660
     },
     {
       "text": "enjoy",
-      "offset": 108433750,
+      "offset": 109487910,
       "duration": 6174580
+    },
+    {
+      "text": "Right",
+      "offset": 126205000,
+      "duration": 3915830
+    },
+    {
+      "text": "click",
+      "offset": 130271250,
+      "duration": 2861250
+    },
+    {
+      "text": "the",
+      "offset": 133283330,
+      "duration": 1054160
+    },
+    {
+      "text": "vault",
+      "offset": 134487910,
+      "duration": 4517910
+    },
+    {
+      "text": "and",
+      "offset": 142168750,
+      "duration": 1054160
+    },
+    {
+      "text": "make",
+      "offset": 143373330,
+      "duration": 2560410
+    },
+    {
+      "text": "me",
+      "offset": 146084160,
+      "duration": 1355410
+    },
+    {
+      "text": "proud",
+      "offset": 147590410,
+      "duration": 6777080
     }
   ]
 }
