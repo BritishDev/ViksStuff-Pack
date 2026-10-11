@@ -13,11 +13,12 @@ DEST = Path(__file__).resolve().parents[1] / "source-art/strength-reveal"
 SCRIPT = ["Hello there Rain Dynasty", "I have been expecting you",
           "I have been watching you closely and have liked what I have seen.",
           "I have a gift, but make sure to listen closely",
-          "Take this key, and when you see a vault, right click it"]
+          "Take this key. When the vault appears, look at it and right click from where you are."]
 CAPTIONS = ["Hello there Rain Dynasty", "I have been expecting you",
             "I have been watching you closely", "and have liked what I have seen.",
             "I have a gift,", "but make sure to listen closely",
-            "Take this key,", "and when you see a vault,", "right click it"]
+            "Take this key.", "When the vault appears,",
+            "look at it and right click", "from where you are."]
 TEMPO = .9  # The final encoder slows the voice with atempo=0.9.
 SAMPLE_RATE = 48000
 
@@ -51,7 +52,7 @@ async def generate(variant):
         lines[0] = phrases[0] = "Hello there"
     # Sentence punctuation shapes the spoken pauses; captions retain the supplied wording.
     intro, intro_words = await speech(" ".join(line.rstrip(".") + "." for line in lines[:4]))
-    instruction, instruction_words = await speech(lines[4] + ".")
+    instruction, instruction_words = await speech(lines[4].rstrip(".") + ".")
     DEST.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="reveal-narration-") as scratch:
         directory = Path(scratch)

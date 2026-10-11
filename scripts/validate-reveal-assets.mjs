@@ -38,12 +38,12 @@ for(const id of ['victory','narration_bed']){
  assert.equal(sounds[`reveal.${id}`].sounds[0].name,`viksstuff:reveal/${id}`);
  const info=JSON.parse(execFileSync('ffprobe',['-v','error','-show_entries','stream=codec_name,sample_rate,channels:format=duration','-of','json',path.join(root,`sounds/reveal/${id}.ogg`)]));
  assert.equal(info.streams[0].codec_name,'vorbis');assert.equal(info.streams[0].sample_rate,'48000');assert.equal(info.streams[0].channels,1);
- const duration=Number(info.format.duration);assert.ok(id==='victory'?duration>5&&duration<7:duration>=Number(config.match(/narration-rain-ticks: (\d+)/)[1])/20&&duration<23);
+ const duration=Number(info.format.duration);const longestNarrationTicks=Math.max(...['rain','generic'].map(variant=>Number(config.match(new RegExp(`narration-${variant}-ticks: (\\d+)`))[1])));assert.ok(id==='victory'?duration>5&&duration<7:Math.abs(duration-longestNarrationTicks/20)<.01);
 }
 let timedWords=0;
 for(const variant of ['rain','generic']){
  const source=JSON.parse(await fs.readFile(`ViksStuff-Pack/source-art/strength-reveal/narration-${variant}-timing.json`,'utf8'));
- assert.deepEqual(source.script_lines,[variant==='rain'?'Hello there Rain Dynasty':'Hello there','I have been expecting you','I have been watching you closely and have liked what I have seen.','I have a gift, but make sure to listen closely','Take this key, and when you see a vault, right click it']);
+ assert.deepEqual(source.script_lines,[variant==='rain'?'Hello there Rain Dynasty':'Hello there','I have been expecting you','I have been watching you closely and have liked what I have seen.','I have a gift, but make sure to listen closely','Take this key. When the vault appears, look at it and right click from where you are.']);
  assert.equal(source.pause.after_line,4);assert.equal(source.pause.duration_ms,1000);assert.equal(source.pause.end_ms-source.pause.start_ms,1000);
  const section=config.split(`captions-${variant}:\n`)[1].split('captions-')[0];
  const phrases=[...section.matchAll(/  - text: (.+)\n/g)].map(m=>JSON.parse(m[1]));assert.deepEqual(phrases,source.phrases);assert.ok(phrases.every(p=>p.length<=36));
