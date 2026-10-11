@@ -1,0 +1,308 @@
+{
+  "script_lines": [
+    "Hello",
+    "I have been expecting you Rain Dynasty",
+    "I have been watching you, and I have liked what I have seen",
+    "I am here to congratulate you, but first you must do something for me",
+    "Take this key, and when you see a vault, right click it from where you are standing",
+    "Best of luck"
+  ],
+  "phrases": [
+    "Hello",
+    "I have been expecting you",
+    "Rain Dynasty",
+    "I have been watching you,",
+    "and I have liked what I have seen",
+    "I am here to congratulate you,",
+    "but first you must do",
+    "something for me",
+    "Take this key,",
+    "and when you see a vault,",
+    "right click it from where",
+    "you are standing",
+    "Best of luck"
+  ],
+  "words": [
+    {
+      "text": "Hello",
+      "offset": 1102500,
+      "duration": 5120410
+    },
+    {
+      "text": "I",
+      "offset": 16716660,
+      "duration": 1205000
+    },
+    {
+      "text": "have",
+      "offset": 18072080,
+      "duration": 1807080
+    },
+    {
+      "text": "been",
+      "offset": 20030000,
+      "duration": 1656660
+    },
+    {
+      "text": "expecting",
+      "offset": 21837500,
+      "duration": 5572080
+    },
+    {
+      "text": "you",
+      "offset": 27560410,
+      "duration": 1505830
+    },
+    {
+      "text": "Rain",
+      "offset": 29216660,
+      "duration": 3313330
+    },
+    {
+      "text": "Dynasty",
+      "offset": 32680830,
+      "duration": 6174580
+    },
+    {
+      "text": "I",
+      "offset": 49247080,
+      "duration": 1505830
+    },
+    {
+      "text": "have",
+      "offset": 50903750,
+      "duration": 1656660
+    },
+    {
+      "text": "been",
+      "offset": 52710830,
+      "duration": 1807080
+    },
+    {
+      "text": "watching",
+      "offset": 54668750,
+      "duration": 4367500
+    },
+    {
+      "text": "you",
+      "offset": 59186660,
+      "duration": 2409580
+    },
+    {
+      "text": "and",
+      "offset": 64005830,
+      "duration": 903750
+    },
+    {
+      "text": "I",
+      "offset": 65060410,
+      "duration": 1054160
+    },
+    {
+      "text": "have",
+      "offset": 66265000,
+      "duration": 2108330
+    },
+    {
+      "text": "liked",
+      "offset": 68524160,
+      "duration": 3313330
+    },
+    {
+      "text": "what",
+      "offset": 71987910,
+      "duration": 2259160
+    },
+    {
+      "text": "I",
+      "offset": 74397500,
+      "duration": 1205000
+    },
+    {
+      "text": "have",
+      "offset": 75752910,
+      "duration": 1957910
+    },
+    {
+      "text": "seen",
+      "offset": 77861250,
+      "duration": 5271250
+    },
+    {
+      "text": "I",
+      "offset": 93674580,
+      "duration": 1505830
+    },
+    {
+      "text": "am",
+      "offset": 95331250,
+      "duration": 1355410
+    },
+    {
+      "text": "here",
+      "offset": 96837500,
+      "duration": 1957910
+    },
+    {
+      "text": "to",
+      "offset": 98945830,
+      "duration": 1054160
+    },
+    {
+      "text": "congratulate",
+      "offset": 100150410,
+      "duration": 8433750
+    },
+    {
+      "text": "you",
+      "offset": 108735000,
+      "duration": 2409580
+    },
+    {
+      "text": "but",
+      "offset": 113252910,
+      "duration": 1355410
+    },
+    {
+      "text": "first",
+      "offset": 114759160,
+      "duration": 4216660
+    },
+    {
+      "text": "you",
+      "offset": 119126660,
+      "duration": 1054160
+    },
+    {
+      "text": "must",
+      "offset": 120331250,
+      "duration": 3012080
+    },
+    {
+      "text": "do",
+      "offset": 123494160,
+      "duration": 1807080
+    },
+    {
+      "text": "something",
+      "offset": 125451660,
+      "duration": 4819160
+    },
+    {
+      "text": "for",
+      "offset": 130421660,
+      "duration": 1355410
+    },
+    {
+      "text": "me",
+      "offset": 131927910,
+      "duration": 3313330
+    },
+    {
+      "text": "Take",
+      "offset": 144241250,
+      "duration": 2861250
+    },
+    {
+      "text": "this",
+      "offset": 147253330,
+      "duration": 2259160
+    },
+    {
+      "text": "key",
+      "offset": 149662910,
+      "duration": 3765000
+    },
+    {
+      "text": "and",
+      "offset": 155687080,
+      "duration": 1205000
+    },
+    {
+      "text": "when",
+      "offset": 157042500,
+      "duration": 1807080
+    },
+    {
+      "text": "you",
+      "offset": 159000000,
+      "duration": 1355410
+    },
+    {
+      "text": "see",
+      "offset": 160506250,
+      "duration": 2259160
+    },
+    {
+      "text": "a",
+      "offset": 162915830,
+      "duration": 752910
+    },
+    {
+      "text": "vault",
+      "offset": 163819580,
+      "duration": 4367500
+    },
+    {
+      "text": "right",
+      "offset": 170747080,
+      "duration": 3012080
+    },
+    {
+      "text": "click",
+      "offset": 173910000,
+      "duration": 3012080
+    },
+    {
+      "text": "it",
+      "offset": 177072500,
+      "duration": 1355410
+    },
+    {
+      "text": "from",
+      "offset": 178578330,
+      "duration": 1656660
+    },
+    {
+      "text": "where",
+      "offset": 180385830,
+      "duration": 2108330
+    },
+    {
+      "text": "you",
+      "offset": 182644580,
+      "duration": 2259160
+    },
+    {
+      "text": "are",
+      "offset": 185054580,
+      "duration": 1054160
+    },
+    {
+      "text": "standing",
+      "offset": 186259160,
+      "duration": 7379580
+    },
+    {
+      "text": "Best",
+      "offset": 204132910,
+      "duration": 3614580
+    },
+    {
+      "text": "of",
+      "offset": 207897910,
+      "duration": 1355410
+    },
+    {
+      "text": "luck",
+      "offset": 209403750,
+      "duration": 4367500
+    }
+  ],
+  "pause": {
+    "after_line": 4,
+    "start_ms": 15027,
+    "end_ms": 16027,
+    "duration_ms": 1000
+  }
+}

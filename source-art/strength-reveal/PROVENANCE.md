@@ -8,4 +8,13 @@ I have a gift, but make sure to listen closely
 [one-second pause]
 Take this key. When the vault appears, look at it and right click from where you are.
 
-The pause is inserted into decoded audio and accounts for the final 0.9 tempo and the instruction's lead-in. Word timestamps include the pause and drive the gold action-bar captions. Generic variant omits the name for test recipients. A separate narration bed reuses the licensed orb hum at 0.24 playback volume, 20 percent below the normal 0.30 distant bed. The custom victory fanfare source and CC0 license are recorded in victory-source.json.
+Second iteration (default):
+Hello
+I have been expecting you Rain Dynasty
+I have been watching you, and I have liked what I have seen
+I am here to congratulate you, but first you must do something for me
+[one-second pause]
+Take this key, and when you see a vault, right click it from where you are standing
+Best of luck
+
+The pause is inserted into decoded audio and accounts for the final 0.9 tempo and the instruction's lead-in. Word timestamps include the pause and drive the gold action-bar captions and key delivery at the start of Take this key. Generic variants omit the name for test recipients. The original iteration remains selectable. A separate narration bed reuses the licensed orb hum at 0.24 playback volume, 20 percent below the normal 0.30 distant bed. The custom victory fanfare source and CC0 license are recorded in victory-source.json.

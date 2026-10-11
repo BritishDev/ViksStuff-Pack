@@ -93,5 +93,21 @@
         "stream": true
       }
     ]
+  },
+  "reveal.narration_rain_v2": {
+    "sounds": [
+      {
+        "name": "viksstuff:reveal/narration_rain_v2",
+        "stream": true
+      }
+    ]
+  },
+  "reveal.narration_generic_v2": {
+    "sounds": [
+      {
+        "name": "viksstuff:reveal/narration_generic_v2",
+        "stream": true
+      }
+    ]
   }
 }

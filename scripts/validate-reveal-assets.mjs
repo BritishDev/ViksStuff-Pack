@@ -26,7 +26,8 @@ for(let tile=0;tile<4;tile++){
 assert.ok(logoAdvance*4<320,'Composed logo must fit the minimum Minecraft title width');
 const logoSize=await sharp(path.join(root,'textures/font/strength-logo.png')).metadata();assert.ok((logoSize.width/logoSize.height*font.providers[0].height+1)*4<320,'Logo must fit the minimum Minecraft GUI width as a main title');
 const flash=await sharp(path.join(root,'textures/font/reveal-flash.png')).ensureAlpha().raw().toBuffer();assert.ok(flash.every(b=>b===255));
-const config=await fs.readFile('src/main/resources/strength-reveal.yml','utf8');for(let variant of ['rain','generic']){let file=path.join(root,`sounds/reveal/narration_${variant}.ogg`);let duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',file]));let ticks=Number(config.match(new RegExp(`narration-${variant}-ticks: (\\d+)`))[1]);assert.ok(ticks/20>=duration&&ticks/20<duration+1);assert.ok(duration>10&&duration<30);}
+const variants=['rain','generic','rain_v2','generic_v2'];
+const config=await fs.readFile('src/main/resources/strength-reveal.yml','utf8');for(let variant of variants){let file=path.join(root,`sounds/reveal/narration_${variant}.ogg`);let duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',file]));let ticks=Number(config.match(new RegExp(`narration-${variant}-ticks: (\\d+)`))[1]);assert.ok(ticks/20>=duration&&ticks/20<duration+1);assert.ok(duration>10&&duration<40);}
 const welcome=JSON.parse(await fs.readFile(path.join(root,'font/reveal_welcome.json'),'utf8'));
 const welcomeBitmap=welcome.providers.find(p=>p.type==='bitmap');
 assert.equal(welcomeBitmap.file,'minecraft:font/ascii.png');assert.equal(welcomeBitmap.height,3);assert.equal(welcomeBitmap.ascent,2);
@@ -38,19 +39,22 @@ for(const id of ['victory','narration_bed']){
  assert.equal(sounds[`reveal.${id}`].sounds[0].name,`viksstuff:reveal/${id}`);
  const info=JSON.parse(execFileSync('ffprobe',['-v','error','-show_entries','stream=codec_name,sample_rate,channels:format=duration','-of','json',path.join(root,`sounds/reveal/${id}.ogg`)]));
  assert.equal(info.streams[0].codec_name,'vorbis');assert.equal(info.streams[0].sample_rate,'48000');assert.equal(info.streams[0].channels,1);
- const duration=Number(info.format.duration);const longestNarrationTicks=Math.max(...['rain','generic'].map(variant=>Number(config.match(new RegExp(`narration-${variant}-ticks: (\\d+)`))[1])));assert.ok(id==='victory'?duration>5&&duration<7:Math.abs(duration-longestNarrationTicks/20)<.01);
+ const duration=Number(info.format.duration);const longestNarrationTicks=Math.max(...variants.map(variant=>Number(config.match(new RegExp(`narration-${variant}-ticks: (\\d+)`))[1])));assert.ok(id==='victory'?duration>5&&duration<7:Math.abs(duration-longestNarrationTicks/20)<.01);
 }
 let timedWords=0;
-for(const variant of ['rain','generic']){
+for(const variant of variants){
  const source=JSON.parse(await fs.readFile(`ViksStuff-Pack/source-art/strength-reveal/narration-${variant}-timing.json`,'utf8'));
- assert.deepEqual(source.script_lines,[variant==='rain'?'Hello there Rain Dynasty':'Hello there','I have been expecting you','I have been watching you closely and have liked what I have seen.','I have a gift, but make sure to listen closely','Take this key. When the vault appears, look at it and right click from where you are.']);
+ const expected=variant.endsWith('_v2')?['Hello',variant==='rain_v2'?'I have been expecting you Rain Dynasty':'I have been expecting you','I have been watching you, and I have liked what I have seen','I am here to congratulate you, but first you must do something for me','Take this key, and when you see a vault, right click it from where you are standing','Best of luck']:[variant==='rain'?'Hello there Rain Dynasty':'Hello there','I have been expecting you','I have been watching you closely and have liked what I have seen.','I have a gift, but make sure to listen closely','Take this key. When the vault appears, look at it and right click from where you are.'];
+ assert.deepEqual(source.script_lines,expected);
  assert.equal(source.pause.after_line,4);assert.equal(source.pause.duration_ms,1000);assert.equal(source.pause.end_ms-source.pause.start_ms,1000);
  const section=config.split(`captions-${variant}:\n`)[1].split('captions-')[0];
  const phrases=[...section.matchAll(/  - text: (.+)\n/g)].map(m=>JSON.parse(m[1]));assert.deepEqual(phrases,source.phrases);assert.ok(phrases.every(p=>p.length<=36));
  const words=[...section.matchAll(/\{start: (\d+), end: (\d+), from: (\d+), to: (\d+)\}/g)];assert.equal(words.length,source.words.length);
  let previousEnd=-1;const duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',path.join(root,`sounds/reveal/narration_${variant}.ogg`)]))*1000;
  words.forEach((word,i)=>{const start=Number(word[1]),end=Number(word[2]),raw=source.words[i];assert.equal(start,Math.round(raw.offset/10000/.9));assert.equal(end,Math.round((raw.offset+raw.duration)/10000/.9));assert.ok(start>=previousEnd&&end>start&&end<duration);previousEnd=end;timedWords++;});
- const instructionIndex=source.phrases.slice(0,6).reduce((count,phrase)=>count+phrase.split(' ').length,0);
+ const instructionPhrase=source.phrases.findIndex(phrase=>phrase.startsWith('Take this key'));
+ assert.ok(instructionPhrase>0);
+ const instructionIndex=source.phrases.slice(0,instructionPhrase).reduce((count,phrase)=>count+phrase.split(' ').length,0);
  assert.equal(Number(words[instructionIndex-1][2]),source.pause.start_ms);
  assert.equal(Number(words[instructionIndex][1]),source.pause.end_ms);
  // Verify the delivered OGG contains silence, allowing the existing short echo tail.

@@ -8,7 +8,8 @@ export async function buildRevealNarration() {
  const sounds=JSON.parse(await fs.readFile(path.join(root,'sounds.json'),'utf8'));
  const durations={},captions={};
  await fs.mkdir(path.join(root,'sounds/reveal'),{recursive:true});
- for(const variant of ['rain','generic']) {
+ const variants=['rain','generic','rain_v2','generic_v2'];
+ for(const variant of variants) {
   const out=path.join(root,`sounds/reveal/narration_${variant}.ogg`);
   execFileSync('ffmpeg',['-v','error','-y','-i',path.join(pack,`source-art/strength-reveal/narration-${variant}.mp3`),'-af','atempo=0.9,highpass=f=80,lowpass=f=5500,equalizer=f=180:t=q:w=1:g=3,aecho=0.8:0.88:85|145:0.12|0.07,loudnorm=I=-15:TP=-1.5:LRA=8,volume=4dB,alimiter=limit=0.841395:level=false:latency=true','-ar','48000','-ac','1','-c:a','libvorbis','-q:a','5',out]);
   durations[variant]=Math.ceil(Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',out]))*20)+6;
@@ -35,8 +36,9 @@ export async function buildRevealNarration() {
  execFileSync('ffmpeg',['-v','error','-y','-stream_loop','-1','-i',path.join(root,'sounds/orb/hum.ogg'),'-t',String(Math.max(...Object.values(durations))/20),'-af','afade=t=in:d=0.3','-ar','48000','-ac','1','-c:a','libvorbis','-q:a','5',bed]);
  sounds['reveal.narration_bed']={sounds:[{name:'viksstuff:reveal/narration_bed',stream:true}]};
  await fs.writeFile(path.join(root,'sounds.json'),JSON.stringify(sounds,null,2)+'\n');
- let config=`# Generated from encoded audio and service word boundaries; times in milliseconds.\nnarration-rain-ticks: ${durations.rain}\nnarration-generic-ticks: ${durations.generic}\n`;
- for(const variant of ['rain','generic']){
+ let config='# Generated from encoded audio and service word boundaries; times in milliseconds.\n';
+ for(const variant of variants)config+=`narration-${variant}-ticks: ${durations[variant]}\n`;
+ for(const variant of variants){
   config+=`captions-${variant}:\n`;
   for(const phrase of captions[variant]){
    config+=`  - text: ${JSON.stringify(phrase.text)}\n    words:\n`;
@@ -54,9 +56,18 @@ I have a gift, but make sure to listen closely
 [one-second pause]
 Take this key. When the vault appears, look at it and right click from where you are.
 
-The pause is inserted into decoded audio and accounts for the final 0.9 tempo and the instruction's lead-in. Word timestamps include the pause and drive the gold action-bar captions. Generic variant omits the name for test recipients. A separate narration bed reuses the licensed orb hum at 0.24 playback volume, 20 percent below the normal 0.30 distant bed. The custom victory fanfare source and CC0 license are recorded in victory-source.json.
+Second iteration (default):
+Hello
+I have been expecting you Rain Dynasty
+I have been watching you, and I have liked what I have seen
+I am here to congratulate you, but first you must do something for me
+[one-second pause]
+Take this key, and when you see a vault, right click it from where you are standing
+Best of luck
+
+The pause is inserted into decoded audio and accounts for the final 0.9 tempo and the instruction's lead-in. Word timestamps include the pause and drive the gold action-bar captions and key delivery at the start of Take this key. Generic variants omit the name for test recipients. The original iteration remains selectable. A separate narration bed reuses the licensed orb hum at 0.24 playback volume, 20 percent below the normal 0.30 distant bed. The custom victory fanfare source and CC0 license are recorded in victory-source.json.
 `);
- console.log('REVEAL NARRATION PASS: two neural tracks and synchronized captions',durations);
+ console.log('REVEAL NARRATION PASS: four neural tracks and synchronized captions',durations);
 }
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))await buildRevealNarration();

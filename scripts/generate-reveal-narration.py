@@ -4,6 +4,7 @@ import json
 import math
 import subprocess
 import tempfile
+import sys
 import wave
 from pathlib import Path
 
@@ -19,22 +20,43 @@ CAPTIONS = ["Hello there Rain Dynasty", "I have been expecting you",
             "I have a gift,", "but make sure to listen closely",
             "Take this key.", "When the vault appears,",
             "look at it and right click", "from where you are."]
+SCRIPT_V2 = ["Hello", "I have been expecting you Rain Dynasty",
+             "I have been watching you, and I have liked what I have seen",
+             "I am here to congratulate you, but first you must do something for me",
+             "Take this key, and when you see a vault, right click it from where you are standing",
+             "Best of luck"]
+CAPTIONS_V2 = ["Hello", "I have been expecting you",
+               "Rain Dynasty", "I have been watching you,",
+               "and I have liked what I have seen",
+               "I am here to congratulate you,",
+               "but first you must do",
+               "something for me", "Take this key,",
+               "and when you see a vault,",
+               "right click it from where",
+               "you are standing", "Best of luck"]
 TEMPO = .9  # The final encoder slows the voice with atempo=0.9.
 SAMPLE_RATE = 48000
 
 
 async def speech(text):
-    audio, words = bytearray(), []
-    voice = edge_tts.Communicate(text, "en-GB-ThomasNeural",
-                                rate="-17%", pitch="-20Hz", boundary="WordBoundary")
-    async for event in voice.stream():
-        if event["type"] == "audio":
-            audio.extend(event["data"])
-        elif event["type"] == "WordBoundary":
-            words.append({k: event[k] for k in ("text", "offset", "duration")})
-    if not audio or not words:
-        raise RuntimeError("Speech service returned incomplete audio/timestamps")
-    return audio, words
+    for attempt in range(4):
+        audio, words = bytearray(), []
+        voice = edge_tts.Communicate(text, "en-GB-ThomasNeural",
+                                    rate="-17%", pitch="-20Hz", boundary="WordBoundary")
+        try:
+            async for event in voice.stream():
+                if event["type"] == "audio":
+                    audio.extend(event["data"])
+                elif event["type"] == "WordBoundary":
+                    words.append({k: event[k] for k in ("text", "offset", "duration")})
+            if not audio or not words:
+                raise RuntimeError("Speech service returned incomplete audio/timestamps")
+            return audio, words
+        except Exception:
+            if attempt == 3:
+                raise
+            print(f"Voice request retry {attempt + 1}", flush=True)
+            await asyncio.sleep(2 ** (attempt + 1))
 
 
 def pcm(directory, name, audio):
@@ -47,12 +69,16 @@ def pcm(directory, name, audio):
 
 
 async def generate(variant):
-    lines, phrases = SCRIPT.copy(), CAPTIONS.copy()
-    if variant == "generic":
+    second = variant.endswith("_v2")
+    lines, phrases = (SCRIPT_V2.copy(), CAPTIONS_V2.copy()) if second else (SCRIPT.copy(), CAPTIONS.copy())
+    if variant == "generic_v2":
+        lines[1] = "I have been expecting you"
+        phrases.remove("Rain Dynasty")
+    elif variant == "generic":
         lines[0] = phrases[0] = "Hello there"
     # Sentence punctuation shapes the spoken pauses; captions retain the supplied wording.
     intro, intro_words = await speech(" ".join(line.rstrip(".") + "." for line in lines[:4]))
-    instruction, instruction_words = await speech(lines[4].rstrip(".") + ".")
+    instruction, instruction_words = await speech(" ".join(line.rstrip(".") + "." for line in lines[4:]))
     DEST.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="reveal-narration-") as scratch:
         directory = Path(scratch)
@@ -88,7 +114,10 @@ async def generate(variant):
 
 
 async def main():
-    for variant in ("rain", "generic"):
+    variants = sys.argv[1:] or ["rain", "generic", "rain_v2", "generic_v2"]
+    for variant in variants:
+        if variant not in ("rain", "generic", "rain_v2", "generic_v2"):
+            raise ValueError(f"Unknown narration variant: {variant}")
         await generate(variant)
 
 
