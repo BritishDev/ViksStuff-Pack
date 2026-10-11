@@ -7,7 +7,23 @@ for(const id of ['key','vault_frame','vault_door','vault_wheel']){
  for(let e of model.elements){for(let axis=0;axis<3;axis++){assert.ok(e.from[axis]<e.to[axis]);assert.ok(e.from[axis]>=-16&&e.to[axis]<=32);}for(let face of Object.values(e.faces)){let t=model.textures[face.texture.slice(1)];await fs.access(path.join(root,'textures',t.slice('viksstuff:'.length)+'.png'));}elements++;}
 }
 const logo=await sharp(path.join(root,'textures/font/strength-logo.png')).ensureAlpha().raw().toBuffer();let transparent=0,opaque=0;for(let i=3;i<logo.length;i+=4){if(logo[i]===0)transparent++;if(logo[i]>200)opaque++;}assert.ok(transparent>logo.length/16);assert.ok(opaque>logo.length/16);
-const font=JSON.parse(await fs.readFile(path.join(root,'font/reveal.json'),'utf8'));assert.equal(font.providers[0].chars[0],'\ue700');assert.equal(font.providers[0].height,28);assert.equal(font.providers[1].chars[0],'\ue701');assert.equal(font.providers[1].height,1024);
+const font=JSON.parse(await fs.readFile(path.join(root,'font/reveal.json'),'utf8'));assert.equal(font.providers[0].chars[0],'\ue700\ue702\ue703\ue704');assert.equal(font.providers[0].height,28);assert.equal(font.providers[1].chars[0],'\ue701');assert.equal(font.providers[1].height,1024);
+for(const provider of font.providers.filter(p=>p.type==='bitmap')){
+ const size=await sharp(path.join(root,'textures',provider.file.slice('viksstuff:'.length))).metadata();
+ const columns=[...provider.chars[0]].length,rows=provider.chars.length;
+ assert.ok(provider.chars.every(row=>[...row].length===columns),'Bitmap glyph rows must have equal length');
+ assert.equal(size.width%columns,0);assert.equal(size.height%rows,0);
+ assert.ok(size.width/columns<=256&&size.height/rows<=256,'Native Minecraft font atlas silently rejects bitmap cells larger than 256x256; display height does not shrink the uploaded bitmap');
+}
+const spacing=font.providers.find(p=>p.type==='space');
+const logoRaw=await sharp(path.join(root,'textures/font/strength-logo.png')).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+const cellWidth=logoRaw.info.width/4,scale=28/logoRaw.info.height;let logoAdvance=0;
+for(let tile=0;tile<4;tile++){
+ let actualWidth=0;for(let x=cellWidth-1;x>=0&&!actualWidth;x--)for(let y=0;y<logoRaw.info.height;y++)if(logoRaw.data[(y*logoRaw.info.width+tile*cellWidth+x)*4+3]){actualWidth=x+1;break;}
+ const advance=Math.trunc(.5+actualWidth*scale)+1;assert.ok(advance<=32,'Individual logo tiles must retain safe font advances');logoAdvance+=advance;
+ if(tile<3){const compensation=spacing.advances[String.fromCodePoint(0xe710+tile)];assert.equal(advance+compensation,cellWidth*scale,'Logo tiles must meet without seams or overlap');logoAdvance+=compensation;}
+}
+assert.ok(logoAdvance*4<320,'Composed logo must fit the minimum Minecraft title width');
 const logoSize=await sharp(path.join(root,'textures/font/strength-logo.png')).metadata();assert.ok((logoSize.width/logoSize.height*font.providers[0].height+1)*4<320,'Logo must fit the minimum Minecraft GUI width as a main title');
 const flash=await sharp(path.join(root,'textures/font/reveal-flash.png')).ensureAlpha().raw().toBuffer();assert.ok(flash.every(b=>b===255));
 const config=await fs.readFile('src/main/resources/strength-reveal.yml','utf8');for(let variant of ['rain','generic']){let file=path.join(root,`sounds/reveal/narration_${variant}.ogg`);let duration=Number(execFileSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',file]));let ticks=Number(config.match(new RegExp(`narration-${variant}-ticks: (\\d+)`))[1]);assert.ok(ticks/20>=duration&&ticks/20<duration+1);assert.ok(duration>10&&duration<30);}

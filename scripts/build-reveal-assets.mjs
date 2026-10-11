@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import sharp from 'sharp';
+import {buildRevealFont} from './build-reveal-font.mjs';
 const pack=path.resolve('ViksStuff-Pack'),root=path.join(pack,'overlay/assets/viksstuff');
 const write=async(p,x)=>{await fs.mkdir(path.dirname(p),{recursive:true});await fs.writeFile(p,JSON.stringify(x,null,2)+'\n');};
 const box=(a,b,t='gold')=>({from:a,to:b,shade:t!=='gem',light_emission:t==='gem'?15:0,faces:Object.fromEntries(['up','down','north','south','east','west'].map(f=>[f,{texture:'#'+t,uv:[0,0,16,16]}]))});
@@ -27,10 +28,7 @@ for(const [id,elements]of Object.entries(models)) {
  await write(path.join(root,`models/item/reveal/${id}.json`),{ambientocclusion:false,textures:{gold:'viksstuff:item/reveal/gold',steel:'viksstuff:item/reveal/steel',gem:'viksstuff:item/reveal/gem',particle:'viksstuff:item/reveal/gold'},elements,display:{fixed:{rotation:[0,180,0],translation:[0,0,0],scale:[1,1,1]},gui:{rotation:[0,0,-35],scale:[.9,.9,.9]},firstperson_righthand:{rotation:[0,-90,20],translation:[1,2,1],scale:[.9,.9,.9]},thirdperson_righthand:{rotation:[0,-90,0],translation:[0,2,0],scale:[.8,.8,.8]}}});
  await write(path.join(root,`items/reveal/${id}.json`),{model:{type:'minecraft:model',model:`viksstuff:item/reveal/${id}`}});
 }
-await fs.mkdir(path.join(root,'textures/font'),{recursive:true});
-await sharp(path.join(pack,'source-art/strength-reveal/logo-transparent.png')).resize({width:1024}).png().toFile(path.join(root,'textures/font/strength-logo.png'));
-await sharp({create:{width:16,height:16,channels:4,background:{r:255,g:255,b:255,alpha:1}}}).png().toFile(path.join(root,'textures/font/reveal-flash.png'));
-await write(path.join(root,'font/reveal.json'),{providers:[{type:'bitmap',file:'viksstuff:font/strength-logo.png',height:28,ascent:7,chars:['\ue700']},{type:'bitmap',file:'viksstuff:font/reveal-flash.png',height:1024,ascent:512,chars:['\ue701']}]});
+await buildRevealFont();
 const sounds=JSON.parse(await fs.readFile(path.join(root,'sounds.json'),'utf8'));const durations={};
 const captions={};
 await fs.mkdir(path.join(root,'sounds/reveal'),{recursive:true});
