@@ -1,4 +1,4 @@
-Logo supplied by user; transparent edit by image generation. Original gold key and vault geometry authored for this project. Narration generated using Microsoft Edge ThomasNeural via edge-tts 7.2.8, rate -17%, pitch -20Hz; final pacing, EQ and restrained echo processed with FFmpeg. Voice source documentation: https://github.com/rany2/edge-tts
+Logo supplied by user; transparent edit by image generation. Original gold key and vault geometry authored for this project. Narration generated using Microsoft Edge ThomasNeural via edge-tts 7.2.8, rate -17%, pitch -20Hz; final pacing, EQ and restrained echo processed with FFmpeg. The original -15 LUFS normalization is followed by a 3 dB gain and a -1.5 dB peak limiter with latency compensation, giving a modest audible boost without shifting the captions. Voice source documentation: https://github.com/rany2/edge-tts
 
 Script:
 Hello there Rain Dynasty
