@@ -26,7 +26,7 @@ result = subprocess.run([str(compiler), "-l", str(output / "text.vert"), str(out
 if result.returncode: raise SystemExit(result.stdout + result.stderr)
 
 assets = root / "overlay/assets/viksstuff"
-for font, expected_advance in [("parkour_timer_digits", 7), ("parkour_timer_small", 6)]:
+for font, expected_advance in [("parkour_timer_digits", 12), ("parkour_timer_small", 7)]:
     providers = json.loads((assets / f"font/{font}.json").read_text())["providers"]
     for provider in providers:
         if provider["type"] != "bitmap": continue
@@ -39,9 +39,11 @@ for font, expected_advance in [("parkour_timer_digits", 7), ("parkour_timer_smal
             actual = int((max(occupied) + 1) * scale + 0.5) + 1
             assert actual == expected_advance, (font, char, actual, expected_advance)
 panel = Image.open(assets / "textures/parkour/timer_panel.png")
-assert panel.size == (200, 17) and panel.getpixel((100, 12))[3] == 255
-assert panel.getpixel((100, 2))[3] == 180
-assert panel.getpixel((0, 1)) == (255, 0, 255, 255)
-assert panel.getpixel((5, 14)) == (1, 0, 254, 255)
-assert panel.getpixel((194, 14)) == (254, 0, 254, 255)
-print("PARKOUR TIMER SHADERS PASS: linked vertex/fragment stages using native 1.21.11 includes; 49 fixed-width glyphs; translucent inline strip; server-driven countdown progress mask.")
+assert panel.size == (186, 20)
+assert panel.getpixel((38,10))[3] == 0 and panel.getpixel((155,10))[3] == 0
+assert panel.getpixel((18,10)) == (35,35,38,255), 'Rank must be supplied by the plugin'
+assert panel.getpixel((172,10)) == (35,35,38,255), 'Head must be supplied by the live player profile'
+for name in ('white_background','white_progress'):
+    sprite=Image.open(root / f'overlay/assets/minecraft/textures/gui/sprites/boss_bar/{name}.png')
+    assert sprite.size == (182,5) and not sprite.getchannel('A').getbbox()
+print("GOLD PARKOUR SHADERS PASS: native 1.21.11 shader stages linked; 34 fixed-width glyphs; three separated badges; no baked rank or player face; transparent WHITE carrier sprites.")

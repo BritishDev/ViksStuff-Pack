@@ -43,11 +43,17 @@ Resource pack assets for the standalone Viks Stuff recording server
 
 ## Parkour relay timer
 
-The `parkour_timer`, `parkour_timer_digits`, and `parkour_timer_small` fonts form
-a slim, one-line timer in the boss-bar area. The label region is translucent;
-the lower band masks the timer's native progress sprite. A scoped Minecraft
-1.21.11 text shader supplies phase accents and a server-controlled countdown
-line without replacing global boss-bar textures.
+The selected Championship Gold HUD uses the `parkour_timer`,
+`parkour_timer_digits`, and `parkour_timer_small` fonts for three separate
+beveled gold badges: live rank, current section time, and the current runner's
+Minecraft head. Numbers and portraits are supplied by the plugin, not baked
+into the artwork. Section times are ranked directly against other runners'
+latest section times, including different sections; ties use displayed hundredths.
+
+A scoped Minecraft 1.21.11 text shader enlarges native skin-backed text heads
+to 16 by 16 pixels. The WHITE boss-bar color is reserved as an invisible HUD
+carrier; only its background and progress sprites are blanked. Other colors
+keep vanilla sprites. The plugin's plain fallback uses BLUE.
 
 Regenerate assets with `python scripts/build-parkour-timer.py`, then run the
 normal reproducible pack build. `scripts/validate-parkour-timer.py` links both
@@ -55,6 +61,8 @@ shader stages against a 1.21.11 client JAR and checks bitmap advances. The
 `previews/parkour-timer-states.png` image is an artwork preview, not client proof.
 
 On the matching plugin build, `/parkourtimer preview` demonstrates the ten-second
-start, two twenty-second legs, and a five-second handover. Client appearance,
+start, two twenty-second legs, and a five-second handover. Manual controls
+include `handover [next player]`, `runner <player>` during a countdown, and
+`standings` for recorded results. Client appearance,
 GUI scaling, stacked boss bars, and modded-client shader support need an in-game
 playtest after deployment.

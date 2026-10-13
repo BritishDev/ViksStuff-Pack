@@ -63,62 +63,96 @@ def pixels(image, rows, x, y, color=(255, 255, 255, 255)):
 def save_json(name, providers):
     (FONTS / name).write_text(json.dumps({"providers": providers}, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 
-panel = Image.new("RGBA", (200, 17), (12, 16, 23, 180))
+# Code-native Championship Gold artwork, recreated from the selected concept.
+DIGITS.update({
+    "#": ["01010", "01010", "11111", "01010", "11111", "01010", "01010"],
+    "-": ["00000", "00000", "00000", "11111", "00000", "00000", "00000"],
+    "?": ["01110", "10001", "00001", "00010", "00100", "00000", "00100"],
+    "+": ["00000", "00100", "00100", "11111", "00100", "00100", "00000"],
+    "s": ["00000", "00000", "01111", "10000", "01110", "00001", "11110"],
+})
+
+def outline(x, y, w, h, cut):
+    return [(x+cut,y),(x+w-1-cut,y),(x+w-1,y+cut),(x+w-1,y+h-1-cut),
+            (x+w-1-cut,y+h-1),(x+cut,y+h-1),(x,y+h-1-cut),(x,y+cut)]
+
+panel = Image.new("RGBA", (186, 20))
 draw = ImageDraw.Draw(panel)
-# The lower band masks this bar's native 182x5 sprite; the text area remains translucent.
-draw.rectangle((0, 11, 199, 16), fill=(17, 22, 31, 255))
-draw.line((0, 1, 0, 15), fill=(255, 0, 255, 255))
-for index, x in enumerate(range(5, 195)):
-    panel.putpixel((x, 14), (1 + round(index / 189 * 253), 0, 254, 255))
+for left, width in [(0, 36), (41, 112), (158, 28)]:
+    draw.polygon(outline(left, 0, width, 20, 4), fill=(47,32,12,255))
+    draw.polygon(outline(left+1, 1, width-2, 18, 3), fill=(169,111,27,255))
+    draw.polygon(outline(left+2, 2, width-4, 16, 2), fill=(244,187,57,255))
+    draw.line((left+5,1,left+width-6,1), fill=(255,232,142,255))
+    draw.line((left+5,2,left+width-6,2), fill=(255,216,91,255))
+    draw.line((left+4,18,left+width-5,18), fill=(112,70,19,255))
+    draw.polygon(outline(left+3,3,width-6,14,1), fill=(95,65,24,255))
+    draw.polygon(outline(left+4,4,width-8,12,1), fill=(35,35,38,255))
+    draw.line((left+5,4,left+width-6,4), fill=(61,60,58,255))
+# Gold stopwatch in the timer badge, independently of all live values.
+draw.rectangle((52,3,56,4), fill=(255,216,91,255))
+draw.rectangle((53,4,55,5), fill=(169,111,27,255))
+draw.ellipse((47,5,60,17), fill=(123,77,18,255))
+draw.ellipse((48,5,59,16), fill=(255,216,91,255))
+draw.ellipse((50,7,57,14), fill=(255,245,219,255))
+draw.line((54,8,54,11), fill=(43,38,30,255))
+draw.line((54,11,56,11), fill=(43,38,30,255))
 panel.save(TEXTURES / "timer_panel.png")
-advances = {chr(0xE800 + n + 201): n for n in range(-201, 202)}
+
+advances = {chr(0xE800+n+187): n for n in range(-187,188)}
 save_json("parkour_timer.json", [
-    {"type": "bitmap", "file": "viksstuff:parkour/timer_panel.png", "height": 17, "ascent": 9, "chars": ["\uE600"]},
-    {"type": "space", "advances": advances},
+    {"type":"bitmap","file":"viksstuff:parkour/timer_panel.png","height":20,"ascent":9,"chars":["\uE600"]},
+    {"type":"space","advances":advances},
 ])
+characters = "0123456789:.s#-?+"
+for name, cell, height, display_height, ascent in [
+    ("digits",8,10,14,4), ("small",6,8,8,2)
+]:
+    sheet = Image.new("RGBA", (cell*len(characters),height))
+    for index, char in enumerate(characters):
+        pixels(sheet,DIGITS[char],index*cell,0)
+        sheet.putpixel((index*cell+cell-1,height-1),(255,255,255,1))
+    sheet.save(TEXTURES / f"timer_{name}.png")
+    save_json(f"parkour_timer_{name}.json",[{
+        "type":"bitmap","file":f"viksstuff:parkour/timer_{name}.png",
+        "height":display_height,"ascent":ascent,"chars":[characters]
+    }])
 
-digit_chars = "0123456789:."
-sheet = Image.new("RGBA", (6 * len(digit_chars), 8))
-for index, char in enumerate(digit_chars):
-    pixels(sheet, DIGITS[char], index * 6, 0)
-    # Alpha 1 measures the full cell for monospaced advances; vanilla's alpha cutoff hides it.
-    sheet.putpixel((index * 6 + 5, 7), (255, 255, 255, 1))
-sheet.save(TEXTURES / "timer_digits.png")
-save_json("parkour_timer_digits.json", [{"type": "bitmap", "file": "viksstuff:parkour/timer_digits.png", "height": 8, "ascent": 7, "chars": [digit_chars]}])
+# The WHITE boss-bar color is reserved for the custom carrier. Other colors keep vanilla sprites.
+native_bars = ROOT / "overlay/assets/minecraft/textures/gui/sprites/boss_bar"
+native_bars.mkdir(parents=True, exist_ok=True)
+for name in ("white_background","white_progress"):
+    Image.new("RGBA",(182,5)).save(native_bars / f"{name}.png")
 
-small_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789|"
-small_sheet = Image.new("RGBA", (5 * len(small_chars), 7))
-for index, char in enumerate(small_chars):
-    pixels(small_sheet, SMALL[char], index * 5, 0)
-    if small_sheet.getpixel((index * 5 + 4, 6))[3] == 0:
-        small_sheet.putpixel((index * 5 + 4, 6), (255, 255, 255, 1))
-small_sheet.save(TEXTURES / "timer_small.png")
-save_json("parkour_timer_small.json", [
-    {"type": "space", "advances": {" ": 6}},
-    {"type": "bitmap", "file": "viksstuff:parkour/timer_small.png", "height": 7, "ascent": 7, "chars": [small_chars]},
-])
+# Deterministic render preview only; the plugin supplies the real player skin at runtime.
+face = [
+    ["h"]*8, ["h"]*8, ["h","t","t","t","t","t","t","h"], ["t"]*8,
+    ["t","w","b","t","t","b","w","t"], ["t","t","t","n","n","t","t","t"],
+    ["t","t","d","d","d","d","t","t"], ["t","t","d","n","n","d","t","t"],
+]
+colors = {"h":(65,40,20,255),"t":(187,133,97,255),"w":(242,234,214,255),
+          "b":(76,75,156,255),"n":(143,79,53,255),"d":(76,43,27,255)}
+avatar = Image.new("RGBA",(8,8))
+for y,row in enumerate(face):
+    for x,value in enumerate(row): avatar.putpixel((x,y),colors[value])
 
-preview = Image.new("RGBA", (224, 143), (35, 46, 60, 255))
-states = [("RELAY STARTS IN", "00:10.00", (255, 213, 0, 255), 1),
-          ("RELAY TIME | LEG 1", "00:18.42", (41, 231, 255, 255), 1),
-          ("NEXT RUNNER IN", "00:03.00", (255, 213, 0, 255), .6),
-          ("RELAY PAUSED", "00:42.73", (204, 102, 255, 255), 1),
-          ("RELAY COMPLETE", "01:22.56", (57, 255, 136, 255), 1)]
-for index, (label, time, accent, progress) in enumerate(states):
+preview = Image.new("RGBA",(214,148),(25,33,45,255))
+states = [("#-","10.00s"),("#1","42.73s"),("#2","05.00s"),("#2","42.73s"),("#1","18.24s")]
+for index,(rank,time) in enumerate(states):
     rendered = panel.copy()
-    for y in range(17):
-        for x in range(200):
-            r, g, b, a = rendered.getpixel((x, y))
-            if (r, g, b) == (255, 0, 255): rendered.putpixel((x, y), accent)
-            elif b == 254 and g == 0:
-                rendered.putpixel((x, y), accent if (r - 1) / 253 <= progress else (56, 66, 82, 255))
-    label_x = 10
-    for i, char in enumerate(label):
-        if char != " ": pixels(rendered, SMALL[char], label_x + i * 6, 2, (255, 245, 230, 255))
-    time_x = 201 - 10 - len(time) * 7
-    for i, char in enumerate(time): pixels(rendered, DIGITS[char], time_x + i * 7, 2, accent)
-    preview.alpha_composite(rendered, (12, 10 + index * 26))
-preview_path = ROOT / "previews/parkour-timer-states.png"
-preview_path.parent.mkdir(parents=True, exist_ok=True)
-preview.resize((896, 572), Image.Resampling.NEAREST).save(preview_path)
-print(f"PARKOUR TIMER ART PASS: 3 fonts, inline fixed-width digits, 200x17 strip, countdown progress mask, preview {preview_path}")
+    def write(text,left,top,scale,color):
+        for i,char in enumerate(text):
+            raw = Image.new("RGBA",(8,10))
+            pixels(raw,DIGITS[char],0,0,color)
+            scaled = raw.resize((round(8*scale),round(10*scale)),Image.Resampling.NEAREST)
+            rendered.alpha_composite(scaled,(left+i*12,top))
+    rank_width=len(rank)*12
+    write(rank,(36-rank_width)//2,5,1.4,(255,245,230,255))
+    time_width=len(time)*12
+    write(time[:-1],65+(82-time_width)//2,5,1.4,(255,245,230,255))
+    write("s",65+(82-time_width)//2+(len(time)-1)*12,5,1.4,(255,216,91,255))
+    rendered.alpha_composite(avatar.resize((16,16),Image.Resampling.NEAREST),(164,2))
+    preview.alpha_composite(rendered,(14,10+index*27))
+preview_path=ROOT/"previews/parkour-timer-states.png"
+preview_path.parent.mkdir(parents=True,exist_ok=True)
+preview.resize((856,592),Image.Resampling.NEAREST).save(preview_path)
+print(f"GOLD PARKOUR HUD ART PASS: three badges, 186x20, dynamic text/head slots, preview {preview_path}")
