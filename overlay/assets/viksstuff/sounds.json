@@ -109,5 +109,69 @@
         "stream": true
       }
     ]
+  },
+  "parkour.ready": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/ready",
+        "stream": false
+      }
+    ]
+  },
+  "parkour.set": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/set",
+        "stream": false
+      }
+    ]
+  },
+  "parkour.go": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/go",
+        "stream": false
+      }
+    ]
+  },
+  "parkour.slime": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/slime",
+        "stream": false
+      }
+    ]
+  },
+  "parkour.checkpoint": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/checkpoint",
+        "stream": false
+      }
+    ]
+  },
+  "parkour.warp_out": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/warp_out",
+        "stream": false
+      }
+    ]
+  },
+  "parkour.warp_in": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/warp_in",
+        "stream": false
+      }
+    ]
+  },
+  "parkour.finish": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/finish",
+        "stream": false
+      }
+    ]
   }
 }

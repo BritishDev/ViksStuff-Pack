@@ -27,6 +27,9 @@ void main() {
         }
         float scale = float(marker.g) / 200.0;
         float centerX = -ProjMat[3][0] / ProjMat[0][0];
+        // BossHealthOverlay centers with integer division. Correct its half-pixel
+        // offset on odd GUI widths before scaling the 194px artwork.
+        position.x += fract(centerX);
         position.xy = vec2(centerX, 4.0) + (position.xy - vec2(centerX, 4.0)) * scale;
         vertexColor = vec4(1.0,1.0,1.0,Color.a);
     }

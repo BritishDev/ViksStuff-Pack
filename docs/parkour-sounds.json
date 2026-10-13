@@ -1,0 +1,57 @@
+{
+  "sample_rate": 48000,
+  "channels": 1,
+  "encoding": "Vorbis",
+  "seed": 73109,
+  "provenance": "Original procedural synthesis; no voice or third-party samples.",
+  "sounds": {
+    "ready": {
+      "seconds": 0.3773,
+      "decoded_peak": 0.6963,
+      "rms": 0.291,
+      "sha256": "da62eb3e9ade8fc944917d309420f2f53f633281957e826ab6d5a8b297145665"
+    },
+    "set": {
+      "seconds": 0.2173,
+      "decoded_peak": 0.6975,
+      "rms": 0.2845,
+      "sha256": "766185b7a70e8f67dbf2f68800615c65d620edaaf7f54dd2be01d5de692fc427"
+    },
+    "go": {
+      "seconds": 0.5693,
+      "decoded_peak": 0.6933,
+      "rms": 0.1581,
+      "sha256": "1c73cfa09d398e9ae1c176dc4dbca0ee548a0e3633f44bf2066af3b7f48327bb"
+    },
+    "slime": {
+      "seconds": 0.3673,
+      "decoded_peak": 0.6918,
+      "rms": 0.194,
+      "sha256": "08890b90ae44189c3be2c37817706eb86eb00be5a4552e2713dc04c3178d186f"
+    },
+    "checkpoint": {
+      "seconds": 0.7773,
+      "decoded_peak": 0.6706,
+      "rms": 0.1571,
+      "sha256": "34be5331952700833663586e0cd409db19c22b1b85f8463dac72089a95f63904"
+    },
+    "warp_out": {
+      "seconds": 0.5973,
+      "decoded_peak": 0.7035,
+      "rms": 0.222,
+      "sha256": "fa748f95d0d5917f64636f99f77b53aef3101a9560c67d4ae53586b384422ad3"
+    },
+    "warp_in": {
+      "seconds": 0.6273,
+      "decoded_peak": 0.7181,
+      "rms": 0.249,
+      "sha256": "10441602d718376d78ea3498db2d145c743aa3fa6228ea5354e9d83cb12f9711"
+    },
+    "finish": {
+      "seconds": 1.8,
+      "decoded_peak": 0.6848,
+      "rms": 0.1214,
+      "sha256": "e495f01b9113f9cf634e9afd029b1ffef050af4095f5f97ff52f042bf915f0f8"
+    }
+  }
+}
