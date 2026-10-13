@@ -3,8 +3,8 @@
     {
       "type": "bitmap",
       "file": "viksstuff:parkour/timer_digits.png",
-      "height": 14,
-      "ascent": 4,
+      "height": 19,
+      "ascent": -6,
       "chars": [
         "0123456789:.s#-?+"
       ]

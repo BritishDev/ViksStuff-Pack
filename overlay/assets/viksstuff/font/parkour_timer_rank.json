@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:parkour/timer_rank.png",
+      "height": 20,
+      "ascent": -4,
+      "chars": [
+        "0123456789:.s#-?+"
+      ]
+    }
+  ]
+}

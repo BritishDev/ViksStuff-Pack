@@ -26,7 +26,9 @@ result = subprocess.run([str(compiler), "-l", str(output / "text.vert"), str(out
 if result.returncode: raise SystemExit(result.stdout + result.stderr)
 
 assets = root / "overlay/assets/viksstuff"
-for font, expected_advance in [("parkour_timer_digits", 12), ("parkour_timer_small", 7)]:
+metrics = json.loads((root / 'source-art/parkour/metrics.json').read_text())
+for name, spec in metrics['fonts'].items():
+    font, expected_advance = 'parkour_timer_' + name, spec['native_advance']
     providers = json.loads((assets / f"font/{font}.json").read_text())["providers"]
     for provider in providers:
         if provider["type"] != "bitmap": continue
@@ -39,11 +41,15 @@ for font, expected_advance in [("parkour_timer_digits", 12), ("parkour_timer_sma
             actual = int((max(occupied) + 1) * scale + 0.5) + 1
             assert actual == expected_advance, (font, char, actual, expected_advance)
 panel = Image.open(assets / "textures/parkour/timer_panel.png")
-assert panel.size == (186, 20)
-assert panel.getpixel((38,10))[3] == 0 and panel.getpixel((155,10))[3] == 0
-assert panel.getpixel((18,10)) == (35,35,38,255), 'Rank must be supplied by the plugin'
-assert panel.getpixel((172,10)) == (35,35,38,255), 'Head must be supplied by the live player profile'
+assert panel.size == (388, 78)
+assert panel.getpixel((94,39))[3] == 0 and panel.getpixel((300,39))[3] == 0
+assert all(v<90 for v in panel.getpixel((46,39))[:3]), 'Rank must be supplied by the plugin'
+assert all(v<90 for v in panel.getpixel((346,39))[:3]), 'Head must be supplied by the live player profile'
+for frame in metrics['frames']:
+    image = Image.open(assets / f"textures/parkour/timer_{frame['name']}_frame.png")
+    assert image.width <= 256 and image.height <= 256, 'Native bitmap atlas allocation exceeded'
+    assert image.size == (frame['width']*2,78)
 for name in ('white_background','white_progress'):
     sprite=Image.open(root / f'overlay/assets/minecraft/textures/gui/sprites/boss_bar/{name}.png')
     assert sprite.size == (182,5) and not sprite.getchannel('A').getbbox()
-print("GOLD PARKOUR SHADERS PASS: native 1.21.11 shader stages linked; 34 fixed-width glyphs; three separated badges; no baked rank or player face; transparent WHITE carrier sprites.")
+print("REFERENCE GOLD SHADERS PASS: native 1.21.11 stages linked; 51 custom glyphs; original three frame derivatives fit the atlas; no baked sample rank or face; transparent WHITE carrier.")

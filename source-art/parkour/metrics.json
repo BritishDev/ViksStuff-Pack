@@ -1,0 +1,45 @@
+{
+  "width": 195,
+  "height": 39,
+  "frames": [
+    {
+      "name": "rank",
+      "left": 0,
+      "width": 46,
+      "advance": 47,
+      "char": "\ue600"
+    },
+    {
+      "name": "time",
+      "left": 48,
+      "width": 102,
+      "advance": 103,
+      "char": "\ue601"
+    },
+    {
+      "name": "head",
+      "left": 151,
+      "width": 43,
+      "advance": 44,
+      "char": "\ue602"
+    }
+  ],
+  "fonts": {
+    "digits": {
+      "native_advance": 14,
+      "height": 19,
+      "ascent": -6
+    },
+    "rank": {
+      "native_advance": 16,
+      "height": 20,
+      "ascent": -4
+    },
+    "small": {
+      "native_advance": 11,
+      "height": 14,
+      "ascent": -9
+    }
+  },
+  "source_sha256": "4f65714ef1047060fca1af928d342c299b6fb9e5c892ac093a5e13c2a26719d8"
+}

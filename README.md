@@ -44,14 +44,23 @@ Resource pack assets for the standalone Viks Stuff recording server
 ## Parkour relay timer
 
 The selected Championship Gold HUD uses the `parkour_timer`,
-`parkour_timer_digits`, and `parkour_timer_small` fonts for three separate
+`parkour_timer_digits`, `parkour_timer_rank`, and `parkour_timer_small` fonts for three separate
 beveled gold badges: live rank, current section time, and the current runner's
 Minecraft head. Numbers and portraits are supplied by the plugin, not baked
 into the artwork. Section times are ranked directly against other runners'
 latest section times, including different sections; ties use displayed hundredths.
 
+The frames and stopwatch are direct derivatives of the selected original image,
+preserved at `source-art/parkour/championship-gold.png`. The heavy lettering uses
+extracted reference glyphs plus matching additional digits, baked shadows and
+explicit kerning. Each double-resolution frame glyph fits the native font atlas;
+the assembled HUD retains the reference's taller 194-by-39 proportions.
+`source-art/parkour/PROVENANCE.md` and `metrics.json` document the derivatives.
+`previews/parkour-gold-reference-match.png` shows the original above the assembled
+atlas preview. The live portrait always uses the current runner's skin.
+
 A scoped Minecraft 1.21.11 text shader enlarges native skin-backed text heads
-to 16 by 16 pixels. The WHITE boss-bar color is reserved as an invisible HUD
+to 22 by 22 pixels. The WHITE boss-bar color is reserved as an invisible HUD
 carrier; only its background and progress sprites are blanked. Other colors
 keep vanilla sprites. The plugin's plain fallback uses BLUE.
 
