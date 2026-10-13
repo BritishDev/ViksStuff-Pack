@@ -1,0 +1,19 @@
+{
+  "providers": [
+    {
+      "type": "space",
+      "advances": {
+        " ": 6
+      }
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:parkour/timer_small.png",
+      "height": 7,
+      "ascent": 7,
+      "chars": [
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789|"
+      ]
+    }
+  ]
+}
