@@ -64,6 +64,14 @@ to 22 by 22 pixels. The WHITE boss-bar color is reserved as an invisible HUD
 carrier; only its background and progress sprites are blanked. Other colors
 keep vanilla sprites. The plugin's plain fallback uses BLUE.
 
+The matching plugin defaults to 55% size and encodes the live scale in reserved
+GUI colors. The shader scales the entire frame/text/portrait composition together
+around the screen center and a fixed top margin; ordinary text is unaffected.
+`/parkourtimer scale 50` sets 50%, while `scale smaller`, `scale bigger` and
+`scale reset` provide quick adjustment. The saved range is 25%-125% in half-percent
+steps, and changes need no pack download or restart. The scale comparison is
+`previews/parkour-gold-scales.png`; its raster preview is not client proof.
+
 Regenerate assets with `python scripts/build-parkour-timer.py`, then run the
 normal reproducible pack build. `scripts/validate-parkour-timer.py` links both
 shader stages against a 1.21.11 client JAR and checks bitmap advances. The

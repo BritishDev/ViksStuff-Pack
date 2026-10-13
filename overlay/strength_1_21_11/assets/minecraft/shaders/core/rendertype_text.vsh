@@ -16,12 +16,18 @@ void main() {
     vec4 position = ModelViewMat * vec4(Position, 1.0);
     vertexColor = Color * texelFetch(Sampler2, UV2 / 16, 0);
     ivec3 marker = ivec3(round(Color.rgb * 255.0));
-    // Only the runner's reserved GUI head marker: native 8x8 head -> the reference's 22x22 portrait.
+    // Reserved GUI colors encode a live scale for this HUD only. Native text
+    // measurement stays constant; all artwork/text/head geometry scales together.
     if (abs(ProjMat[3][3] - 1.0) < 0.001 && ProjMat[1][1] < 0.0 &&
-        marker == ivec3(4,254,37)) {
-        int corner = gl_VertexID & 3;
-        position.x += corner < 2 ? -7.0 : 7.0;
-        position.y += ((corner == 0 || corner == 3) ? -7.0 : 7.0) + 17.0;
+        marker.b == 37 && (marker.r == 3 || marker.r == 4) && marker.g >= 50 && marker.g <= 250) {
+        if (marker.r == 4) {
+            int corner = gl_VertexID & 3;
+            position.x += corner < 2 ? -7.0 : 7.0;
+            position.y += ((corner == 0 || corner == 3) ? -7.0 : 7.0) + 17.0;
+        }
+        float scale = float(marker.g) / 200.0;
+        float centerX = -ProjMat[3][0] / ProjMat[0][0];
+        position.xy = vec2(centerX, 4.0) + (position.xy - vec2(centerX, 4.0)) * scale;
         vertexColor = vec4(1.0,1.0,1.0,Color.a);
     }
     gl_Position = ProjMat * position;

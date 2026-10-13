@@ -177,6 +177,14 @@ target=ART.crop((120,164,2028,544)).resize((776,155),Image.Resampling.LANCZOS)
 comparison.alpha_composite(target,(12,8))
 comparison.alpha_composite(rendered("#1","42.73s").resize((776,156),Image.Resampling.LANCZOS),(12,179))
 comparison.save(ROOT/"previews/parkour-gold-reference-match.png")
+scale_preview=Image.new("RGBA",(620,336),(24,29,35,255))
+scale_draw=ImageDraw.Draw(scale_preview)
+for factor,top,label in [(1.0,18,"100% reference size"),(0.55,170,"55% default"),(0.4,267,"40% example")]:
+    sample=rendered("#1","42.73s")
+    sample=sample.resize((round(194*3*factor),round(39*3*factor)),Image.Resampling.NEAREST)
+    scale_draw.text((12,top-14),label,fill=(255,245,230,255))
+    scale_preview.alpha_composite(sample,((620-sample.width)//2,top))
+scale_preview.save(ROOT/"previews/parkour-gold-scales.png")
 metrics={"width":195,"height":39,"frames":[{"name":n,"left":l,"width":w,"advance":w+1,"char":c} for n,b,l,w,c in FRAMES],
          "fonts":{n:{"native_advance":s[4],"height":s[2],"ascent":s[3]} for n,s in specs.items()},
          "source_sha256":hashlib.sha256(SOURCE.read_bytes()).hexdigest()}

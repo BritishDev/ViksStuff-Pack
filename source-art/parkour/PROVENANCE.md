@@ -23,3 +23,8 @@ skins. The sample Steve face appears only in the artwork comparison preview;
 it is never baked into the runtime backgrounds. `metrics.json` records native
 layout and font geometry. `previews/parkour-gold-reference-match.png` compares
 the original artwork (top) with the assembled atlas preview (bottom).
+
+The plugin's live scale does not change these source textures or font metrics.
+Reserved GUI colors communicate a 25%-125% affine scale to the text shader;
+frames, letter bodies and the live portrait all share the same transform.
+The default is 55%. `previews/parkour-gold-scales.png` compares selected sizes.
