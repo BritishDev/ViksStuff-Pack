@@ -43,21 +43,9 @@ Resource pack assets for the standalone Viks Stuff recording server
 
 ## Parkour relay timer
 
-The selected Championship Gold HUD uses the `parkour_timer`,
-`parkour_timer_digits`, `parkour_timer_rank`, and `parkour_timer_small` fonts for three separate
-beveled gold badges: live rank, current section time, and the current runner's
-Minecraft head. Numbers and portraits are supplied by the plugin, not baked
-into the artwork. Section times are ranked directly against other runners'
-latest section times, including different sections; ties use displayed hundredths.
+The default `ribbon` layout follows the user's Minecraft pixel-badge reference: a crimson stepped bevel, recessed graphite timer face, and a matching live skin badge. Regular custom pixel numerals replace the previous desktop font. Position/rank is omitted from the overlay and remains available through standings. The server supplies the section time and visible disguise-safe player's head; sample data is never baked into runtime frames.
 
-The frames and stopwatch are direct derivatives of the selected original image,
-preserved at `source-art/parkour/championship-gold.png`. The heavy lettering uses
-extracted reference glyphs plus matching additional digits, baked shadows and
-explicit kerning. Each double-resolution frame glyph fits the native font atlas;
-the assembled HUD retains the reference's taller 194-by-39 proportions.
-`source-art/parkour/PROVENANCE.md` and `metrics.json` document the derivatives.
-`previews/parkour-gold-reference-match.png` shows the original above the assembled
-atlas preview. The live portrait always uses the current runner's skin.
+Editable art, the preserved reference and provenance are in `source-art/parkour/reference-badge/`. Reproduce it with `scripts/build-parkour-timer.py` and `scripts/parkour_badge_art.py`. The native atlas retains the 194-by-39 composition and existing scale/head contracts. `previews/parkour-reference-badge.png` shows detail and default-size views. The other design IDs remain available for compatibility.
 
 A scoped Minecraft 1.21.11 text shader enlarges native skin-backed text heads
 to 22 by 22 pixels. The WHITE boss-bar color is reserved as an invisible HUD

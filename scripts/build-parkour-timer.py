@@ -1,7 +1,9 @@
 """Hand-composed crimson HUD geometry and light glyphs; five editable SVG masters."""
 from pathlib import Path
-import json
+import json, zipfile
+from io import BytesIO
 from PIL import Image,ImageDraw,ImageFont
+from parkour_badge_art import artwork as badge_artwork, letter as pixel_letter
 R=Path(__file__).resolve().parents[1]; T=R/'overlay/assets/viksstuff/textures/parkour'; F=R/'overlay/assets/viksstuff/font'; S=R/'source-art/parkour/red-designs'; P=R/'previews'
 for p in (T,F,S,P): p.mkdir(parents=True,exist_ok=True)
 DESIGNS=['ribbon','bracket','split','ticket','orbit']; CHARS='0123456789:.s#-?+'
@@ -14,7 +16,7 @@ def artwork(name):
  def line(pts,c,w=1):
   d.line([(int(x*8),int(y*8)) for x,y in pts],fill=c,width=int(w*8)); svg.append('<polyline points="'+' '.join(f'{x},{y}' for x,y in pts)+f'" fill="none" stroke="{c}" stroke-width="{w}"/>')
  if name=='ribbon':
-  poly([(2,5),(180,5),(193,18),(180,34),(2,34),(8,19)],DARK); poly([(2,5),(150,5),(146,8),(5,8)],RED); poly([(150,5),(180,5),(193,18),(180,34),(150,34)],RED); line([(12,33),(145,33)],'#79313F',.6)
+  return badge_artwork()
  elif name=='bracket':
   box(10,8,138,23,'#17171D'); line([(19,5),(6,5),(6,34),(19,34)],RED,1.5); line([(137,5),(150,5),(150,34),(137,34)],RED,1.5); line([(160,5),(190,5),(190,34),(160,34)],'#79313F'); box(155,8,3,23,RED)
  elif name=='split':
@@ -39,18 +41,22 @@ specs={'digits':(28,38,19,-6,14),'rank':(32,40,20,-4,16),'small':(20,28,14,-9,11
 for name,(cell,height,display,ascent,advance) in specs.items():
  sheet=Image.new('RGBA',(cell*len(CHARS),height)); glyphs[name]={}
  for index,char in enumerate(CHARS):
-  big=Image.new('RGBA',(cell*4,height*4)); draw=ImageDraw.Draw(big); font=ImageFont.truetype('C:/Windows/Fonts/segoeuil.ttf',(height-6)*4); bounds=draw.textbbox((0,0),char,font=font); draw.text((0,-bounds[1]),char,font=font,fill=LIGHT if char!='s' else '#ED7180'); body=big.crop(big.getbbox() or (0,0,4,4)); target=4 if char in '.:' else 12 if char=='s' else cell-6; body=body.resize((target,(4 if char=='.' else height-10 if char==':' else height-15 if char=='s' else height-6)),Image.Resampling.LANCZOS); tile=Image.new('RGBA',(cell,height)); top=height-7-body.height if char in '.:s' else 0; tile.alpha_composite(body,(0,max(0,top))); tile.putpixel(((advance-1)*2-1,height-1),(255,255,255,1)); sheet.alpha_composite(tile,(index*cell,0)); glyphs[name][char]=tile
+  tile=pixel_letter(char,name,cell,height,advance); sheet.alpha_composite(tile,(index*cell,0)); glyphs[name][char]=tile
  sheet.save(T/f'timer_{name}.png'); (F/f'parkour_timer_{name}.json').write_text(json.dumps(dict(providers=[dict(type='bitmap',file=f'viksstuff:parkour/timer_{name}.png',height=display,ascent=ascent,chars=[CHARS])]),indent=2)+'\n')
 def adv(c,small=False): return (3 if small else 4) if c in '.:' else (6 if small else 8) if c=='s' else (8 if small else 12)
 def sample(design,value='42.73s'):
  art=Image.open(T/f'timer_{design}_panel.png'); small=sum(adv(c) for c in value)>124; f='small' if small else 'digits'; width=sum(adv(c,small) for c in value); x=(150-width)//2*2
  for c in value: art.alpha_composite(glyphs[f][c],(x,30 if small else 24)); x+=adv(c,small)*2
- face=Image.new('RGBA',(8,8),'#B6886D'); fd=ImageDraw.Draw(face); fd.rectangle((0,0,7,2),fill='#422E2B'); fd.point((2,4),fill='#E9E5DA'); fd.point((5,4),fill='#E9E5DA'); fd.line((3,6,5,6),fill='#704236'); art.alpha_composite(face.resize((44,44),Image.Resampling.NEAREST),(324,16)); return art
+ with zipfile.ZipFile('C:/Users/navra/.gradle/caches/fabric-loom/1.21.11/minecraft-client.jar') as client:
+  skin=Image.open(BytesIO(client.read('assets/minecraft/textures/entity/player/wide/steve.png'))).convert('RGBA')
+  face=skin.crop((8,8,16,16)); face.alpha_composite(skin.crop((40,8,48,16)))
+ art.alpha_composite(face.resize((44,44),Image.Resampling.NEAREST),(324,16)); return art
+
 board=Image.new('RGBA',(1200,900),'#13171D'); bd=ImageDraw.Draw(board); title=ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf',26); label=ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf',18); bd.text((40,25),'PARKOUR / CRIMSON STUDIES',font=title,fill=LIGHT)
 desc=['Folded ribbon / angled portrait end','Open brackets / fine technical frame','Separate blocks / offset portrait','Cut ticket / warm paper edge','Open orbit / underline and portrait seal']
 for i,design in enumerate(DESIGNS):
  y=90+i*155; bd.text((40,y),f'{i+1:02d}   {design.upper()}',font=label,fill='#ED7180'); bd.text((40,y+29),desc[i],font=label,fill='#A59FA5'); board.alpha_composite(sample(design).resize((776,156),Image.Resampling.NEAREST),(390,y-18)); sample(design).save(P/f'parkour-red-{design}.png')
-board.save(P/'parkour-red-five-designs.png'); metrics=dict(width=195,height=39,designs=DESIGNS,frames=[dict(name=n,left=l,width=w,advance=w+1,char=c) for n,l,w,c in frames],fonts={n:dict(native_advance=s[4],height=s[2],ascent=s[3]) for n,s in specs.items()},source='Hand-composed geometry with Segoe UI Light raster glyphs; SVG masters retained. No rank or sample player data in runtime frames.'); (S/'metrics.json').write_text(json.dumps(metrics,indent=2)+'\n'); (R/'source-art/parkour/metrics.json').write_text(json.dumps(metrics,indent=2)+'\n')
+board.save(P/'parkour-red-five-designs.png'); metrics=dict(width=195,height=39,designs=DESIGNS,frames=[dict(name=n,left=l,width=w,advance=w+1,char=c) for n,l,w,c in frames],fonts={n:dict(native_advance=s[4],height=s[2],ascent=s[3]) for n,s in specs.items()},source='Default ribbon: reference-style hand-drawn crimson pixel bevel, recessed graphite face, original regular 5x7 numeral glyphs. Live head/time only.'); (S/'metrics.json').write_text(json.dumps(metrics,indent=2)+'\n'); (R/'source-art/parkour/metrics.json').write_text(json.dumps(metrics,indent=2)+'\n')
 bars=R/'overlay/assets/minecraft/textures/gui/sprites/boss_bar'; bars.mkdir(parents=True,exist_ok=True)
 for n in ('white_background','white_progress'): Image.new('RGBA',(182,5)).save(bars/f'{n}.png')
-print('CRIMSON HUD: five compositions, light glyphs, editable SVGs, live head/time only.')
+print('REFERENCE BADGE HUD: crimson pixel bevel, recessed graphite, regular pixel glyphs, live head/time only.')
