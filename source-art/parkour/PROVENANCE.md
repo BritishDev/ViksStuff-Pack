@@ -28,3 +28,7 @@ The plugin's live scale does not change these source textures or font metrics.
 Reserved GUI colors communicate a 25%-125% affine scale to the text shader;
 frames, letter bodies and the live portrait all share the same transform.
 The default is 55%. `previews/parkour-gold-scales.png` compares selected sizes.
+
+## CHECKPOINT plaque
+Generated with the built-in Codex image generator on 2026-10-14 and approved by the user. Reference: championship-gold.png. Prompt: one front-facing transparent CHECKPOINT plaque matching the gold stepped bevel frame, charcoal inset and white pixel text; small downward gold chevron, subtle frame thickness, no other text or scene. Source retained as checkpoint-gold.png. scripts/build-checkpoint-assets.py packages the transparent art into a 512-square atlas and a thin extruded item model, plus hollow block-edge models.
+

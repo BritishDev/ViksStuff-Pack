@@ -1,0 +1,155 @@
+{
+  "textures": {
+    "all": "viksstuff:parkour/outline",
+    "particle": "viksstuff:parkour/outline"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.08,
+        15.729999999999999,
+        -0.08
+      ],
+      "to": [
+        16.08,
+        16.08,
+        0.26999999999999996
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "down": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [
+        -0.08,
+        15.729999999999999,
+        15.729999999999999
+      ],
+      "to": [
+        16.08,
+        16.08,
+        16.08
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "down": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [
+        -0.08,
+        15.729999999999999,
+        -0.08
+      ],
+      "to": [
+        0.26999999999999996,
+        16.08,
+        16.08
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "down": {
+          "texture": "#all"
+        }
+      }
+    },
+    {
+      "from": [
+        15.729999999999999,
+        15.729999999999999,
+        -0.08
+      ],
+      "to": [
+        16.08,
+        16.08,
+        16.08
+      ],
+      "faces": {
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "down": {
+          "texture": "#all"
+        }
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}
