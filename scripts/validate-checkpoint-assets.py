@@ -10,6 +10,8 @@ with ZipFile(root / 'ViksStuff-Pack.zip') as pack:
         item = json.loads(pack.read('assets/viksstuff/items/' + name + '.json'))
         assert item['model']['model'] == 'viksstuff:item/' + name
         model = json.loads(pack.read('assets/viksstuff/models/item/' + name + '.json'))
+        if name == 'parkour_checkpoint':
+            assert model['display']['fixed']['rotation'] == [0,180,0], 'Plaque front must face the billboard viewer'
         if count is not None: assert len(model['elements']) == count
         for sprite in set(model['textures'].values()):
             assert sprite.startswith('viksstuff:item/')

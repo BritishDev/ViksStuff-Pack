@@ -24,7 +24,7 @@ for atlas in ['blocks','items']:
         if not any(entry.get('resource') == sprite for entry in definition['sources']):
             definition['sources'].append({'type':'minecraft:single','resource':sprite,'sprite':sprite})
     write(atlas_path,definition)
-write(overlay / 'models/item/parkour_checkpoint.json', {'parent':'minecraft:item/generated','textures':{'layer0':'viksstuff:item/parkour_checkpoint_gold'},'display':{'fixed':{'rotation':[0,0,0],'translation':[0,0,0],'scale':[1,1,1]}}})
+write(overlay / 'models/item/parkour_checkpoint.json', {'parent':'minecraft:item/generated','textures':{'layer0':'viksstuff:item/parkour_checkpoint_gold'},'display':{'fixed':{'rotation':[0,180,0],'translation':[0,0,0],'scale':[1,1,1]}}})
 for name in ['parkour_checkpoint','parkour_outline_top','parkour_outline_full']:
     write(overlay / ('items/' + name + '.json'), {'model':{'type':'minecraft:model','model':'viksstuff:item/' + name}})
 Image.new('RGBA', (16,16), (255,245,230,255)).save(overlay / 'textures/item/parkour_outline.png')
