@@ -1,1 +1,26 @@
-{"sources":[{"source":"entity","prefix":"entity/","type":"directory"},{"pattern":{"namespace":"minecraft","path":"entity/fishing_hook"},"type":"filter"}]}
+{
+  "sources": [
+    {
+      "source": "entity",
+      "prefix": "entity/",
+      "type": "directory"
+    },
+    {
+      "pattern": {
+        "namespace": "minecraft",
+        "path": "entity/fishing_hook"
+      },
+      "type": "filter"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_checkpoint_gold",
+      "sprite": "viksstuff:item/parkour_checkpoint_gold"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_outline",
+      "sprite": "viksstuff:item/parkour_outline"
+    }
+  ]
+}

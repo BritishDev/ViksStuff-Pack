@@ -1,7 +1,7 @@
 {
   "textures": {
-    "all": "viksstuff:parkour/outline",
-    "particle": "viksstuff:parkour/outline"
+    "all": "viksstuff:item/parkour_outline",
+    "particle": "viksstuff:item/parkour_outline"
   },
   "elements": [
     {

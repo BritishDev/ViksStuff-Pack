@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "viksstuff:parkour/checkpoint_gold"
+    "layer0": "viksstuff:item/parkour_checkpoint_gold"
   },
   "display": {
     "fixed": {
