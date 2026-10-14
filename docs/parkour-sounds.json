@@ -1,65 +1,84 @@
 {
-  "version": 2,
+  "version": 3,
   "sample_rate": 48000,
   "channels": 1,
   "encoding": "Vorbis",
-  "seed": 73110,
-  "provenance": "Original layered arcade-racer synthesis; no voice or third-party samples.",
-  "design": "FM mallets, rounded impact transients, filtered rubber/warp textures, tuned C-major family and short early reflections.",
+  "provenance": "Original hand-authored MIDI and individual Vital patches, assembled and rendered through REAPER MCP. No sampled game audio or copied melodies.",
+  "design": "Nine distinct arcade/platformer cues: pulse and bent oscillators, rounded bass bodies, original short arpeggios and a two-phrase fanfare.",
+  "editable_project": "artifacts/parkour-audio-v3/Parkour-Arcade-v3.rpp",
+  "loudness_target_db_vs_v2": 1.5,
   "sounds": {
     "ready": {
-      "seconds": 0.4573,
-      "decoded_peak": 0.588,
-      "rms": 0.1646,
-      "sha256": "c28b6201e3ea813cbc7e282f3379af090fb01070bddfa4ee8e88c437503841b3"
+      "seconds": 0.4773,
+      "decoded_peak": 0.8079,
+      "rms": 0.1933,
+      "rms_db_vs_v2": 1.39,
+      "sha256": "a8b9bd4c6eaac2f9f1d94010338f09dc93635b1df5eecb0502185034d03b8c28",
+      "design": "Rounded double-knock with a tiny fifth pickup"
     },
     "set": {
-      "seconds": 0.3973,
-      "decoded_peak": 0.6,
-      "rms": 0.1533,
-      "sha256": "0aa5d757db1f30503e5bad8cdea52a3fcb6c88836b0d11e9d23d64014d6679a5"
+      "seconds": 0.3773,
+      "decoded_peak": 0.8108,
+      "rms": 0.1807,
+      "rms_db_vs_v2": 1.43,
+      "sha256": "898cafa69d7970f58b37f9b624019d06b564ae1f1b765e63317268487b687d44",
+      "design": "Three crisp rising pulse steps"
     },
     "go": {
-      "seconds": 0.9373,
-      "decoded_peak": 0.6101,
-      "rms": 0.1389,
-      "sha256": "7dd7dc3bb5862aa3c7e7646be69fee7acd634ba10a85ad81511e5324c7895c21"
+      "seconds": 0.8573,
+      "decoded_peak": 0.8129,
+      "rms": 0.1641,
+      "rms_db_vs_v2": 1.45,
+      "sha256": "da9f4991550ad8167fa33ff7a60885ea1ef1bd3a755b4091965a14cb38178dbc",
+      "design": "Springboard arpeggio into a bright launch chord"
     },
     "slime": {
       "seconds": 0.4773,
-      "decoded_peak": 0.5893,
-      "rms": 0.213,
-      "sha256": "4fb07caeb53b22b0b2a0a84ca9aeac5c9ad9a0a9222487127defba36bbf6448d"
+      "decoded_peak": 0.8174,
+      "rms": 0.2507,
+      "rms_db_vs_v2": 1.42,
+      "sha256": "143c7c64d217270c74b5ee046a46fde97d98b74d806b829b38a7850778507957",
+      "design": "Elastic low-to-high boing with a cheeky falling rebound"
     },
     "checkpoint": {
-      "seconds": 0.9773,
-      "decoded_peak": 0.5889,
-      "rms": 0.1424,
-      "sha256": "817be75c8d9bcbb6ad9be7f692e3d3a6ed8e6a6a6d75af3f8d0e337f8bce7715"
+      "seconds": 0.9173,
+      "decoded_peak": 0.804,
+      "rms": 0.1679,
+      "rms_db_vs_v2": 1.43,
+      "sha256": "519e31d8aaace9ff9585cb7f6213af46e85ea939582ad12ed56ad9b61922c444",
+      "design": "Sparkling save-point ladder with a small echo answer"
     },
     "warp_out": {
       "seconds": 0.6373,
-      "decoded_peak": 0.5995,
-      "rms": 0.2129,
-      "sha256": "2a9e53a8fc1cb67fbcbd0dd0af4d00dc9684dee418ff87e41f58307b9b709fa3"
+      "decoded_peak": 0.8117,
+      "rms": 0.2516,
+      "rms_db_vs_v2": 1.45,
+      "sha256": "6f548e8e96d04deb1c8ca8b3c7096f7cf2aff08ff6c01658295d391cd4563c3b",
+      "design": "Descending portal staircase with a low vacuum tail"
     },
     "warp_in": {
-      "seconds": 0.78,
-      "decoded_peak": 0.5955,
-      "rms": 0.1953,
-      "sha256": "aaf99d264350268c1ecaced5d334121a8d8d4943a5c8d374cdb588c3a33bc714"
+      "seconds": 0.7573,
+      "decoded_peak": 0.8108,
+      "rms": 0.2315,
+      "rms_db_vs_v2": 1.48,
+      "sha256": "73569395bbe56b509d2fd908e427a22068dea4e6a576b5723c914cfc5dc0799b",
+      "design": "Upward portal zip resolving into a landing star"
     },
     "retry": {
-      "seconds": 0.4873,
-      "decoded_peak": 0.5948,
-      "rms": 0.1588,
-      "sha256": "3800c097327885d298eddbe3168d7af50fecc22166a543ce708f6f82e34ef0a5"
+      "seconds": 0.4673,
+      "decoded_peak": 0.8081,
+      "rms": 0.1879,
+      "rms_db_vs_v2": 1.46,
+      "sha256": "c187d33fe224beaff29fc47f266ee4f4e3760d65378d8c7093bac524590ae763",
+      "design": "Gentle descending comic tumble without an abrasive failure buzzer"
     },
     "finish": {
-      "seconds": 2.66,
-      "decoded_peak": 0.5906,
-      "rms": 0.1194,
-      "sha256": "ec3ae6329918d80318ea40490a605951b1aaad778cd73f07cbb21009dbddf859"
+      "seconds": 2.4,
+      "decoded_peak": 0.8197,
+      "rms": 0.1404,
+      "rms_db_vs_v2": 1.41,
+      "sha256": "fb0cda5f95c4091306001661723b7c988db545ff1beb69fe9b82664e41addbfb",
+      "design": "Original two-phrase victory fanfare with a final high sparkle"
     }
   }
 }

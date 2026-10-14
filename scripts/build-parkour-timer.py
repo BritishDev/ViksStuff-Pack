@@ -1,192 +1,56 @@
-"""Derive the live Minecraft HUD from the selected Championship Gold source artwork.
-Requires Pillow and NumPy. The original is retained; frame and glyph atlas derivatives
-remove sample values so the server can supply real ranks, times and player portraits.
-"""
+"""Hand-composed crimson HUD geometry and light glyphs; five editable SVG masters."""
 from pathlib import Path
-import hashlib, json
-import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
-
-ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "source-art/parkour/championship-gold.png"
-assert hashlib.sha256(SOURCE.read_bytes()).hexdigest() == "4f65714ef1047060fca1af928d342c299b6fb9e5c892ac093a5e13c2a26719d8"
-ART = Image.open(SOURCE).convert("RGBA")
-TEXTURES = ROOT / "overlay/assets/viksstuff/textures/parkour"
-FONTS = ROOT / "overlay/assets/viksstuff/font"
-TEXTURES.mkdir(parents=True, exist_ok=True)
-FONTS.mkdir(parents=True, exist_ok=True)
-WIDTH, HEIGHT = 194, 39
-CHARACTERS = "0123456789:.s#-?+"
-
-# Original alpha-supported frame bounds. Derivatives use double-resolution
-# bitmap textures, with each glyph below the client's 256x256 atlas allocation.
-FRAMES = [
-    ("rank", (120,164,573,544), 0,46, "\uE600"),
-    ("time", (589,164,1590,544), 48,102, "\uE601"),
-    ("head", (1604,164,2028,544), 151,43, "\uE602"),
-]
-clean = np.array(ART).copy()
-def clear_sample(x0,y0,x1,y1,left,right):
-    # Reconstruct only sample-data holes from clean scanline strips within
-    # this same recessed face; never regenerate the selected frame/bevel/icon.
-    for y in range(y0,y1):
-        l = clean[y,left[0]:left[1],:3].mean(axis=0)
-        r = clean[y,right[0]:right[1],:3].mean(axis=0)
-        t = np.linspace(0,1,x1-x0)[:,None]
-        clean[y,x0:x1,:3] = np.rint(l*(1-t)+r*t).astype(np.uint8)
-        clean[y,x0:x1,3] = 255
-
-clear_sample(216,260,491,465,(195,211),(494,510))
-clear_sample(906,276,1530,461,(891,905),(1530,1538))
-clear_sample(1700,236,1938,484,(1675,1695),(1941,1954))
-# Head background remains smoked graphite while the live skin is rendered over it.
-clean[236:484,1700:1938,:3] = np.maximum(clean[236:484,1700:1938,:3], 27)
-clean[:,:,3] = np.where(clean[:,:,3] >= 128,255,0).astype(np.uint8)
-clean_art = Image.fromarray(clean)
-providers = []
-panel = Image.new("RGBA",(WIDTH*2,HEIGHT*2))
-for name,bounds,left,width,char in FRAMES:
-    image = clean_art.crop(bounds).resize((width*2,HEIGHT*2),Image.Resampling.LANCZOS)
-    # Low-alpha measuring pixel is invisible in the text shader, but fixes advance.
-    image.putpixel((image.width-1,image.height-1),(255,255,255,1))
-    image.save(TEXTURES / f"timer_{name}_frame.png")
-    panel.alpha_composite(image,(left*2,0))
-    providers.append({"type":"bitmap","file":f"viksstuff:parkour/timer_{name}_frame.png",
-                      "height":HEIGHT,"ascent":6,"chars":[char]})
-providers.append({"type":"space","advances":{chr(0xE800+n+195):n for n in range(-195,196)}})
-(FONTS/"parkour_timer.json").write_text(json.dumps({"providers":providers},indent=2)+"\n")
-panel.save(TEXTURES/"timer_panel.png") # Composite preview/validation source; not a single atlas glyph.
-
-# White letter bodies and gold suffix from the original concept. Font shadows
-# are baked into each glyph, avoiding Minecraft's thin/default text rendering.
-BOUNDS = {"#":(229,301,340,435), "1":(365,268,454,439),
-          "4":(918,283,1029,437),"2":(1041,283,1141,437),
-          ".":(1160,397,1188,437),"7":(1199,283,1296,437),
-          "3":(1314,283,1414,437),"s":(1435,332,1508,437)}
-PATTERNS = {
- "0":["01110","10001","10001","10001","10001","10001","01110"],
- "5":["11111","10000","10000","11110","00001","00001","11110"],
- "6":["01111","10000","10000","11110","10001","10001","01110"],
- "8":["01110","10001","10001","01110","10001","10001","01110"],
- "9":["01110","10001","10001","01111","00001","00001","11110"],
- "-":["00000","00000","00000","11111","11111","00000","00000"],
- "?":["01110","11011","00011","00110","01100","00000","01100"],
- "+":["00000","01100","01100","11111","11111","01100","01100"],
- ":":["00000","01100","01100","00000","01100","01100","00000"],
-}
-original = np.array(ART)
-def source_letter(char):
-    x0,y0,x1,y1=BOUNDS[char]
-    a=original[y0:y1,x0:x1].copy()
-    if char=="s": mask=(a[:,:,0]>150)&(a[:,:,1]>90)&(a[:,:,2]<150)
-    else: mask=(a[:,:,:3].min(axis=2)>140)&(a[:,:,:3].max(axis=2)-a[:,:,:3].min(axis=2)<45)
-    a[:,:,3]=np.where(mask,255,0)
-    return Image.fromarray(a)
-
-def letter(char,rank=False):
-    canvas=Image.new("RGBA",(32 if rank else 28,40 if rank else 38))
-    factor=194/1908*2
-    if char in BOUNDS:
-        body=source_letter(char)
-        if rank:
-            cap=171
-            top=round((439-BOUNDS[char][3])*factor)
-            if char=="#": top=round((301-268)*factor)
-            size=(round(body.width*factor),round(body.height*factor))
-        else:
-            # The timer shares a 154px cap height; its '1' derives from rank '1'.
-            scale=factor*(154/171 if char=="1" else 1)
-            size=(round(body.width*scale),round(body.height*scale))
-            top=round((BOUNDS[char][1]-283)*factor) if char in (".","s") else 0
-        body=body.resize(size,Image.Resampling.LANCZOS)
-    else:
-        raw=Image.new("L",(22,31))
-        grid=Image.new("L",(5,7))
-        for y,row in enumerate(PATTERNS[char]):
-            for x,value in enumerate(row):
-                if value=="1": grid.putpixel((x,y),255)
-        raw=grid.resize((20,28),Image.Resampling.NEAREST)
-        raw=raw.filter(ImageFilter.MaxFilter(3)).resize((22,31),Image.Resampling.NEAREST)
-        if rank: raw=raw.resize((24,35),Image.Resampling.NEAREST)
-        body=Image.new("RGBA",raw.size)
-        for y in range(raw.height):
-            shade=255-round(y/(raw.height-1)*13)
-            for x in range(raw.width): body.putpixel((x,y),(shade,shade,shade,raw.getpixel((x,y))))
-        top=0
-    shadow=Image.new("RGBA",body.size,(14,14,13,0))
-    shadow.putalpha(body.getchannel("A"))
-    canvas.alpha_composite(shadow,(3,top+3))
-    canvas.alpha_composite(body,(0,top))
-    return canvas
-
-specs={"digits":(28,38,19,-6,14), "rank":(32,40,20,-4,16), "small":(20,28,14,-9,11)}
-glyphs={}
+import json
+from PIL import Image,ImageDraw,ImageFont
+R=Path(__file__).resolve().parents[1]; T=R/'overlay/assets/viksstuff/textures/parkour'; F=R/'overlay/assets/viksstuff/font'; S=R/'source-art/parkour/red-designs'; P=R/'previews'
+for p in (T,F,S,P): p.mkdir(parents=True,exist_ok=True)
+DESIGNS=['ribbon','bracket','split','ticket','orbit']; CHARS='0123456789:.s#-?+'
+RED='#D52D45'; DARK='#211B22'; LIGHT='#F4E9E7'
+def artwork(name):
+ im=Image.new('RGBA',(1552,312)); d=ImageDraw.Draw(im); svg=[]
+ def poly(pts,color):
+  d.polygon([(int(x*8),int(y*8)) for x,y in pts],fill=color); svg.append('<polygon points="'+' '.join(f'{x},{y}' for x,y in pts)+f'" fill="{color}"/>')
+ def box(x,y,w,h,c): poly([(x,y),(x+w,y),(x+w,y+h),(x,y+h)],c)
+ def line(pts,c,w=1):
+  d.line([(int(x*8),int(y*8)) for x,y in pts],fill=c,width=int(w*8)); svg.append('<polyline points="'+' '.join(f'{x},{y}' for x,y in pts)+f'" fill="none" stroke="{c}" stroke-width="{w}"/>')
+ if name=='ribbon':
+  poly([(2,5),(180,5),(193,18),(180,34),(2,34),(8,19)],DARK); poly([(2,5),(150,5),(146,8),(5,8)],RED); poly([(150,5),(180,5),(193,18),(180,34),(150,34)],RED); line([(12,33),(145,33)],'#79313F',.6)
+ elif name=='bracket':
+  box(10,8,138,23,'#17171D'); line([(19,5),(6,5),(6,34),(19,34)],RED,1.5); line([(137,5),(150,5),(150,34),(137,34)],RED,1.5); line([(160,5),(190,5),(190,34),(160,34)],'#79313F'); box(155,8,3,23,RED)
+ elif name=='split':
+  box(3,5,145,29,DARK); box(3,5,4,29,RED); box(156,3,36,33,RED); box(159,6,30,27,DARK); line([(14,34),(143,34)],'#79313F',.7)
+ elif name=='ticket':
+  poly([(3,6),(148,6),(152,10),(188,10),(191,13),(191,30),(187,34),(3,34),(7,30),(7,10)],'#E9D5CF'); box(8,8,143,24,DARK); box(158,8,31,26,RED)
+  for y in (7,12,17,22,27,32): box(153,y,1,2,RED)
+  line([(15,10),(37,10)],RED)
+ else:
+  box(9,9,135,23,'#19171D'); line([(12,33),(137,33),(149,21)],RED,1.2); d.arc((1240,8,1544,304),25,335,fill=RED,width=12); svg.append(f'<path d="M189 28 A18 18 0 1 0 187 8" fill="none" stroke="{RED}" stroke-width="1.5"/>'); box(141,9,9,2,RED)
+ (S/f'{name}.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194 39">'+''.join(svg)+'</svg>\n'); return im.resize((388,78),Image.Resampling.LANCZOS)
+frames=[('rank',0,48,'\uE600'),('time',48,103,'\uE601'),('head',151,43,'\uE602')]
+for design in DESIGNS:
+ art=artwork(design); providers=[]
+ for name,left,width,char in frames:
+  tile=art.crop((left*2,0,(left+width)*2,78)); tile.putpixel((tile.width-1,77),(255,255,255,1)); tile.save(T/f'timer_{design}_{name}_frame.png'); providers.append(dict(type='bitmap',file=f'viksstuff:parkour/timer_{design}_{name}_frame.png',height=39,ascent=6,chars=[char]))
+ providers.append(dict(type='space',advances={chr(0xE800+n+195):n for n in range(-195,196)})); (F/f'parkour_timer_{design}.json').write_text(json.dumps(dict(providers=providers),indent=2)+'\n'); art.save(T/f'timer_{design}_panel.png')
+ if design=='ribbon':
+  (F/'parkour_timer.json').write_text(json.dumps(dict(providers=providers),indent=2)+'\n'); art.save(T/'timer_panel.png')
+  for n,l,w,c in frames: Image.open(T/f'timer_{design}_{n}_frame.png').save(T/f'timer_{n}_frame.png')
+specs={'digits':(28,38,19,-6,14),'rank':(32,40,20,-4,16),'small':(20,28,14,-9,11)}; glyphs={}
 for name,(cell,height,display,ascent,advance) in specs.items():
-    sheet=Image.new("RGBA",(cell*len(CHARACTERS),height))
-    glyphs[name]={}
-    for index,char in enumerate(CHARACTERS):
-        tile=letter(char,name=="rank")
-        if name=="small": tile=tile.resize((20,28),Image.Resampling.LANCZOS)
-        # Native advances include shadow extents. Explicit HUD kerning restores
-        # the reference's tighter spacing, with a narrow decimal and suffix.
-        tile.putpixel(((advance-1)*2-1,height-1),(255,255,255,1))
-        # Keep every glyph's measuring extent identical including sparse chars.
-        sheet.alpha_composite(tile,(index*cell,0))
-        glyphs[name][char]=tile
-    sheet.save(TEXTURES/f"timer_{name}.png")
-    (FONTS/f"parkour_timer_{name}.json").write_text(json.dumps({"providers":[{
-        "type":"bitmap","file":f"viksstuff:parkour/timer_{name}.png",
-        "height":display,"ascent":ascent,"chars":[CHARACTERS]
-    }]},indent=2)+"\n")
-
-bars=ROOT/"overlay/assets/minecraft/textures/gui/sprites/boss_bar"
-bars.mkdir(parents=True,exist_ok=True)
-for name in ("white_background","white_progress"): Image.new("RGBA",(182,5)).save(bars/f"{name}.png")
-
-def advance(char,font):
-    if font=="rank": return 14 if char=="#" else 11
-    if font=="small": return 9 if char=="#" else 3 if char in ".:" else 6 if char=="s" else 8
-    return 4 if char in ".:" else 8 if char=="s" else 12
-def width(text,font): return sum(advance(char,font) for char in text)
-def rendered(rank,time,portrait=True):
-    result=panel.copy()
-    def write(text,left,font):
-        top={"rank":10,"digits":12,"small":15}[font]*2
-        cursor=left*2
-        for char in text:
-            result.alpha_composite(glyphs[font][char],(cursor,top))
-            cursor+=advance(char,font)*2
-    rank_font="rank" if width(rank,"rank")<=36 else "small"
-    time_font="digits" if width(time,"digits")<=62 else "small"
-    write(rank,(46-width(rank,rank_font))//2+1,rank_font)
-    write(time,80+(62-width(time,time_font))//2,time_font)
-    if portrait:
-        # Original Steve sample is for the comparison only; runtime uses live skins.
-        face=ART.crop((1711,243,1930,462)).resize((44,44),Image.Resampling.LANCZOS)
-        result.alpha_composite(face,(162*2,8*2))
-    return result
-
-preview=Image.new("RGBA",(440,340),(24,29,35,255))
-states=[("#1","42.73s"),("#-","10.00s"),("#1","05.00s"),("#2","18.24s")]
-for index,(rank,time) in enumerate(states):
-    image=rendered(rank,time).resize((388,78),Image.Resampling.NEAREST)
-    preview.alpha_composite(image,(26,8+index*83))
-preview.save(ROOT/"previews/parkour-timer-states.png")
-comparison=Image.new("RGBA",(800,340),(24,29,35,255))
-target=ART.crop((120,164,2028,544)).resize((776,155),Image.Resampling.LANCZOS)
-comparison.alpha_composite(target,(12,8))
-comparison.alpha_composite(rendered("#1","42.73s").resize((776,156),Image.Resampling.LANCZOS),(12,179))
-comparison.save(ROOT/"previews/parkour-gold-reference-match.png")
-scale_preview=Image.new("RGBA",(620,336),(24,29,35,255))
-scale_draw=ImageDraw.Draw(scale_preview)
-for factor,top,label in [(1.0,18,"100% reference size"),(0.55,170,"55% default"),(0.4,267,"40% example")]:
-    sample=rendered("#1","42.73s")
-    sample=sample.resize((round(194*3*factor),round(39*3*factor)),Image.Resampling.NEAREST)
-    scale_draw.text((12,top-14),label,fill=(255,245,230,255))
-    scale_preview.alpha_composite(sample,((620-sample.width)//2,top))
-scale_preview.save(ROOT/"previews/parkour-gold-scales.png")
-metrics={"width":195,"height":39,"frames":[{"name":n,"left":l,"width":w,"advance":w+1,"char":c} for n,b,l,w,c in FRAMES],
-         "fonts":{n:{"native_advance":s[4],"height":s[2],"ascent":s[3]} for n,s in specs.items()},
-         "source_sha256":hashlib.sha256(SOURCE.read_bytes()).hexdigest()}
-(ROOT/"source-art/parkour/metrics.json").write_text(json.dumps(metrics,indent=2)+"\n")
-print("REFERENCE GOLD HUD PASS: original three frames/stopwatch, extracted heavy letter bodies, 194x39 layout, 22px live head slot.")
+ sheet=Image.new('RGBA',(cell*len(CHARS),height)); glyphs[name]={}
+ for index,char in enumerate(CHARS):
+  big=Image.new('RGBA',(cell*4,height*4)); draw=ImageDraw.Draw(big); font=ImageFont.truetype('C:/Windows/Fonts/segoeuil.ttf',(height-6)*4); bounds=draw.textbbox((0,0),char,font=font); draw.text((0,-bounds[1]),char,font=font,fill=LIGHT if char!='s' else '#ED7180'); body=big.crop(big.getbbox() or (0,0,4,4)); target=4 if char in '.:' else 12 if char=='s' else cell-6; body=body.resize((target,(4 if char=='.' else height-10 if char==':' else height-15 if char=='s' else height-6)),Image.Resampling.LANCZOS); tile=Image.new('RGBA',(cell,height)); top=height-7-body.height if char in '.:s' else 0; tile.alpha_composite(body,(0,max(0,top))); tile.putpixel(((advance-1)*2-1,height-1),(255,255,255,1)); sheet.alpha_composite(tile,(index*cell,0)); glyphs[name][char]=tile
+ sheet.save(T/f'timer_{name}.png'); (F/f'parkour_timer_{name}.json').write_text(json.dumps(dict(providers=[dict(type='bitmap',file=f'viksstuff:parkour/timer_{name}.png',height=display,ascent=ascent,chars=[CHARS])]),indent=2)+'\n')
+def adv(c,small=False): return (3 if small else 4) if c in '.:' else (6 if small else 8) if c=='s' else (8 if small else 12)
+def sample(design,value='42.73s'):
+ art=Image.open(T/f'timer_{design}_panel.png'); small=sum(adv(c) for c in value)>124; f='small' if small else 'digits'; width=sum(adv(c,small) for c in value); x=(150-width)//2*2
+ for c in value: art.alpha_composite(glyphs[f][c],(x,30 if small else 24)); x+=adv(c,small)*2
+ face=Image.new('RGBA',(8,8),'#B6886D'); fd=ImageDraw.Draw(face); fd.rectangle((0,0,7,2),fill='#422E2B'); fd.point((2,4),fill='#E9E5DA'); fd.point((5,4),fill='#E9E5DA'); fd.line((3,6,5,6),fill='#704236'); art.alpha_composite(face.resize((44,44),Image.Resampling.NEAREST),(324,16)); return art
+board=Image.new('RGBA',(1200,900),'#13171D'); bd=ImageDraw.Draw(board); title=ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf',26); label=ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf',18); bd.text((40,25),'PARKOUR / CRIMSON STUDIES',font=title,fill=LIGHT)
+desc=['Folded ribbon / angled portrait end','Open brackets / fine technical frame','Separate blocks / offset portrait','Cut ticket / warm paper edge','Open orbit / underline and portrait seal']
+for i,design in enumerate(DESIGNS):
+ y=90+i*155; bd.text((40,y),f'{i+1:02d}   {design.upper()}',font=label,fill='#ED7180'); bd.text((40,y+29),desc[i],font=label,fill='#A59FA5'); board.alpha_composite(sample(design).resize((776,156),Image.Resampling.NEAREST),(390,y-18)); sample(design).save(P/f'parkour-red-{design}.png')
+board.save(P/'parkour-red-five-designs.png'); metrics=dict(width=195,height=39,designs=DESIGNS,frames=[dict(name=n,left=l,width=w,advance=w+1,char=c) for n,l,w,c in frames],fonts={n:dict(native_advance=s[4],height=s[2],ascent=s[3]) for n,s in specs.items()},source='Hand-composed geometry with Segoe UI Light raster glyphs; SVG masters retained. No rank or sample player data in runtime frames.'); (S/'metrics.json').write_text(json.dumps(metrics,indent=2)+'\n'); (R/'source-art/parkour/metrics.json').write_text(json.dumps(metrics,indent=2)+'\n')
+bars=R/'overlay/assets/minecraft/textures/gui/sprites/boss_bar'; bars.mkdir(parents=True,exist_ok=True)
+for n in ('white_background','white_progress'): Image.new('RGBA',(182,5)).save(bars/f'{n}.png')
+print('CRIMSON HUD: five compositions, light glyphs, editable SVGs, live head/time only.')

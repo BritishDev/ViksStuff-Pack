@@ -49,6 +49,21 @@
       "type": "minecraft:single",
       "resource": "viksstuff:item/parkour_checkpoint_edge",
       "sprite": "viksstuff:item/parkour_checkpoint_edge"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_spec_runner",
+      "sprite": "viksstuff:item/parkour_spec_runner"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_spec_checkpoint",
+      "sprite": "viksstuff:item/parkour_spec_checkpoint"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_spec_players",
+      "sprite": "viksstuff:item/parkour_spec_players"
     }
   ]
 }

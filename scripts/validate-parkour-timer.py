@@ -42,9 +42,14 @@ for name, spec in metrics['fonts'].items():
             assert actual == expected_advance, (font, char, actual, expected_advance)
 panel = Image.open(assets / "textures/parkour/timer_panel.png")
 assert panel.size == (388, 78)
-assert panel.getpixel((94,39))[3] == 0 and panel.getpixel((300,39))[3] == 0
-assert all(v<90 for v in panel.getpixel((46,39))[:3]), 'Rank must be supplied by the plugin'
-assert all(v<90 for v in panel.getpixel((346,39))[:3]), 'Head must be supplied by the live player profile'
+for design in metrics['designs']:
+    provider=json.loads((assets / f'font/parkour_timer_{design}.json').read_text())['providers']
+    assert len(provider)==4
+    for frame in metrics['frames']:
+        tile=Image.open(assets / f"textures/parkour/timer_{design}_{frame['name']}_frame.png")
+        assert tile.size==(frame['width']*2,78)
+        assert max(tile.size)<=256
+assert len({Image.open(assets / f'textures/parkour/timer_{d}_panel.png').tobytes() for d in metrics['designs']})==5
 for frame in metrics['frames']:
     image = Image.open(assets / f"textures/parkour/timer_{frame['name']}_frame.png")
     assert image.width <= 256 and image.height <= 256, 'Native bitmap atlas allocation exceeded'
@@ -52,4 +57,4 @@ for frame in metrics['frames']:
 for name in ('white_background','white_progress'):
     sprite=Image.open(root / f'overlay/assets/minecraft/textures/gui/sprites/boss_bar/{name}.png')
     assert sprite.size == (182,5) and not sprite.getchannel('A').getbbox()
-print("REFERENCE GOLD SHADERS PASS: native 1.21.11 stages linked; 51 custom glyphs; original three frame derivatives fit the atlas; no baked sample rank or face; transparent WHITE carrier.")
+print("CRIMSON SHADERS PASS: native 1.21.11 stages linked; 51 light glyphs; five distinct atlas-safe compositions; transparent WHITE carrier.")

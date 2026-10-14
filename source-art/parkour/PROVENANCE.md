@@ -32,3 +32,7 @@ The default is 55%. `previews/parkour-gold-scales.png` compares selected sizes.
 ## CHECKPOINT plaque
 Generated with the built-in Codex image generator on 2026-10-14 and approved by the user. Reference: championship-gold.png. Prompt: one front-facing transparent CHECKPOINT plaque matching the gold stepped bevel frame, charcoal inset and white pixel text; small downward gold chevron, subtle frame thickness, no other text or scene. Source retained as checkpoint-gold.png. scripts/build-checkpoint-assets.py packages the transparent art into a 512-square atlas and a thin extruded item model, plus hollow block-edge models.
 
+
+## Spectator controls
+Original three-icon sheet generated with the built-in Codex image generator, using championship-gold.png as reference: teleport-to-runner portal/head, checkpoint flag/return arrow, and participant group; transparent pixel art with matching gold bevel/charcoal/cyan. Source: spectator-icons.png; packaged by scripts/build-parkour-spectator-icons.py.
+

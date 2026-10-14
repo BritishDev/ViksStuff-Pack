@@ -1,0 +1,52 @@
+{
+  "width": 195,
+  "height": 39,
+  "designs": [
+    "ribbon",
+    "bracket",
+    "split",
+    "ticket",
+    "orbit"
+  ],
+  "frames": [
+    {
+      "name": "rank",
+      "left": 0,
+      "width": 48,
+      "advance": 49,
+      "char": "\ue600"
+    },
+    {
+      "name": "time",
+      "left": 48,
+      "width": 103,
+      "advance": 104,
+      "char": "\ue601"
+    },
+    {
+      "name": "head",
+      "left": 151,
+      "width": 43,
+      "advance": 44,
+      "char": "\ue602"
+    }
+  ],
+  "fonts": {
+    "digits": {
+      "native_advance": 14,
+      "height": 19,
+      "ascent": -6
+    },
+    "rank": {
+      "native_advance": 16,
+      "height": 20,
+      "ascent": -4
+    },
+    "small": {
+      "native_advance": 11,
+      "height": 14,
+      "ascent": -9
+    }
+  },
+  "source": "Hand-composed geometry with Segoe UI Light raster glyphs; SVG masters retained. No rank or sample player data in runtime frames."
+}

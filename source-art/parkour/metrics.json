@@ -1,19 +1,26 @@
 {
   "width": 195,
   "height": 39,
+  "designs": [
+    "ribbon",
+    "bracket",
+    "split",
+    "ticket",
+    "orbit"
+  ],
   "frames": [
     {
       "name": "rank",
       "left": 0,
-      "width": 46,
-      "advance": 47,
+      "width": 48,
+      "advance": 49,
       "char": "\ue600"
     },
     {
       "name": "time",
       "left": 48,
-      "width": 102,
-      "advance": 103,
+      "width": 103,
+      "advance": 104,
       "char": "\ue601"
     },
     {
@@ -41,5 +48,5 @@
       "ascent": -9
     }
   },
-  "source_sha256": "4f65714ef1047060fca1af928d342c299b6fb9e5c892ac093a5e13c2a26719d8"
+  "source": "Hand-composed geometry with Segoe UI Light raster glyphs; SVG masters retained. No rank or sample player data in runtime frames."
 }
