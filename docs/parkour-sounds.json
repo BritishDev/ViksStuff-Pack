@@ -1,57 +1,65 @@
 {
+  "version": 2,
   "sample_rate": 48000,
   "channels": 1,
   "encoding": "Vorbis",
-  "seed": 73109,
-  "provenance": "Original procedural synthesis; no voice or third-party samples.",
+  "seed": 73110,
+  "provenance": "Original layered arcade-racer synthesis; no voice or third-party samples.",
+  "design": "FM mallets, rounded impact transients, filtered rubber/warp textures, tuned C-major family and short early reflections.",
   "sounds": {
     "ready": {
-      "seconds": 0.3773,
-      "decoded_peak": 0.6963,
-      "rms": 0.291,
-      "sha256": "da62eb3e9ade8fc944917d309420f2f53f633281957e826ab6d5a8b297145665"
+      "seconds": 0.4573,
+      "decoded_peak": 0.588,
+      "rms": 0.1646,
+      "sha256": "c28b6201e3ea813cbc7e282f3379af090fb01070bddfa4ee8e88c437503841b3"
     },
     "set": {
-      "seconds": 0.2173,
-      "decoded_peak": 0.6975,
-      "rms": 0.2845,
-      "sha256": "766185b7a70e8f67dbf2f68800615c65d620edaaf7f54dd2be01d5de692fc427"
+      "seconds": 0.3973,
+      "decoded_peak": 0.6,
+      "rms": 0.1533,
+      "sha256": "0aa5d757db1f30503e5bad8cdea52a3fcb6c88836b0d11e9d23d64014d6679a5"
     },
     "go": {
-      "seconds": 0.5693,
-      "decoded_peak": 0.6933,
-      "rms": 0.1581,
-      "sha256": "1c73cfa09d398e9ae1c176dc4dbca0ee548a0e3633f44bf2066af3b7f48327bb"
+      "seconds": 0.9373,
+      "decoded_peak": 0.6101,
+      "rms": 0.1389,
+      "sha256": "7dd7dc3bb5862aa3c7e7646be69fee7acd634ba10a85ad81511e5324c7895c21"
     },
     "slime": {
-      "seconds": 0.3673,
-      "decoded_peak": 0.6918,
-      "rms": 0.194,
-      "sha256": "08890b90ae44189c3be2c37817706eb86eb00be5a4552e2713dc04c3178d186f"
+      "seconds": 0.4773,
+      "decoded_peak": 0.5893,
+      "rms": 0.213,
+      "sha256": "4fb07caeb53b22b0b2a0a84ca9aeac5c9ad9a0a9222487127defba36bbf6448d"
     },
     "checkpoint": {
-      "seconds": 0.7773,
-      "decoded_peak": 0.6706,
-      "rms": 0.1571,
-      "sha256": "34be5331952700833663586e0cd409db19c22b1b85f8463dac72089a95f63904"
+      "seconds": 0.9773,
+      "decoded_peak": 0.5889,
+      "rms": 0.1424,
+      "sha256": "817be75c8d9bcbb6ad9be7f692e3d3a6ed8e6a6a6d75af3f8d0e337f8bce7715"
     },
     "warp_out": {
-      "seconds": 0.5973,
-      "decoded_peak": 0.7035,
-      "rms": 0.222,
-      "sha256": "fa748f95d0d5917f64636f99f77b53aef3101a9560c67d4ae53586b384422ad3"
+      "seconds": 0.6373,
+      "decoded_peak": 0.5995,
+      "rms": 0.2129,
+      "sha256": "2a9e53a8fc1cb67fbcbd0dd0af4d00dc9684dee418ff87e41f58307b9b709fa3"
     },
     "warp_in": {
-      "seconds": 0.6273,
-      "decoded_peak": 0.7181,
-      "rms": 0.249,
-      "sha256": "10441602d718376d78ea3498db2d145c743aa3fa6228ea5354e9d83cb12f9711"
+      "seconds": 0.78,
+      "decoded_peak": 0.5955,
+      "rms": 0.1953,
+      "sha256": "aaf99d264350268c1ecaced5d334121a8d8d4943a5c8d374cdb588c3a33bc714"
+    },
+    "retry": {
+      "seconds": 0.4873,
+      "decoded_peak": 0.5948,
+      "rms": 0.1588,
+      "sha256": "3800c097327885d298eddbe3168d7af50fecc22166a543ce708f6f82e34ef0a5"
     },
     "finish": {
-      "seconds": 1.8,
-      "decoded_peak": 0.6848,
-      "rms": 0.1214,
-      "sha256": "e495f01b9113f9cf634e9afd029b1ffef050af4095f5f97ff52f042bf915f0f8"
+      "seconds": 2.66,
+      "decoded_peak": 0.5906,
+      "rms": 0.1194,
+      "sha256": "ec3ae6329918d80318ea40490a605951b1aaad778cd73f07cbb21009dbddf859"
     }
   }
 }

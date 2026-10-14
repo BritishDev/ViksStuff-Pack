@@ -173,5 +173,13 @@
         "stream": false
       }
     ]
+  },
+  "parkour.retry": {
+    "sounds": [
+      {
+        "name": "viksstuff:parkour/retry",
+        "stream": false
+      }
+    ]
   }
 }
