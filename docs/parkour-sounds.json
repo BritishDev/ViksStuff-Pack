@@ -1,9 +1,9 @@
 {
-  "version": 3,
+  "version": 4,
   "sample_rate": 48000,
   "channels": 1,
   "encoding": "Vorbis",
-  "provenance": "Original hand-authored MIDI and individual Vital patches, assembled and rendered through REAPER MCP. No sampled game audio or copied melodies.",
+  "provenance": "Eight original REAPER/Vital cues; slime is a transformed user-supplied MCC Island gust recording with newly synthesized spring impact and rising overtone.",
   "design": "Nine distinct arcade/platformer cues: pulse and bent oscillators, rounded bass bodies, original short arpeggios and a two-phrase fanfare.",
   "editable_project": "artifacts/parkour-audio-v3/Parkour-Arcade-v3.rpp",
   "loudness_target_db_vs_v2": 1.5,
@@ -33,12 +33,14 @@
       "design": "Springboard arpeggio into a bright launch chord"
     },
     "slime": {
-      "seconds": 0.4773,
-      "decoded_peak": 0.8174,
-      "rms": 0.2507,
-      "rms_db_vs_v2": 1.42,
-      "sha256": "143c7c64d217270c74b5ee046a46fde97d98b74d806b829b38a7850778507957",
-      "design": "Elastic low-to-high boing with a cheeky falling rebound"
+      "seconds": 0.7337,
+      "decoded_peak": 0.7697,
+      "rms": 0.114,
+      "sha256": "2c4c246b38e6813c182ca5d3556068156c3af9c538641e516c271bb05acaba37",
+      "design": "Shortened, lowered and filtered sampled gust with new rubbery impact and rising overtone.",
+      "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Sounds\\MCC Island\\event\\ar_wind_gust - bbd91f83.ogg",
+      "source_sha256": "bbd91f8329d34568bf9302a68a7521aad4571f7e35a4f37e668baf34e1ee98a7",
+      "editable_recipe": "artifacts/slime-gust/remix.py"
     },
     "checkpoint": {
       "seconds": 0.9173,
