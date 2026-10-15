@@ -41,6 +41,121 @@
       "type": "minecraft:single",
       "resource": "viksstuff:item/parkour_spec_players",
       "sprite": "viksstuff:item/parkour_spec_players"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_line_red",
+      "sprite": "viksstuff:item/parkour_line_red"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_line_green",
+      "sprite": "viksstuff:item/parkour_line_green"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_line_gold",
+      "sprite": "viksstuff:item/parkour_line_gold"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_trophy_1",
+      "sprite": "viksstuff:item/parkour_trophy_1"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_trophy_2",
+      "sprite": "viksstuff:item/parkour_trophy_2"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_trophy_3",
+      "sprite": "viksstuff:item/parkour_trophy_3"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_finish",
+      "sprite": "viksstuff:item/parkour_finish"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_checkpoint_icon",
+      "sprite": "viksstuff:item/parkour_checkpoint_icon"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_rim_dark",
+      "sprite": "viksstuff:item/parkour_solid_rim_dark"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_finish",
+      "sprite": "viksstuff:item/parkour_solid_finish"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_finish_light",
+      "sprite": "viksstuff:item/parkour_solid_finish_light"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_finish_shadow",
+      "sprite": "viksstuff:item/parkour_solid_finish_shadow"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_checkpoint",
+      "sprite": "viksstuff:item/parkour_solid_checkpoint"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_checkpoint_light",
+      "sprite": "viksstuff:item/parkour_solid_checkpoint_light"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_checkpoint_shadow",
+      "sprite": "viksstuff:item/parkour_solid_checkpoint_shadow"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_face",
+      "sprite": "viksstuff:item/parkour_solid_face"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_white",
+      "sprite": "viksstuff:item/parkour_solid_white"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_ink_shadow",
+      "sprite": "viksstuff:item/parkour_solid_ink_shadow"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_solid_black",
+      "sprite": "viksstuff:item/parkour_solid_black"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_line_cyan",
+      "sprite": "viksstuff:item/parkour_line_cyan"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_line_blue",
+      "sprite": "viksstuff:item/parkour_line_blue"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_line_violet",
+      "sprite": "viksstuff:item/parkour_line_violet"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "viksstuff:item/parkour_line_white",
+      "sprite": "viksstuff:item/parkour_line_white"
     }
   ]
 }

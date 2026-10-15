@@ -43,6 +43,18 @@ try {
         throw "Case-insensitive ZIP entry collisions: $($caseDuplicates.Name -join ', ')"
     }
 
+    # Only the user-requested slime landing/step silence is allowed. Combat stays vanilla.
+    $vanillaSoundOverrides = @($fileEntries | Where-Object {$_.FullName.ToLowerInvariant().StartsWith('assets/minecraft/sounds/')})
+    if ($vanillaSoundOverrides.Count -gt 0) {throw 'Vanilla sound files are not allowed'}
+    $slimeSilence = $archive.GetEntry('assets/minecraft/sounds.json')
+    if ($slimeSilence) {
+        $soundReader = [IO.StreamReader]::new($slimeSilence.Open())
+        try {$soundRegistry = $soundReader.ReadToEnd() | ConvertFrom-Json} finally {$soundReader.Dispose()}
+        $soundKeys = @($soundRegistry.PSObject.Properties.Name)
+        if ($soundKeys.Count -ne 2 -or @($soundKeys | Where-Object {$_ -notin @('block.slime_block.fall','block.slime_block.step')}).Count -ne 0) {throw 'Only slime fall/step overrides are allowed'}
+        foreach($soundKey in $soundKeys) {if($soundRegistry.$soundKey.replace -ne $true -or @($soundRegistry.$soundKey.sounds).Count -ne 0){throw 'Slime overrides must contain only silence'}}
+    }
+
     $fixedTimestamp = [System.DateTimeOffset]::new(1980, 1, 1, 0, 0, 0, [System.TimeSpan]::Zero)
     $floatingTimestamps = @(
         $fileEntries | Where-Object { $_.LastWriteTime -ne $fixedTimestamp }
@@ -139,6 +151,7 @@ try {
         ValidatedIcons = $requiredIcons.Count
         DuplicateEntries = 0
         FloatingTimestamps = 0
+        VanillaSoundOverrides = $(if($slimeSilence){2}else{0})
     }
 }
 finally {

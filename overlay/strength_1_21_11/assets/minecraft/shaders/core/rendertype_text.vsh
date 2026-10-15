@@ -22,8 +22,8 @@ void main() {
         marker.b == 37 && (marker.r == 3 || marker.r == 4) && marker.g >= 50 && marker.g <= 250) {
         if (marker.r == 4) {
             int corner = gl_VertexID & 3;
-            position.x += corner < 2 ? -7.0 : 7.0;
-            position.y += ((corner == 0 || corner == 3) ? -7.0 : 7.0) + 17.0;
+            position.x += corner < 2 ? -5.0 : 5.0;
+            position.y += ((corner == 0 || corner == 3) ? -5.0 : 5.0) + 17.0;
         }
         float scale = float(marker.g) / 200.0;
         float centerX = -ProjMat[3][0] / ProjMat[0][0];

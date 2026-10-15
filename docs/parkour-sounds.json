@@ -1,86 +1,87 @@
 {
-  "version": 4,
+  "version": 5,
   "sample_rate": 48000,
   "channels": 1,
   "encoding": "Vorbis",
   "provenance": "Eight original REAPER/Vital cues; slime is a transformed user-supplied MCC Island gust recording with newly synthesized spring impact and rising overtone.",
   "design": "Nine distinct arcade/platformer cues: pulse and bent oscillators, rounded bass bodies, original short arpeggios and a two-phrase fanfare.",
   "editable_project": "artifacts/parkour-audio-v3/Parkour-Arcade-v3.rpp",
-  "loudness_target_db_vs_v2": 1.5,
   "sounds": {
     "ready": {
       "seconds": 0.4773,
-      "decoded_peak": 0.8079,
-      "rms": 0.1933,
-      "rms_db_vs_v2": 1.39,
-      "sha256": "a8b9bd4c6eaac2f9f1d94010338f09dc93635b1df5eecb0502185034d03b8c28",
-      "design": "Rounded double-knock with a tiny fifth pickup"
+      "decoded_peak": 0.8351,
+      "rms": 0.2425,
+      "sha256": "34bc15c1d3b3b6262939f8b51b5d46514ad1b59a40a608862e3c546c47e923a0",
+      "design": "Rounded double-knock with a tiny fifth pickup",
+      "gain_db_vs_previous": 1.97
     },
     "set": {
       "seconds": 0.3773,
-      "decoded_peak": 0.8108,
-      "rms": 0.1807,
-      "rms_db_vs_v2": 1.43,
-      "sha256": "898cafa69d7970f58b37f9b624019d06b564ae1f1b765e63317268487b687d44",
-      "design": "Three crisp rising pulse steps"
+      "decoded_peak": 0.8345,
+      "rms": 0.2327,
+      "sha256": "7b53a982fc542b7f7147b5e2181f037131d912453653d4bd557d644fedb9fb77",
+      "design": "Three crisp rising pulse steps",
+      "gain_db_vs_previous": 2.2
     },
     "go": {
       "seconds": 0.8573,
-      "decoded_peak": 0.8129,
-      "rms": 0.1641,
-      "rms_db_vs_v2": 1.45,
-      "sha256": "da9f4991550ad8167fa33ff7a60885ea1ef1bd3a755b4091965a14cb38178dbc",
-      "design": "Springboard arpeggio into a bright launch chord"
+      "decoded_peak": 0.8388,
+      "rms": 0.1942,
+      "sha256": "fe2ac277813e0e951b4c2338bdd81c8fa8a284d1c20beae6c6913bf0a430cc55",
+      "design": "Springboard arpeggio into a bright launch chord",
+      "gain_db_vs_previous": 1.46
     },
     "slime": {
       "seconds": 0.7337,
-      "decoded_peak": 0.7697,
-      "rms": 0.114,
-      "sha256": "2c4c246b38e6813c182ca5d3556068156c3af9c538641e516c271bb05acaba37",
+      "decoded_peak": 0.8247,
+      "rms": 0.1601,
+      "sha256": "b329a599ddc50949b8827ee8703ee4fe6486996c0bbf8a3a33e33c5701308907",
       "design": "Shortened, lowered and filtered sampled gust with new rubbery impact and rising overtone.",
       "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Sounds\\MCC Island\\event\\ar_wind_gust - bbd91f83.ogg",
       "source_sha256": "bbd91f8329d34568bf9302a68a7521aad4571f7e35a4f37e668baf34e1ee98a7",
-      "editable_recipe": "artifacts/slime-gust/remix.py"
+      "editable_recipe": "artifacts/slime-gust/remix.py",
+      "gain_db_vs_previous": 2.95
     },
     "checkpoint": {
       "seconds": 0.9173,
-      "decoded_peak": 0.804,
-      "rms": 0.1679,
-      "rms_db_vs_v2": 1.43,
-      "sha256": "519e31d8aaace9ff9585cb7f6213af46e85ea939582ad12ed56ad9b61922c444",
-      "design": "Sparkling save-point ladder with a small echo answer"
+      "decoded_peak": 0.8323,
+      "rms": 0.22,
+      "sha256": "0bcd969a297166b155b01101770962c22764839849754cc5285712b46a0739fc",
+      "design": "Sparkling save-point ladder with a small echo answer",
+      "gain_db_vs_previous": 2.35
     },
     "warp_out": {
       "seconds": 0.6373,
-      "decoded_peak": 0.8117,
-      "rms": 0.2516,
-      "rms_db_vs_v2": 1.45,
-      "sha256": "6f548e8e96d04deb1c8ca8b3c7096f7cf2aff08ff6c01658295d391cd4563c3b",
-      "design": "Descending portal staircase with a low vacuum tail"
+      "decoded_peak": 0.8322,
+      "rms": 0.317,
+      "sha256": "c2ea54fbba8ccd8e04775761af4ae390380eaf053d1f47431e784df87dc5096a",
+      "design": "Descending portal staircase with a low vacuum tail",
+      "gain_db_vs_previous": 2.0
     },
     "warp_in": {
       "seconds": 0.7573,
-      "decoded_peak": 0.8108,
-      "rms": 0.2315,
-      "rms_db_vs_v2": 1.48,
-      "sha256": "73569395bbe56b509d2fd908e427a22068dea4e6a576b5723c914cfc5dc0799b",
-      "design": "Upward portal zip resolving into a landing star"
+      "decoded_peak": 0.8441,
+      "rms": 0.3053,
+      "sha256": "d05eb94ec88b0fb1c9f4ddfe8a013116131ea8b1a96b35eeb187330a17a88feb",
+      "design": "Upward portal zip resolving into a landing star",
+      "gain_db_vs_previous": 2.41
     },
     "retry": {
       "seconds": 0.4673,
-      "decoded_peak": 0.8081,
-      "rms": 0.1879,
-      "rms_db_vs_v2": 1.46,
-      "sha256": "c187d33fe224beaff29fc47f266ee4f4e3760d65378d8c7093bac524590ae763",
-      "design": "Gentle descending comic tumble without an abrasive failure buzzer"
+      "decoded_peak": 0.8325,
+      "rms": 0.2337,
+      "sha256": "c75ac2ad39bc6b4313dd5e4d369626950e9a33b757f13946e0fc06f7a769f8ce",
+      "design": "Gentle descending comic tumble without an abrasive failure buzzer",
+      "gain_db_vs_previous": 1.89
     },
     "finish": {
       "seconds": 2.4,
-      "decoded_peak": 0.8197,
-      "rms": 0.1404,
-      "rms_db_vs_v2": 1.41,
-      "sha256": "fb0cda5f95c4091306001661723b7c988db545ff1beb69fe9b82664e41addbfb",
-      "design": "Original two-phrase victory fanfare with a final high sparkle"
+      "decoded_peak": 0.8489,
+      "rms": 0.1957,
+      "sha256": "7538de83327bc4fca21ec53c3d01726430da2d227f6c298083e585461ead41d1",
+      "design": "Original two-phrase victory fanfare with a final high sparkle",
+      "gain_db_vs_previous": 2.89
     }
-  }
+  },
+  "loudness_target_db_vs_previous": 4
 }

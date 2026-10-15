@@ -1,0 +1,22 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:item/parkour_checkpoint_icon.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": [
+        "\ue710"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "viksstuff:item/parkour_finish.png",
+      "ascent": 10,
+      "height": 16,
+      "chars": [
+        "\ue711"
+      ]
+    }
+  ]
+}

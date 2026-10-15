@@ -1,0 +1,10 @@
+{
+  "block.slime_block.fall": {
+    "replace": true,
+    "sounds": []
+  },
+  "block.slime_block.step": {
+    "replace": true,
+    "sounds": []
+  }
+}
