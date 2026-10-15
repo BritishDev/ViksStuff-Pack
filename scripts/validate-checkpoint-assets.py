@@ -3,10 +3,11 @@ from zipfile import ZipFile
 import json
 from PIL import Image
 from io import BytesIO
+import sys
 
 root = Path(__file__).resolve().parents[1]
-with ZipFile(root / 'ViksStuff-Pack.zip') as pack:
-    for name, count in [('parkour_checkpoint',None),('parkour_outline_top',4),('parkour_outline_full',12)]:
+with ZipFile(Path(sys.argv[1]) if len(sys.argv)>1 else root / 'ViksStuff-Pack.zip') as pack:
+    for name, count in [('parkour_checkpoint',None),('parkour_outline_top',4),('parkour_outline_full',12),('parkour_outline_segment',1)]:
         item = json.loads(pack.read('assets/viksstuff/items/' + name + '.json'))
         assert item['model']['model'] == 'viksstuff:item/' + name
         model = json.loads(pack.read('assets/viksstuff/models/item/' + name + '.json'))
@@ -14,11 +15,12 @@ with ZipFile(root / 'ViksStuff-Pack.zip') as pack:
             assert model['display']['fixed']['rotation'] == [0,180,0], 'Plaque front must face the billboard viewer'
             assert 'parent' not in model, 'Plaque must use actual thick geometry'
             assert all(e['to'][2]-e['from'][2] >= 1 for e in model['elements'])
-            bars=model['elements'][-18:]
-            assert len(bars)==18
-            for i in range(9):
-                left,right=bars[i],bars[i+9]
-                assert abs((left['from'][0]+left['to'][0]+right['from'][0]+right['to'][0])/2-16)<1e-6
+            assert all(abs(e['from'][axis]*4-round(e['from'][axis]*4))<1e-6
+                       and abs(e['to'][axis]*4-round(e['to'][axis]*4))<1e-6
+                       for e in model['elements'] for axis in [0,1]), 'Plaque must contain only its pixel-aligned silhouette, no side dots'
+        if name == 'parkour_outline_segment':
+            assert model['elements'][0]['from']==[0,0,0] and model['elements'][0]['to']==[16,16,16]
+            assert len(model['elements'][0]['faces'])==6
         if count is not None: assert len(model['elements']) == count
         boxes=model['elements']
         for i,a in enumerate(boxes):
@@ -36,4 +38,4 @@ with ZipFile(root / 'ViksStuff-Pack.zip') as pack:
     sign = Image.open(BytesIO(pack.read('assets/viksstuff/textures/item/parkour_checkpoint_gold.png')))
     assert sign.getextrema()[3][0] == 0 and sign.getextrema()[3][1] == 255
     assert set(sign.getchannel('A').getdata()) == {0,255}, 'No translucent fringe'
-print('PASS: solid plaque depth, symmetric 3D bars, non-overlapping edges, clean alpha and atlas registration')
+print('PASS: solid plaque depth, no side dots, unit outline segment, non-overlapping edges, clean alpha and atlas registration')

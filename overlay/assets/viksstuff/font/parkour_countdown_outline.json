@@ -1,0 +1,19 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:parkour/text/countdown_outline.png",
+      "height": 20,
+      "ascent": 17,
+      "chars": [
+        "\ue720\ue721\ue722\ue723\ue724\ue725\ue726\ue727\ue728\ue729\ue72a\ue72b"
+      ]
+    },
+    {
+      "type": "space",
+      "advances": {
+        "\ue7ff": -1
+      }
+    }
+  ]
+}

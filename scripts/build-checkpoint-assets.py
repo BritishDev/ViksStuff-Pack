@@ -70,14 +70,8 @@ for x0,x1,y0,y1 in rectangles:
         'faces':{'south':{'texture':'#front','uv':uv},
                  'north':{'texture':'#front','uv':[x1/4,y0/4,x0/4,y1/4]},
                  **{face:{'texture':'#edge'} for face in ['east','west','up','down']}}})
-# Stable 3D pixel bars, attached to the plaque rather than camera-relative particles.
-for side in [-1,1]:
-    for row in range(3):
-        for pixel in range(3):
-            x = 8 + side*(6.8+pixel*.52)
-            y = 9.1-row
-            plaque.append({'from':[x-.16,y-.16,7.5],'to':[x+.16,y+.16,8.5],
-                'faces':{face:{'texture':'#edge'} for face in ['north','south','east','west','up','down']}})
+# Keep the plaque silhouette clean: the former 18 detached side-dot cuboids
+# have been removed. The sign itself retains its depth and original artwork.
 write(overlay / 'models/item/parkour_checkpoint.json', {'textures':{'front':'viksstuff:item/parkour_checkpoint_gold','edge':'viksstuff:item/parkour_checkpoint_edge','particle':'viksstuff:item/parkour_checkpoint_edge'},'elements':plaque,'display':{'fixed':{'rotation':[0,180,0],'translation':[0,0,0],'scale':[1,1,1]}}})
 for name in ['parkour_checkpoint','parkour_outline_top','parkour_outline_full']:
     write(overlay / ('items/' + name + '.json'), {'model':{'type':'minecraft:model','model':'viksstuff:item/' + name}})
@@ -94,4 +88,10 @@ for full in [False, True]:
         for x in [lo,hi-t]:
             for z in [lo,hi-t]: rod([x,lo+t,z],[x+t,hi-t,z+t])
     write(overlay / ('models/item/parkour_outline_' + ('full' if full else 'top') + '.json'), {'textures':{'all':'viksstuff:item/parkour_outline','particle':'viksstuff:item/parkour_outline'},'elements':elements,'display':{'fixed':{'rotation':[0,0,0],'translation':[0,0,0],'scale':[1,1,1]}}})
-print('Checkpoint transparent texture and three item models built:', image.size)
+write(overlay / 'items/parkour_outline_segment.json', {'model':{'type':'minecraft:model','model':'viksstuff:item/parkour_outline_segment'}})
+write(overlay / 'models/item/parkour_outline_segment.json', {
+    'textures':{'all':'viksstuff:item/parkour_outline','particle':'viksstuff:item/parkour_outline'},
+    'elements':[{'from':[0,0,0],'to':[16,16,16],
+        'faces':{face:{'texture':'#all'} for face in ['north','south','east','west','up','down']}}],
+    'display':{'fixed':{'rotation':[0,0,0],'translation':[0,0,0],'scale':[1,1,1]}}})
+print('Checkpoint plaque without side dots, legacy outline models and one outline segment built:', image.size)

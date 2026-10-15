@@ -1,0 +1,47 @@
+{
+  "styles": [
+    "classic",
+    "block",
+    "bevel",
+    "outline",
+    "stencil"
+  ],
+  "default": "block",
+  "chars": "0123456789:.s#-?+",
+  "fonts": {
+    "large": {
+      "cell": 28,
+      "texture_height": 38,
+      "height": 19,
+      "ascent": -6,
+      "advance": 14
+    },
+    "small": {
+      "cell": 20,
+      "texture_height": 28,
+      "height": 14,
+      "ascent": -9,
+      "advance": 11
+    },
+    "countdown": {
+      "cell": 64,
+      "texture_height": 40,
+      "height": 20,
+      "ascent": 17,
+      "advance": 33,
+      "kerning": -1
+    }
+  },
+  "title_geometry": {
+    "top": -10,
+    "bottom": 10,
+    "title_y": -10,
+    "title_scale": 4,
+    "gui_top": -80,
+    "gui_bottom": 0,
+    "subtitle_y": 5,
+    "subtitle_scale": 2,
+    "subtitle_gui_top": 10
+  },
+  "description": "Original thick Minecraft pixel masks, block strokes, bevel, crimson outline and stencil cuts; existing frames unchanged."
+}

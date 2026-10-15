@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:parkour/text/text_outline_small.png",
+      "height": 14,
+      "ascent": -9,
+      "chars": [
+        "0123456789:.s#-?+"
+      ]
+    }
+  ]
+}
