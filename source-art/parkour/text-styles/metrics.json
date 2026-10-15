@@ -7,7 +7,7 @@
     "stencil"
   ],
   "default": "block",
-  "chars": "0123456789:.s#-?+",
+  "chars": "0123456789:.hms#-?+",
   "fonts": {
     "large": {
       "cell": 28,
