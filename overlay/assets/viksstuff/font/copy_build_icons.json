@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:copy_build/icons.png",
+      "height": 9,
+      "ascent": 8,
+      "chars": [
+        "\ue700\ue701\ue702\ue703"
+      ]
+    }
+  ]
+}

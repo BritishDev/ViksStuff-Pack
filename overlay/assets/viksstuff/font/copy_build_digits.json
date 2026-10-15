@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:copy_build/timer_digits.png",
+      "height": 19,
+      "ascent": -6,
+      "chars": [
+        "0123456789.s"
+      ]
+    }
+  ]
+}
