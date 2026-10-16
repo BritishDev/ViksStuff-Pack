@@ -18,12 +18,18 @@ with zipfile.ZipFile(client) as jar:
             path = f"assets/{namespace}/shaders/include/{name}"
             if path in seen: return ""
             seen.add(path)
-            return expand(jar.read(path).decode(), seen)
+            local = root / "overlay/strength_1_21_11" / path
+            return expand(local.read_text() if local.exists() else jar.read(path).decode(), seen)
         return re.sub(r"#moj_import\s+<([^>]+)>", include, source)
-    for filename, extension in [("rendertype_text.vsh", "vert"), ("rendertype_text.fsh", "frag")]:
-        (output / f"text.{extension}").write_text("#version 330\n" + expand((shader_dir / filename).read_text(), set()))
-result = subprocess.run([str(compiler), "-l", str(output / "text.vert"), str(output / "text.frag")], capture_output=True, text=True)
-if result.returncode: raise SystemExit(result.stdout + result.stderr)
+    for pipeline in ["rendertype_text", "rendertype_text_intensity", "rendertype_text_see_through", "rendertype_text_intensity_see_through"]:
+        for suffix, extension in [("vsh", "vert"), ("fsh", "frag")]:
+            filename = pipeline + "." + suffix
+            local = shader_dir / filename
+            source = local.read_text() if local.exists() else jar.read("assets/minecraft/shaders/core/"+filename).decode()
+            (output / f"{pipeline}.{extension}").write_text("#version 330\n" + expand(source, set()))
+        result = subprocess.run([str(compiler), "-l", str(output / f"{pipeline}.vert"), str(output / f"{pipeline}.frag")], capture_output=True, text=True)
+        if result.returncode: raise SystemExit(result.stdout + result.stderr)
+        print("LINK PASS:",pipeline)
 
 assets = root / "overlay/assets/viksstuff"
 metrics = json.loads((root / 'source-art/parkour/metrics.json').read_text())
