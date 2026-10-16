@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:parkour/timer_minecraft_status.png",
+      "height": 16,
+      "ascent": -6,
+      "chars": [
+        "Finshed"
+      ]
+    }
+  ]
+}

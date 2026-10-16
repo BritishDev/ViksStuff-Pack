@@ -12,8 +12,8 @@
     {
       "type": "bitmap",
       "file": "viksstuff:item/parkour_finish.png",
-      "ascent": 10,
-      "height": 16,
+      "ascent": 12,
+      "height": 12,
       "chars": [
         "\ue711"
       ]
