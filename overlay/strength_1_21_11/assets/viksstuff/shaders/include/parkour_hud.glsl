@@ -1,6 +1,16 @@
 // Shared by ordinary, intensity and see-through text pipelines.
 void parkourHud(inout vec4 position, inout vec4 vertexColor) {
     ivec3 marker = ivec3(round(Color.rgb * 255.0));
+    // A dedicated title glyph expands to an opaque full-screen curtain. No world shaders are replaced.
+    if (abs(ProjMat[3][3] - 1.0) < 0.001 && marker == ivec3(2, 1, 38)) {
+        int corner = gl_VertexID & 3;
+        float x = corner < 2 ? -1.01 : 1.01;
+        float y = (corner == 0 || corner == 3) ? 1.01 : -1.01;
+        position.x = (x - ProjMat[3][0]) / ProjMat[0][0];
+        position.y = (y - ProjMat[3][1]) / ProjMat[1][1];
+        vertexColor = vec4(0.0, 0.0, 0.0, 1.0);
+        return;
+    }
     // Reserved GUI colors encode a live scale for this HUD only. Native text
     // measurement stays constant; all artwork/text/head geometry scales together.
     if (abs(ProjMat[3][3] - 1.0) < 0.001 &&

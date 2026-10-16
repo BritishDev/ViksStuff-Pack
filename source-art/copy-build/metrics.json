@@ -7,6 +7,6 @@
   "digits_advance": 14,
   "icon_advance": 10,
   "chars": "0123456789.s",
-  "source": "Original integer-grid emerald bevel, graphite recess, cream pixel numerals; no antialiasing.",
+  "source": "Original integer-grid blue bevel, graphite recess, cream pixel numerals; no antialiasing.",
   "validation": "Native glyph packing and client visual acceptance are separate checks."
 }

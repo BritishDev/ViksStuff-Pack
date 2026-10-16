@@ -71,3 +71,7 @@ include `handover [next player]`, `runner <player>` during a countdown, and
 `standings` for recorded results. Client appearance,
 GUI scaling, stacked boss bars, and modded-client shader support need an in-game
 playtest after deployment.
+
+## Copy the Build blue release
+
+The blue timer shows unfinished builders and the shared round clock. The native block-face countdown and scoped full-screen transition glyph are included. Rebuild the assets with `python scripts/build-copy-build.py`, then use the normal pack builder. The shader only expands the dedicated GUI curtain marker; ordinary text is unaffected. Client visual acceptance remains a separate check.

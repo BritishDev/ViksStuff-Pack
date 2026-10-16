@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "viksstuff:copy_build/blackout.png",
+      "height": 1,
+      "ascent": 1,
+      "chars": [
+        "\ue7fe"
+      ]
+    }
+  ]
+}
