@@ -37,6 +37,7 @@ for ch,name,w,h,ascent in [(0xE782,'action',190,12,9),(0xE783,'score',180,9,7),(
     im=Image.new('RGBA',(w,h),(0,0,0,116));im.save(T/f'ui_{name}.png')
     providers.append(dict(type='bitmap',file=f'viksstuff:parkour/ui_{name}.png',height=h,ascent=ascent,chars=[chr(ch)]))
 providers.append(dict(type='space',advances={chr(0xF000+n+512):n for n in range(-512,513)}))
+providers.append(dict(type='reference',id='minecraft:default'))
 (F/'parkour_ui.json').write_text(json.dumps(dict(providers=providers),indent=2)+'\n')
 frames=[('rank',0,48),('time',48,103),('head',151,43)]
 for i,design in enumerate(['ribbon','bracket','split','ticket','orbit']):

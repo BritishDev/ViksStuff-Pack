@@ -1074,6 +1074,10 @@
         "\uf3ff": 511,
         "\uf400": 512
       }
+    },
+    {
+      "type": "reference",
+      "id": "minecraft:default"
     }
   ]
 }

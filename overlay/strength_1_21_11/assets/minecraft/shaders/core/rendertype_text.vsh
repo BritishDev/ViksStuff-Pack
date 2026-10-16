@@ -23,7 +23,7 @@ void main() {
         if (marker.r == 4) {
             int corner = gl_VertexID & 3;
             position.x += corner < 2 ? -5.0 : 5.0;
-            position.y += ((corner == 0 || corner == 3) ? -5.0 : 5.0) + 17.0;
+            position.y += ((corner == 0 || corner == 3) ? -5.0 : 5.0) + 17.5;
         }
         float scale = float(marker.g) / 200.0;
         float centerX = -ProjMat[3][0] / ProjMat[0][0];

@@ -2,11 +2,11 @@
   "providers": [
     {
       "type": "bitmap",
-      "file": "viksstuff:parkour/timer_small.png",
-      "height": 14,
-      "ascent": -9,
+      "file": "viksstuff:parkour/timer_minecraft_small.png",
+      "height": 12,
+      "ascent": -8,
       "chars": [
-        "0123456789:.s#-?+"
+        "0123456789:.hms#-?+"
       ]
     }
   ]

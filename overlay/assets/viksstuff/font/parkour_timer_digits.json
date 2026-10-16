@@ -2,11 +2,11 @@
   "providers": [
     {
       "type": "bitmap",
-      "file": "viksstuff:parkour/timer_digits.png",
-      "height": 19,
+      "file": "viksstuff:parkour/timer_minecraft_digits.png",
+      "height": 16,
       "ascent": -6,
       "chars": [
-        "0123456789:.s#-?+"
+        "0123456789:.hms#-?+"
       ]
     }
   ]

@@ -34,7 +34,7 @@
   "fonts": {
     "digits": {
       "native_advance": 14,
-      "height": 19,
+      "height": 16,
       "ascent": -6
     },
     "rank": {
@@ -44,9 +44,9 @@
     },
     "small": {
       "native_advance": 11,
-      "height": 14,
-      "ascent": -9
+      "height": 12,
+      "ascent": -8
     }
   },
-  "source": "Default ribbon: reference-style hand-drawn crimson pixel bevel, recessed graphite face, original regular 5x7 numeral glyphs. Live head/time only."
+  "source": "Mojang Minecraft ASCII glyph pixels, red time units, translucent black plates and centered 18px head."
 }
