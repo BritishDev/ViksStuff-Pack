@@ -1,0 +1,71 @@
+{
+  "source": "User supplied full extracted pack library",
+  "assets": [
+    {
+      "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Full Extracted Packs\\MCC Island - f0cfc17835\\assets\\mcc\\textures\\_fonts\\icon\\flag.png",
+      "source_sha256": "9260df76f01a776d51b3932b9ea291df09f9e694a428939eaf9c82c9af83f672",
+      "decoded_size": [
+        16,
+        16
+      ]
+    },
+    {
+      "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Full Extracted Packs\\MCC Island - f0cfc17835\\assets\\mcc\\textures\\_fonts\\icon\\trophy\\yellow.png",
+      "source_sha256": "8b936f5cd7c5d303ce06e1245219a008cb0e7fa1cdadf390935420063827e866",
+      "decoded_size": [
+        16,
+        16
+      ]
+    },
+    {
+      "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Full Extracted Packs\\MCC Island - f0cfc17835\\assets\\minecraft\\textures\\block\\water_still.png",
+      "source_sha256": "6be0b1be0f754088a85bf4f62da864fb7e55944af7e12ae426f05f28f602c601",
+      "decoded_size": [
+        16,
+        64
+      ]
+    },
+    {
+      "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Full Extracted Packs\\MCC Island - f0cfc17835\\assets\\minecraft\\textures\\block\\water_flow.png",
+      "source_sha256": "645355e63f6c12b0cca47ecfb3419cb4e1ba1c8e0c96433a3f60fd42377a2ab5",
+      "decoded_size": [
+        32,
+        256
+      ]
+    },
+    {
+      "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Full Extracted Packs\\MCC Island - f0cfc17835\\assets\\mcc\\textures\\block\\f\\packed_ice.png",
+      "source_sha256": "009e37f758c10d9fb83aff66f5e20d80c9002fc70b8fa0154cc7e68f85438ee6",
+      "decoded_size": [
+        16,
+        16
+      ]
+    },
+    {
+      "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Full Extracted Packs\\MCC Island - f0cfc17835\\assets\\mcc\\textures\\block\\f\\packed_ice.png",
+      "source_sha256": "009e37f758c10d9fb83aff66f5e20d80c9002fc70b8fa0154cc7e68f85438ee6",
+      "decoded_size": [
+        16,
+        16
+      ]
+    },
+    {
+      "source": "C:\\Users\\navra\\Desktop\\Minecraft Pack Sound Library\\Full Extracted Packs\\MCC Island - f0cfc17835\\assets\\mcc\\textures\\block\\f\\packed_ice.png",
+      "source_sha256": "009e37f758c10d9fb83aff66f5e20d80c9002fc70b8fa0154cc7e68f85438ee6",
+      "decoded_size": [
+        16,
+        16
+      ]
+    },
+    {
+      "source": "source-art/parkour/packed-mud/option-1-source.png",
+      "source_sha256": "5ded37ebbd5d11e40d851bcdfe84363024526ad301e05f61131dd5235c5cd7de",
+      "selected_by_user": 1,
+      "export_size": [
+        16,
+        16
+      ]
+    }
+  ],
+  "ui_alpha": 126
+}

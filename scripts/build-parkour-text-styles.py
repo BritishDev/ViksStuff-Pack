@@ -20,6 +20,9 @@ for directory in (TEXTURES, FONTS, SOURCE, PREVIEWS):
 STYLES = ['classic', 'block', 'bevel', 'outline', 'stencil']
 CHARS = '0123456789:.hms#-?+'
 BLOCK = {
+    'h': ['1100000','1100000','1101110','1111111','1100011','1100011','1100011','1100011','1100011'],
+    'm': ['11111110','11111111','11011011','11011011','11011011','11011011','11011011','11011011','11011011'],
+    's': ['0111110','1111111','1100000','1100000','0111110','0000011','0000011','1111111','0111110'],
     '0': ['0111110','1111111','1100011','1100011','1100011','1100011','1100011','1111111','0111110'],
     '1': ['0011100','0111100','1111100','0011100','0011100','0011100','0011100','1111111','1111111'],
     '2': ['0111110','1111111','1100011','0000011','0001110','0011100','0110000','1111111','1111111'],
@@ -33,14 +36,14 @@ BLOCK = {
     'G': ['0111110','1111111','1100011','1100000','1101111','1100011','1100011','1111111','0111110'],
     'O': ['0111110','1111111','1100011','1100011','1100011','1100011','1100011','1111111','0111110'],
 }
-CLASSIC = dict(PATTERNS, h=['10000','10000','10110','11001','10001','10001','10001'], m=['00000','00000','11010','10101','10101','10101','10101'], G=['01111','11000','11000','11011','11001','11001','01111'], O=PATTERNS['0'])
+CLASSIC = dict(PATTERNS, h=['10000','10000','10110','11001','10001','10001','10001'], m=['11010','10101','10101','10101','10101','10101','10101'], s=['01111','10000','10000','01110','00001','00001','11110'], G=['01111','11000','11000','11011','11001','11001','01111'], O=PATTERNS['0'])
 
 
 def mask(style, char):
     """Return a tightly bounded face mask; every face has thicker strokes than v1."""
     if char not in BLOCK or style == 'classic':
         pattern = CLASSIC[char]
-        step = 3 if char in 'hms' else 4
+        step = 4
         face = Image.new('L', (28, 34))
         d = ImageDraw.Draw(face)
         for y, row in enumerate(pattern):
@@ -79,12 +82,12 @@ def ink(style, char):
         image = Image.new('RGBA', (face.width+6, face.height+6))
         image.paste('#100A10', (2, 2), border)
         image.paste('#DE445C', (0, 0), border)
-        image.paste('#FFF4E9', (2, 2), face)
+        image.paste('#FF526C' if char in 'hms' else '#FFF4E9', (2, 2), face)
         return image
     image = Image.new('RGBA', (face.width+2, face.height+2))
     image.paste('#100A10', (2, 2), face)
     fill = '#FF526C' if char in 'hms' else '#F5F0E7'
-    if style == 'bevel' and char in BLOCK:
+    if style == 'bevel' and char in BLOCK and char not in 'hms':
         colored = Image.new('RGBA', face.size)
         for y in range(face.height):
             for x in range(face.width):
@@ -106,7 +109,7 @@ def letter(style, character, compact=False):
     face = ink(style, character)
     # Keep the visible period at the baseline and the lowercase suffix modest.
     if compact:
-        maximum = 5 if character in '.:' else 10 if character in 'hms' else 15
+        maximum = 5 if character in '.:' else 15
         factor = min(maximum/face.width, 20/face.height)
         face = face.resize((max(1,round(face.width*factor)),max(1,round(face.height*factor))), Image.Resampling.NEAREST)
         y = max(0, 21-face.height)
@@ -198,7 +201,7 @@ def caption(image,x,y,value,color='#F5F0E7'):
 
 def timer_sample(style,value='1h1m1s'):
     panel=Image.open(ROOT/'overlay/assets/viksstuff/textures/parkour/timer_ribbon_panel.png').convert('RGBA')
-    adv=lambda c: 4 if c in '.:' else 8 if c in 'hms' else 12
+    adv=lambda c: 4 if c in '.:' else 14
     x=(150-sum(adv(c) for c in value))//2*2
     for c in value:
         panel.alpha_composite(letter(style,c),(x,24));x+=adv(c)*2
