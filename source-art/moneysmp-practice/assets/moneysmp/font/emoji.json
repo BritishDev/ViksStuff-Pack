@@ -1,0 +1,23 @@
+{
+  "providers": [
+    { "type": "bitmap", "file": "moneysmp:font/emojis/angel.png", "ascent": 8, "height": 9, "chars": ["\ue100"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/clown.png", "ascent": 8, "height": 9, "chars": ["\ue101"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/cold.png", "ascent": 8, "height": 9, "chars": ["\ue102"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/cool.png", "ascent": 8, "height": 9, "chars": ["\ue103"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/evil.png", "ascent": 8, "height": 9, "chars": ["\ue104"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/grimacing.png", "ascent": 8, "height": 9, "chars": ["\ue105"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/laugh.png", "ascent": 8, "height": 9, "chars": ["\ue106"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/mad.png", "ascent": 8, "height": 9, "chars": ["\ue107"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/nerd.png", "ascent": 8, "height": 9, "chars": ["\ue108"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/neutral.png", "ascent": 8, "height": 9, "chars": ["\ue109"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/plead.png", "ascent": 8, "height": 9, "chars": ["\ue10a"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/skull.png", "ascent": 8, "height": 9, "chars": ["\ue10b"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/sleep.png", "ascent": 8, "height": 9, "chars": ["\ue10c"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/smile.png", "ascent": 8, "height": 9, "chars": ["\ue10d"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/sweat_smile.png", "ascent": 8, "height": 9, "chars": ["\ue10e"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/sweat.png", "ascent": 8, "height": 9, "chars": ["\ue10f"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/thinking.png", "ascent": 8, "height": 9, "chars": ["\ue110"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/vomit.png", "ascent": 8, "height": 9, "chars": ["\ue111"] },
+    { "type": "bitmap", "file": "moneysmp:font/emojis/wave.png", "ascent": 8, "height": 9, "chars": ["\ue112"] }
+  ]
+}

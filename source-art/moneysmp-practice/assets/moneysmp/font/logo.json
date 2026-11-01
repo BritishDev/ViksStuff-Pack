@@ -1,0 +1,25 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "moneysmp:font/money_smp_logo.png",
+      "ascent": 24,
+      "height": 48,
+      "chars": ["\ue000"]
+    },
+    {
+      "type": "bitmap",
+      "file": "moneysmp:font/admin_badge.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": ["\ue010"]
+    },
+    {
+      "type": "bitmap",
+      "file": "moneysmp:font/red_team_badge.png",
+      "ascent": 8,
+      "height": 9,
+      "chars": ["\ue011"]
+    }
+  ]
+}
