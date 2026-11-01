@@ -9,5 +9,8 @@ with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compressleve
         if file.is_file():
             info = zipfile.ZipInfo(file.relative_to(source).as_posix(), (2026, 11, 1, 0, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
-            archive.writestr(info, file.read_bytes())
+            data = file.read_bytes()
+            if file.suffix in (".json", ".mcmeta"):
+                data = data.replace(b"\r\n", b"\n")
+            archive.writestr(info, data)
 print(hashlib.sha1(output.read_bytes()).hexdigest())
